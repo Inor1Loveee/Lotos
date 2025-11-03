@@ -1,0 +1,9 @@
+{
+  "latest_version": "0.0.24",
+  "version_code": 24,
+  "update_url": "https://tikaaaani.github.io/Lycoris-umbrella/apk/Lycoris v0.0.24.apk",
+  "release_notes": [
+    "Добавлена глобальная статистика без сброса"
+  ],
+  "mandatory": false
+}
