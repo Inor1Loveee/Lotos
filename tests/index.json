@@ -16,15 +16,16 @@
       "questionCount": 337,
       "estimatedTime": "90 мин",
       "difficulty": "Ужас",
-      "fileName": "English 4.json"
+      "fileName": "English 4.json",
+       "encryptedFileName": "English 4.lyc"
     },
     {
       "id": "02.01",
       "name": "МДК 02.01",
       "description": "Технология разработки ПО",
       "questionCount": 104,
-      "estimatedTime": "30 мин",
-      "difficulty": "ХЗ не смотрел",
+      "estimatedTime": "Дорогой",
+      "difficulty": "Прошли уже",
       "fileName": "02.01.json",
       "encryptedFileName": "02.01.lyc"
     },
