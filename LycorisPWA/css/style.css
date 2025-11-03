@@ -1,0 +1,944 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #121212;
+    color: white;
+    height: 100vh;
+}
+
+.container {
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #922B3E;
+}
+
+p {
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+}
+
+.input {
+    padding: 15px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #1E1E1E;
+    color: white;
+    font-size: 16px;
+}
+
+.input:focus {
+    border-color: #922B3E;
+    outline: none;
+}
+
+.btn {
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #922B3E;
+    color: white;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #922B3E;
+    border: 2px solid #922B3E;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 250px;
+}
+
+/* Стили для списка тестов */
+.tests-container {
+    max-width: 500px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.test-card {
+    background: #1E1E1E;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid transparent;
+}
+
+.test-card:hover {
+    transform: translateY(-2px);
+    border-color: #922B3E;
+}
+
+.test-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.test-header h3 {
+    color: white;
+    margin: 0;
+}
+
+.test-difficulty {
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.difficulty-easy {
+    background: #4CAF50 !important;
+}
+
+.difficulty-medium {
+    background: #FF9800 !important;
+}
+
+.difficulty-hard {
+    background: #F44336 !important;
+}
+
+.test-description {
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.test-info {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.file-type {
+    font-size: 12px;
+    color: #888;
+}
+
+/* Стили для вопросов */
+.question-card {
+    background: #1E1E1E;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.question-card h2 {
+    margin-bottom: 20px;
+    color: white;
+}
+
+.answers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #2A2A2A;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.answer-option:hover {
+    border-color: #922B3E;
+}
+
+.answer-option.selected {
+    border-color: #922B3E;
+    background: #3A1E1E;
+}
+
+.answer-correct {
+    border-color: #4CAF50 !important;
+    background: #1B5E20 !important;
+}
+
+.answer-incorrect {
+    border-color: #F44336 !important;
+    background: #3F1A1A !important;
+}
+
+.answer-neutral {
+    border-color: #666 !important;
+    background: #2A2A2A !important;
+}
+
+.answer-text {
+    color: white;
+    flex: 1;
+}
+
+.answer-status {
+    margin-left: auto;
+    font-size: 16px;
+}
+
+/* Кнопки управления тестом */
+.test-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px 0;
+    gap: 8px;
+}
+
+.btn-small {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    min-width: 60px;
+}
+
+.btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-warning {
+    background: #FF9800;
+    color: white;
+}
+
+.btn-danger {
+    background: #F44336;
+    color: white;
+}
+
+/* Прогресс бар */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    margin: 20px 0 10px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #922B3E;
+    transition: width 0.3s;
+}
+
+.progress-text {
+    text-align: center;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* Результаты проверки */
+.answer-feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.feedback-correct {
+    background: #1B5E20;
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+}
+
+.feedback-incorrect {
+    background: #3F1A1A;
+    color: #F44336;
+    border: 2px solid #F44336;
+}
+
+.answer-solution {
+    margin-top: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Результаты теста */
+.result-card {
+    background: #1E1E1E;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.result-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #922B3E;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Индикатор загрузки */
+.loading-spinner {
+    border: 3px solid #333;
+    border-top: 3px solid #922B3E;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    background: #3A1E1A;
+    border: 1px solid #922B3E;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    color: #ff6b6b;
+}
+/* Стили для экрана результатов */
+.result-section {
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.result-label {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.result-value-large {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 12px;
+}
+
+.phrase-card {
+    background: rgba(146, 43, 62, 0.1);
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.phrase-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.phrase-emoji {
+    font-size: 2rem;
+}
+
+.result-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.result-buttons .btn {
+    min-width: 160px;
+}
+
+/* Стили для системы вкладок */
+.tabs {
+    display: flex;
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 4px;
+    margin: 20px 0;
+    gap: 4px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: #888;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.tab-button.active {
+    background: #922B3E;
+    color: white;
+}
+
+.tab-button:hover:not(.active) {
+    background: #3A3A3A;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Стили для статистики */
+.stats-overview {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.stat-card {
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    min-width: 100px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #922B3E;
+    margin-bottom: 8px;
+}
+
+.stat-title {
+    color: #888;
+    font-size: 14px;
+}
+
+.stats-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+}
+
+.stat-detail:last-child {
+    border-bottom: none;
+}
+
+.stat-detail-value {
+    font-weight: bold;
+    color: #922B3E;
+}
+
+.activity-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.activity-value {
+    font-weight: bold;
+    color: #922B3E;
+}
+
+/* Стили для экрана результатов */
+.result-section {
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.result-label {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.result-value-large {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.phrase-card {
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.phrase-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.phrase-emoji {
+    font-size: 2rem;
+}
+
+.result-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.result-buttons .btn {
+    min-width: 160px;
+}
+
+/* Стили для системы вкладок */
+.tabs {
+    display: flex;
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 4px;
+    margin: 20px 0;
+    gap: 4px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: #888;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.tab-button.active {
+    background: #922B3E;
+    color: white;
+}
+
+.tab-button:hover:not(.active) {
+    background: #3A3A3A;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Фильтры для статистики */
+.stats-filters {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-button {
+    padding: 10px 16px;
+    border: 2px solid #333;
+    background: #2A2A2A;
+    color: #888;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+}
+
+.filter-button.active {
+    background: #922B3E;
+    color: white;
+    border-color: #922B3E;
+}
+
+.filter-button:hover:not(.active) {
+    background: #3A3A3A;
+    color: white;
+}
+
+/* Стили для статистики */
+.stats-overview {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.stat-card {
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    min-width: 100px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #922B3E;
+    margin-bottom: 8px;
+}
+
+.stat-title {
+    color: #888;
+    font-size: 14px;
+}
+
+.stats-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+}
+
+.stat-detail:last-child {
+    border-bottom: none;
+}
+
+.stat-detail-value {
+    font-weight: bold;
+    color: #922B3E;
+}
+
+.activity-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.activity-value {
+    font-weight: bold;
+    color: #922B3E;
+}
+
+/* Стили для экрана результатов */
+.result-section {
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.result-label {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.result-value-large {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 12px;
+}
+
+.phrase-card {
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.phrase-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.phrase-emoji {
+    font-size: 2rem;
+}
+
+.result-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.result-buttons .btn {
+    min-width: 160px;
+}
+
+/* Стили для рейтингов */
+.rating-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: #1E1E1E;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.rating-item.current-user {
+    background: #2D1E1E;
+    border-color: #922B3E;
+}
+
+.rating-position {
+    width: 60px;
+    font-weight: bold;
+    color: #922B3E;
+    font-size: 16px;
+}
+
+.rating-name {
+    flex: 1;
+    color: white;
+    font-weight: 500;
+}
+
+.rating-item.current-user .rating-name {
+    font-weight: bold;
+    color: #922B3E;
+}
+
+.rating-value {
+    font-weight: bold;
+    color: #922B3E;
+    font-size: 16px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .stats-overview {
+        flex-direction: column;
+    }
+    
+    .stats-grid {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .stats-filters {
+        flex-direction: column;
+    }
+    
+    .filter-button {
+        min-width: auto;
+    }
+}
