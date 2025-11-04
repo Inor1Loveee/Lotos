@@ -2,29 +2,1313 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Lycoris Tests</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="manifest" href="manifest.json">
     
-    <!-- iOS PWA -->
+    <!-- iOS PWA Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lycoris">
     <meta name="theme-color" content="#922B3E">
-
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- iOS Splash Screen -->
+    <link rel="apple-touch-startup-image" href="icons/splash.png">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="icons/lotos.png">
+    <link rel="apple-touch-icon" href="icons/lotos.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/lotos.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/lotos.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/lotos.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-    <!-- Иконки -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-color: #922B3E;
+            --primary-gradient: linear-gradient(135deg, #922B3E, #C44569);
+            --secondary-color: #2D3748;
+            --accent-color: #E53E3E;
+            --success-color: #38A169;
+            --warning-color: #D69E2E;
+            --error-color: #E53E3E;
+            --bg-dark: #121212;
+            --bg-card-dark: #1E1E1E;
+            --bg-light: #FFFFFF;
+            --bg-card-light: #F8F8F8;
+            --text-dark: #FFFFFF;
+            --text-light: #2D3748;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --border-radius: 20px;
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+            --safe-area-left: env(safe-area-inset-left);
+            --safe-area-right: env(safe-area-inset-right);
+        }
 
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            height: 100%;
+            background: var(--bg-dark);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: var(--safe-area-top);
+            padding-bottom: var(--safe-area-bottom);
+            padding-left: var(--safe-area-left);
+            padding-right: var(--safe-area-right);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== IOS SAFE AREA ===== */
+        .safe-area-top {
+            padding-top: var(--safe-area-top);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: var(--safe-area-bottom);
+        }
+
+        /* ===== APP STRUCTURE ===== */
+        #app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.4s ease;
+            position: relative;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* ===== SWIPE ANIMATIONS ===== */
+        .swipe-left-enter {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .swipe-left-enter-active {
+            transform: translateX(0);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .swipe-left-exit {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .swipe-left-exit-active {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .swipe-right-enter {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .swipe-right-enter-active {
+            transform: translateX(0);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .swipe-right-exit {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .swipe-right-exit-active {
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== CONTAINERS ===== */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .scroll-container {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            flex: 1;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-dark {
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== HEADERS ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        /* ===== LOGO ===== */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 15px 35px rgba(146, 43, 62, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo-container h1 {
+            font-size: 2.8rem;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+        }
+
+        /* ===== FORMS ===== */
+        .auth-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            font-family: inherit;
+            -webkit-appearance: none;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 5px 20px rgba(146, 43, 62, 0.15);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            transition: color 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .input:focus + .input-icon {
+            color: var(--primary-color);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 8px 25px rgba(146, 43, 62, 0.3);
+        }
+
+        .btn-primary:active {
+            box-shadow: 0 4px 15px rgba(146, 43, 62, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-light);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:active {
+            background: white;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #E53E3E, #C53030);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #D69E2E, #B7791F);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            width: auto;
+            flex: 1;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-text {
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-icon {
+            font-size: 1rem;
+        }
+
+        /* ===== MENU CARDS ===== */
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .menu-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            -webkit-touch-callout: none;
+        }
+
+        .menu-card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .menu-card.logout:active {
+            background: rgba(229, 62, 62, 0.1);
+        }
+
+        .menu-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--primary-gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+        }
+
+        .menu-content {
+            flex: 1;
+        }
+
+        .menu-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .menu-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .menu-arrow {
+            color: #999;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:active .menu-arrow {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        /* ===== TEST CARDS ===== */
+        .tests-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            -webkit-touch-callout: none;
+        }
+
+        .test-card:active {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .test-header h3 {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-right: 15px;
+            font-weight: 600;
+        }
+
+        .test-difficulty {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .difficulty-easy {
+            background: rgba(56, 161, 105, 0.2);
+            color: var(--success-color);
+        }
+
+        .difficulty-medium {
+            background: rgba(214, 158, 46, 0.2);
+            color: var(--warning-color);
+        }
+
+        .difficulty-hard {
+            background: rgba(229, 62, 62, 0.2);
+            color: var(--error-color);
+        }
+
+        .test-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .test-info {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #888;
+            flex-wrap: wrap;
+        }
+
+        .test-info span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .file-type {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            color: #4299E1;
+        }
+
+        /* ===== QUESTIONS & ANSWERS ===== */
+        .question-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            touch-action: pan-y;
+        }
+
+        .question-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .answers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-touch-callout: none;
+        }
+
+        .answer-option:active {
+            background: white;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .answer-option.selected {
+            background: rgba(146, 43, 62, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .answer-correct {
+            background: rgba(56, 161, 105, 0.2);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        .answer-incorrect {
+            background: rgba(229, 62, 62, 0.2);
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        .answer-neutral {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .answer-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .answer-status {
+            font-size: 1.1rem;
+            margin-left: 10px;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: white;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        /* ===== TEST CONTROLS ===== */
+        .test-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        /* ===== RESULTS SCREEN ===== */
+        .results-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .results-header {
+            margin-bottom: 30px;
+        }
+
+        .results-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2.2rem;
+        }
+
+        .results-header h2 {
+            font-size: 2.2rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .results-header p {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .result-value.correct {
+            color: var(--success-color);
+        }
+
+        .result-value.wrong {
+            color: var(--error-color);
+        }
+
+        .result-value.percentage {
+            color: var(--primary-color);
+        }
+
+        .result-value.time {
+            color: #4299E1;
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== STATISTICS ===== */
+        .nickname-section {
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 18px;
+            padding: 6px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 14px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .tab-button:active {
+            transform: scale(0.95);
+        }
+
+        .tab-button.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 5px 20px rgba(146, 43, 62, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .stats-filters {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 12px 16px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .filter-button:active {
+            transform: scale(0.95);
+        }
+
+        .filter-button.active {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:active {
+            transform: translateY(-3px);
+        }
+
+        .stat-card.large {
+            grid-column: 1 / -1;
+        }
+
+        .stat-icon {
+            width: 65px;
+            height: 65px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 1.6rem;
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* ===== ACTIVITY CHART ===== */
+        .activity-chart {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-chart h3 {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 200px;
+            padding: 20px 0;
+        }
+
+        .chart-item {
+            text-align: center;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .chart-bar {
+            background: var(--primary-gradient);
+            border-radius: 8px 8px 0 0;
+            margin: 0 auto 10px;
+            min-height: 10px;
+            transition: height 0.5s ease;
+            width: 40px;
+        }
+
+        .chart-bar.morning {
+            background: linear-gradient(to top, #4299E1, #3182CE);
+        }
+
+        .chart-bar.day {
+            background: linear-gradient(to top, #D69E2E, #B7791F);
+        }
+
+        .chart-bar.evening {
+            background: linear-gradient(to top, #9F7AEA, #805AD5);
+        }
+
+        .chart-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .chart-value {
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        /* ===== TOP USERS ===== */
+        .top-users {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .top-users h3 {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .users-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .user-item:active {
+            background: white;
+        }
+
+        .user-rank {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .user-name {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .user-score {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ===== MESSAGES ===== */
+        .message-container {
+            margin: 20px 0;
+        }
+
+        .message {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .message.error {
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(229, 62, 62, 0.2);
+        }
+
+        .message.success {
+            background: rgba(56, 161, 105, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(56, 161, 105, 0.2);
+        }
+
+        .message.info {
+            background: rgba(66, 153, 225, 0.1);
+            color: #4299E1;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+        }
+
+        /* ===== LOADING & ERROR STATES ===== */
+        .loading-container, .error-container, .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-icon, .empty-state i {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .empty-state i {
+            color: #999;
+        }
+
+        .error-details {
+            color: #666;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        /* ===== BOTTOM ACTIONS ===== */
+        .bottom-actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ===== PULL TO REFRESH ===== */
+        .pull-to-refresh {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .refresh-spinner {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* ===== HAPTIC FEEDBACK INDICATORS ===== */
+        .haptic-feedback {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .haptic-pulse {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(146, 43, 62, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: hapticPulse 0.3s ease-out;
+        }
+
+        @keyframes hapticPulse {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+        }
+
+        /* ===== SWIPE INDICATORS ===== */
+        .swipe-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: swipeHint 2s infinite;
+        }
+
+        @keyframes swipeHint {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 1; transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo-container h1 {
+                font-size: 2.2rem;
+            }
+            
+            .auth-form {
+                padding: 25px 20px;
+            }
+            
+            .test-controls {
+                flex-direction: column;
+            }
+            
+            .results-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .results-actions {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .stats-filters {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .logo-container h1 {
+                font-size: 1.8rem;
+            }
+            
+            .test-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .test-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .results-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+            
+            .results-card {
+                padding: 25px;
+            }
+        }
+
+        /* ===== DARK MODE SUPPORT ===== */
+        @media (prefers-color-scheme: dark) {
+            .card {
+                background: rgba(30, 30, 30, 0.95);
+                color: white;
+            }
+            
+            .auth-form {
+                background: rgba(30, 30, 30, 0.95);
+            }
+            
+            .input {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            
+            .input:focus {
+                background: rgba(255, 255, 255, 0.15);
+            }
+            
+            .menu-card {
+                background: rgba(30, 30, 30, 0.95);
+            }
+            
+            .test-card {
+                background: rgba(30, 30, 30, 0.95);
+            }
+            
+            .question-card {
+                background: rgba(30, 30, 30, 0.95);
+            }
+            
+            .answer-option {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* ===== IOS SPECIFIC FIXES ===== */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                -webkit-font-smoothing: antialiased;
+            }
+            
+            .scroll-container {
+                padding-bottom: var(--safe-area-bottom);
+            }
+            
+            .btn {
+                -webkit-appearance: none;
+            }
+            
+            .input {
+                -webkit-appearance: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <!-- Экран авторизации -->
+        <!-- Haptic Feedback Layer -->
+        <div id="haptic-feedback" class="haptic-feedback"></div>
+
+        <!-- Auth Screen -->
         <div id="auth-screen" class="screen active">
             <div class="container">
                 <div class="logo-container">
@@ -57,7 +1341,7 @@
             </div>
         </div>
         
-        <!-- Главный экран -->
+        <!-- Main Screen -->
         <div id="main-screen" class="screen">
             <div class="container">
                 <div class="header">
@@ -102,7 +1386,7 @@
             </div>
         </div>
 
-        <!-- Экран списка тестов -->
+        <!-- Tests List Screen -->
         <div id="tests-screen" class="screen">
             <div class="container">
                 <div class="header">
@@ -110,8 +1394,14 @@
                     <p>Выберите тест для прохождения</p>
                 </div>
                 
+                <!-- Pull to Refresh Indicator -->
+                <div id="pull-to-refresh" class="pull-to-refresh" style="display: none;">
+                    <div class="refresh-spinner"></div>
+                    <p>Обновляем список...</p>
+                </div>
+                
                 <div id="tests-list" class="tests-container">
-                    <!-- Тесты будут здесь -->
+                    <!-- Tests will be loaded here -->
                 </div>
                 
                 <div class="bottom-actions">
@@ -119,14 +1409,20 @@
                         <i class="fas fa-arrow-left"></i> Назад
                     </button>
                 </div>
+                
+                <!-- Swipe Hint -->
+                <div class="swipe-hint">
+                    <i class="fas fa-arrows-left-right"></i>
+                    Свайп для навигации
+                </div>
             </div>
         </div>
 
-        <!-- Экран прохождения теста -->
+        <!-- Test Session Screen -->
         <div id="test-session-screen" class="screen">
             <div class="container">
-                <div id="question-container">
-                    <!-- Вопрос и варианты -->
+                <div id="question-container" class="scroll-container">
+                    <!-- Question and answers -->
                 </div>
                 
                 <div class="test-controls">
@@ -146,17 +1442,23 @@
                 
                 <div id="test-progress"></div>
                 <div id="answer-feedback"></div>
+                
+                <!-- Swipe Hint -->
+                <div class="swipe-hint">
+                    <i class="fas fa-hand-point-up"></i>
+                    Свайп для переключения вопросов
+                </div>
             </div>
         </div>
 
-        <!-- Экран статистики -->
+        <!-- Statistics Screen -->
         <div id="stats-screen" class="screen">
-            <div class="container">
+            <div class="container scroll-container">
                 <div class="header">
                     <h1><i class="fas fa-chart-bar"></i> Статистика</h1>
                 </div>
                 
-                <!-- Поле для ввода никнейма -->
+                <!-- Nickname Section -->
                 <div class="card nickname-section">
                     <h3><i class="fas fa-user"></i> Ваш никнейм</h3>
                     <div class="input-group">
@@ -169,7 +1471,7 @@
                     <div id="nickname-message" class="message-container"></div>
                 </div>
                 
-                <!-- Вкладки -->
+                <!-- Tabs -->
                 <div class="tabs">
                     <button class="tab-button active" onclick="switchTab('general-stats')">
                         <i class="fas fa-chart-pie"></i> Общая
@@ -182,14 +1484,14 @@
                     </button>
                 </div>
                 
-                <!-- Общая статистика -->
+                <!-- General Stats -->
                 <div id="general-stats" class="tab-content active">
                     <div id="general-stats-content">
-                        <!-- Общая статистика будет здесь -->
+                        <!-- General stats will be loaded here -->
                     </div>
                 </div>
                 
-                <!-- Недельная статистика -->
+                <!-- Weekly Stats -->
                 <div id="weekly-stats" class="tab-content">
                     <div class="stats-filters">
                         <button class="filter-button active" onclick="changeWeeklyFilter('correct')">
@@ -203,11 +1505,11 @@
                         </button>
                     </div>
                     <div id="weekly-stats-content">
-                        <!-- Недельная статистика будет здесь -->
+                        <!-- Weekly stats will be loaded here -->
                     </div>
                 </div>
                 
-                <!-- Глобальная статистика -->
+                <!-- Global Stats -->
                 <div id="global-stats" class="tab-content">
                     <div class="stats-filters">
                         <button class="filter-button active" onclick="changeGlobalFilter('correct')">
@@ -224,7 +1526,7 @@
                         </button>
                     </div>
                     <div id="global-stats-content">
-                        <!-- Глобальная статистика будет здесь -->
+                        <!-- Global stats will be loaded here -->
                     </div>
                 </div>
                 
@@ -248,12 +1550,12 @@
             appId: "your_app_id"
         };
 
-        // Инициализация Firebase
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const database = firebase.database();
 
-        // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
+        // ===== GLOBAL VARIABLES =====
         let currentTest = null;
         let currentQuestionIndex = 0;
         let userAnswers = [];
@@ -262,13 +1564,169 @@
         let currentWeeklyFilter = 'correct';
         let currentGlobalFilter = 'correct';
         let userNickname = '';
+        let swipeStartX = 0;
+        let swipeStartY = 0;
+        let isSwiping = false;
 
-        // ===== БАЗОВАЯ НАВИГАЦИЯ =====
+        // ===== PWA INSTALLATION =====
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        // ===== SERVICE WORKER REGISTRATION =====
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => console.log('SW registered'))
+                .catch(error => console.log('SW registration failed'));
+        }
+
+        // ===== HAPTIC FEEDBACK =====
+        function triggerHapticFeedback(x, y) {
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            const hapticLayer = document.getElementById('haptic-feedback');
+            const pulse = document.createElement('div');
+            pulse.className = 'haptic-pulse';
+            pulse.style.left = x + 'px';
+            pulse.style.top = y + 'px';
+            hapticLayer.appendChild(pulse);
+            
+            setTimeout(() => {
+                hapticLayer.removeChild(pulse);
+            }, 300);
+        }
+
+        // ===== SWIPE GESTURES =====
+        function initializeSwipeGestures() {
+            const screens = document.querySelectorAll('.screen');
+            
+            screens.forEach(screen => {
+                screen.addEventListener('touchstart', handleTouchStart, { passive: true });
+                screen.addEventListener('touchmove', handleTouchMove, { passive: true });
+                screen.addEventListener('touchend', handleTouchEnd);
+            });
+        }
+
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            swipeStartX = touch.clientX;
+            swipeStartY = touch.clientY;
+            isSwiping = true;
+        }
+
+        function handleTouchMove(e) {
+            if (!isSwiping) return;
+            
+            const touch = e.touches[0];
+            const diffX = touch.clientX - swipeStartX;
+            const diffY = touch.clientY - swipeStartY;
+            
+            // Only process horizontal swipes
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                e.preventDefault();
+            }
+        }
+
+        function handleTouchEnd(e) {
+            if (!isSwiping) return;
+            
+            const touch = e.changedTouches[0];
+            const diffX = touch.clientX - swipeStartX;
+            const diffY = touch.clientY - swipeStartY;
+            
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                triggerHapticFeedback(touch.clientX, touch.clientY);
+                
+                if (diffX > 0) {
+                    // Swipe right - go back
+                    handleSwipeRight();
+                } else {
+                    // Swipe left - go forward
+                    handleSwipeLeft();
+                }
+            }
+            
+            isSwiping = false;
+        }
+
+        function handleSwipeRight() {
+            const currentScreen = document.querySelector('.screen.active').id;
+            
+            switch(currentScreen) {
+                case 'tests-screen':
+                case 'stats-screen':
+                    showScreen('main-screen');
+                    break;
+                case 'test-session-screen':
+                    if (currentQuestionIndex > 0) {
+                        previousQuestion();
+                    }
+                    break;
+            }
+        }
+
+        function handleSwipeLeft() {
+            const currentScreen = document.querySelector('.screen.active').id;
+            
+            switch(currentScreen) {
+                case 'test-session-screen':
+                    if (currentQuestionIndex < currentTest.questions.length - 1) {
+                        nextQuestion();
+                    } else {
+                        finishTest();
+                    }
+                    break;
+            }
+        }
+
+        // ===== PULL TO REFRESH =====
+        function initializePullToRefresh() {
+            let startY = 0;
+            let pullDelta = 0;
+            const pullToRefresh = document.getElementById('pull-to-refresh');
+            const testsContainer = document.getElementById('tests-list');
+            
+            testsContainer.addEventListener('touchstart', e => {
+                if (testsContainer.scrollTop === 0) {
+                    startY = e.touches[0].pageY;
+                    pullDelta = 0;
+                }
+            }, { passive: true });
+            
+            testsContainer.addEventListener('touchmove', e => {
+                if (testsContainer.scrollTop === 0) {
+                    const touch = e.touches[0];
+                    pullDelta = touch.pageY - startY;
+                    
+                    if (pullDelta > 0) {
+                        e.preventDefault();
+                        pullToRefresh.style.display = 'block';
+                        pullToRefresh.style.transform = `translateY(${pullDelta}px)`;
+                    }
+                }
+            });
+            
+            testsContainer.addEventListener('touchend', () => {
+                if (pullDelta > 100) {
+                    loadTestsList();
+                    triggerHapticFeedback(window.innerWidth / 2, 50);
+                }
+                pullToRefresh.style.display = 'none';
+                pullToRefresh.style.transform = 'translateY(0)';
+            });
+        }
+
+        // ===== BASE NAVIGATION =====
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             
-            // Скрываем кнопки управления тестом на экране результатов
+            // Hide test controls on results screen
             if (screenId === 'test-session-screen') {
                 const testControls = document.querySelector('.test-controls');
                 if (testControls) {
@@ -281,13 +1739,13 @@
                 }
             }
             
-            // Загружаем никнейм при показе экрана статистики
+            // Load nickname when showing stats screen
             if (screenId === 'stats-screen') {
                 loadUserNickname();
             }
         }
-        
-        // ===== СИСТЕМА НИКНЕЙМОВ =====
+
+        // ===== NICKNAME SYSTEM =====
         function loadUserNickname() {
             const user = auth.currentUser;
             if (!user) return;
@@ -339,7 +1797,6 @@
         }
 
         function getUserDisplayName(userData) {
-            // Сначала пробуем получить никнейм, потом имя из email, потом "Аноним"
             if (userData.nickname) {
                 return userData.nickname;
             }
@@ -349,7 +1806,7 @@
             return 'Аноним';
         }
 
-        // ===== АВТОРИЗАЦИЯ FIREBASE =====
+        // ===== FIREBASE AUTHENTICATION =====
         let isLoginMode = true;
 
         function toggleAuthMode() {
@@ -385,7 +1842,7 @@
                 return;
             }
             
-            // Блокируем кнопку
+            // Disable button
             authButton.disabled = true;
             authButton.innerHTML = isLoginMode 
                 ? '<span class="btn-text">Вход...</span><i class="fas fa-spinner fa-spin btn-icon"></i>' 
@@ -431,27 +1888,27 @@
             messageDiv.innerHTML = `<p class="message ${type}"><i class="fas ${icon}"></i> ${message}</p>`;
         }
 
-        // ===== ПРОВЕРКА АВТОРИЗАЦИИ ПРИ ЗАГРУЗКЕ =====
+        // ===== AUTH STATE OBSERVER =====
         auth.onAuthStateChanged((user) => {
             if (user) {
-                // Пользователь авторизован
+                // User is signed in
                 showScreen('main-screen');
                 document.getElementById('user-email').textContent = user.email;
                 console.log('Пользователь авторизован:', user.email);
                 loadUserNickname();
             } else {
-                // Пользователь не авторизован
+                // User is signed out
                 showScreen('auth-screen');
                 document.getElementById('user-email').textContent = '';
             }
         });
 
-        // ===== ВЫХОД ИЗ СИСТЕМЫ =====
+        // ===== LOGOUT =====
         function logout() {
             auth.signOut();
         }
 
-        // ===== ФУНКЦИИ ТЕСТОВ =====
+        // ===== TEST FUNCTIONS =====
         function showTests() {
             showScreen('tests-screen');
             loadTestsList();
@@ -462,15 +1919,16 @@
             loadGeneralStats();
         }
 
-        // ===== ЗАГРУЗКА СПИСКА ТЕСТОВ =====
+        // ===== LOAD TESTS LIST =====
         async function loadTestsList() {
             const testsContainer = document.getElementById('tests-list');
             testsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем тесты...</p></div>';
 
             try {
-                // Используем тестовые данные вместо внешнего файла
-                const testData = getMockTestsData();
-                displayTests(testData.tests);
+                const response = await fetch('https://Inor1Loveee/Lotos/tests/index.json');
+                const data = await response.json();
+                
+                displayTests(data.tests);
             } catch (error) {
                 console.error('Ошибка загрузки списка тестов:', error);
                 testsContainer.innerHTML = `
@@ -488,42 +1946,7 @@
             }
         }
 
-        // ===== ТЕСТОВЫЕ ДАННЫЕ =====
-        function getMockTestsData() {
-            return {
-                tests: [
-                    {
-                        id: 'test1',
-                        name: 'Основы JavaScript',
-                        description: 'Проверьте свои знания основ JavaScript',
-                        difficulty: 'Легкий',
-                        questionCount: 5,
-                        estimatedTime: '10 мин',
-                        fileName: 'javascript-basic.json'
-                    },
-                    {
-                        id: 'test2', 
-                        name: 'HTML и CSS',
-                        description: 'Основы веб-разработки: HTML и CSS',
-                        difficulty: 'Средний',
-                        questionCount: 7,
-                        estimatedTime: '15 мин',
-                        fileName: 'html-css.json'
-                    },
-                    {
-                        id: 'test3',
-                        name: 'Алгоритмы',
-                        description: 'Основные алгоритмы и структуры данных',
-                        difficulty: 'Сложный',
-                        questionCount: 10,
-                        estimatedTime: '25 мин',
-                        fileName: 'algorithms.lyc'
-                    }
-                ]
-            };
-        }
-
-        // ===== ОТОБРАЖЕНИЕ СПИСКА ТЕСТОВ =====
+        // ===== DISPLAY TESTS =====
         function displayTests(tests) {
             const testsContainer = document.getElementById('tests-list');
             
@@ -563,7 +1986,7 @@
             return difficultyMap[difficulty] || 'difficulty-medium';
         }
 
-        // ===== ЗАПУСК ТЕСТА =====
+        // ===== START TEST =====
         async function startTest(testId) {
             const testsContainer = document.getElementById('tests-list');
     
@@ -575,10 +1998,10 @@
                     </div>
                 `;
 
-                // СБРАСЫВАЕМ СОСТОЯНИЕ ПЕРЕД НОВЫМ ТЕСТОМ
+                // RESET TEST STATE
                 resetTestState();
 
-                const testData = await loadTestData(testId);
+                const testData = await loadRealTestData(testId);
             
                 if (!testData || !testData.questions || testData.questions.length === 0) {
                     throw new Error('Тест пустой или поврежден');
@@ -610,97 +2033,7 @@
             }
         }
 
-        // ===== ЗАГРУЗКА ДАННЫХ ТЕСТА =====
-        async function loadTestData(testId) {
-            // Используем тестовые данные вместо загрузки из файлов
-            const mockTests = {
-                'test1': {
-                    id: 'test1',
-                    title: 'Основы JavaScript',
-                    questions: [
-                        {
-                            question: 'Что такое JavaScript?',
-                            answers: [
-                                { text: 'Язык программирования для веб-разработки', isCorrect: true },
-                                { text: 'База данных', isCorrect: false },
-                                { text: 'Графический редактор', isCorrect: false },
-                                { text: 'Операционная система', isCorrect: false }
-                            ]
-                        },
-                        {
-                            question: 'Как объявить переменную в JavaScript?',
-                            answers: [
-                                { text: 'var x = 5;', isCorrect: true },
-                                { text: 'variable x = 5;', isCorrect: false },
-                                { text: 'int x = 5;', isCorrect: false },
-                                { text: 'x := 5;', isCorrect: false }
-                            ]
-                        },
-                        {
-                            question: 'Что выведет console.log(typeof null)?',
-                            answers: [
-                                { text: 'object', isCorrect: true },
-                                { text: 'null', isCorrect: false },
-                                { text: 'undefined', isCorrect: false },
-                                { text: 'string', isCorrect: false }
-                            ]
-                        }
-                    ]
-                },
-                'test2': {
-                    id: 'test2',
-                    title: 'HTML и CSS',
-                    questions: [
-                        {
-                            question: 'Что означает HTML?',
-                            answers: [
-                                { text: 'HyperText Markup Language', isCorrect: true },
-                                { text: 'HighTech Modern Language', isCorrect: false },
-                                { text: 'HyperTransfer Markup Language', isCorrect: false },
-                                { text: 'Home Tool Markup Language', isCorrect: false }
-                            ]
-                        },
-                        {
-                            question: 'Какой тег используется для создания ссылки?',
-                            answers: [
-                                { text: '<a>', isCorrect: true },
-                                { text: '<link>', isCorrect: false },
-                                { text: '<href>', isCorrect: false },
-                                { text: '<url>', isCorrect: false }
-                            ]
-                        }
-                    ]
-                },
-                'test3': {
-                    id: 'test3',
-                    title: 'Алгоритмы',
-                    questions: [
-                        {
-                            question: 'Что такое временная сложность алгоритма?',
-                            answers: [
-                                { text: 'Оценка времени выполнения алгоритма', isCorrect: true },
-                                { text: 'Время компиляции программы', isCorrect: false },
-                                { text: 'Время работы процессора', isCorrect: false },
-                                { text: 'Скорость интернета', isCorrect: false }
-                            ]
-                        },
-                        {
-                            question: 'Какая временная сложность у бинарного поиска?',
-                            answers: [
-                                { text: 'O(log n)', isCorrect: true },
-                                { text: 'O(n)', isCorrect: false },
-                                { text: 'O(n²)', isCorrect: false },
-                                { text: 'O(1)', isCorrect: false }
-                            ]
-                        }
-                    ]
-                }
-            };
-
-            return mockTests[testId];
-        }
-
-        // ===== СБРОС СОСТОЯНИЯ ТЕСТА =====
+        // ===== RESET TEST STATE =====
         function resetTestState() {
             currentTest = null;
             currentQuestionIndex = 0;
@@ -708,7 +2041,7 @@
             checkedQuestions = new Set();
             testStartTime = null;
             
-            // Восстанавливаем видимость элементов
+            // Restore visibility of elements
             const testControls = document.querySelector('.test-controls');
             if (testControls) {
                 testControls.style.display = 'flex';
@@ -725,12 +2058,129 @@
             }
         }
 
-        // ===== ОТОБРАЖЕНИЕ ВОПРОСА С ЦВЕТОВОЙ ПОДСВЕТКОЙ =====
+        // ===== REAL TEST LOADING =====
+        async function loadRealTestData(testId) {
+            try {
+                console.log('Загружаем тест ID:', testId);
+                
+                const testsResponse = await fetch('https://Inor1Loveee/Lotos/tests/index.json');
+                const testsData = await testsResponse.json();
+                
+                const testInfo = testsData.tests.find(test => test.id === testId);
+                if (!testInfo) {
+                    throw new Error('Тест не найден в index.json');
+                }
+
+                console.log('Найден тест:', testInfo);
+
+                let testContent;
+                
+                try {
+                    console.log('Пробуем загрузить JSON:', testInfo.fileName);
+                    const jsonResponse = await fetch(`https://Inor1Loveee/Lotos/tests/${testInfo.fileName}`);
+                    
+                    if (!jsonResponse.ok) {
+                        throw new Error(`HTTP error! status: ${jsonResponse.status}`);
+                    }
+                    
+                    testContent = await jsonResponse.text();
+                    console.log('JSON загружен успешно');
+                    
+                } catch (jsonError) {
+                    console.log('JSON не доступен, пробуем LYC...', jsonError);
+                    
+                    const lycFileName = testInfo.fileName.replace('.json', '.lyc');
+                    const lycResponse = await fetch(`https://Inor1Loveee/Lotos/tests/${lycFileName}`);
+                    
+                    if (!lycResponse.ok) {
+                        throw new Error(`LYC файл тоже не доступен: ${lycResponse.status}`);
+                    }
+                    
+                    const encryptedData = await lycResponse.arrayBuffer();
+                    testContent = await decryptTestContent(new Uint8Array(encryptedData));
+                    console.log('LYC файл расшифрован');
+                }
+
+                const testData = JSON.parse(testContent);
+                console.log('Тест распарсен, вопросов:', testData.questions.length);
+                
+                return {
+                    id: testId,
+                    title: testInfo.name,
+                    questions: testData.questions
+                };
+                
+            } catch (error) {
+                console.error('Полная ошибка загрузки теста:', error);
+                throw new Error('Не удалось загрузить тест: ' + error.message);
+            }
+        }
+
+        // ===== DECRYPT .lyc FILES =====
+        async function decryptTestContent(encryptedContent) {
+            try {
+                try {
+                    const text = new TextDecoder().decode(encryptedContent);
+                    const decoded = atob(text);
+                    console.log('Прямое Base64 декодирование успешно');
+                    return decoded;
+                } catch (simpleError) {
+                    console.log('Прямое декодирование не сработало, пробуем AES...');
+                    
+                    const key = "KeyMustBeWithoutEmotions!";
+                    const keyBytes = normalizeKey(key);
+                    
+                    const cryptoKey = await crypto.subtle.importKey(
+                        'raw',
+                        keyBytes,
+                        { name: 'AES-CBC' },
+                        false,
+                        ['decrypt']
+                    );
+
+                    const text = new TextDecoder().decode(encryptedContent);
+                    const decodedBytes = Uint8Array.from(atob(text), c => c.charCodeAt(0));
+                    
+                    const iv = decodedBytes.slice(0, 16);
+                    const data = decodedBytes.slice(16);
+                    
+                    const decrypted = await crypto.subtle.decrypt(
+                        {
+                            name: 'AES-CBC',
+                            iv: iv
+                        },
+                        cryptoKey,
+                        data
+                    );
+                    
+                    return new TextDecoder().decode(decrypted);
+                }
+                
+            } catch (error) {
+                console.error('Ошибка дешифрования:', error);
+                throw new Error('Ошибка дешифрования теста: ' + error.message);
+            }
+        }
+
+        function normalizeKey(key) {
+            const keyBytes = new TextEncoder().encode(key);
+            const requiredLength = 16;
+            
+            if (keyBytes.length === requiredLength) {
+                return keyBytes;
+            }
+            
+            const normalizedKey = new Uint8Array(requiredLength);
+            normalizedKey.set(keyBytes.slice(0, Math.min(keyBytes.length, requiredLength)));
+            return normalizedKey;
+        }
+
+        // ===== DISPLAY QUESTION WITH COLOR HIGHLIGHTING =====
         function displayCurrentQuestion() {
             const questionContainer = document.getElementById('question-container');
             const progressContainer = document.getElementById('test-progress');
             
-            // Проверяем, что тест загружен
+            // Check if test is loaded
             if (!currentTest || !currentTest.questions) {
                 showScreen('tests-screen');
                 return;
@@ -746,7 +2196,7 @@
             const isChecked = checkedQuestions.has(currentQuestionIndex);
             const userAnswer = userAnswers[currentQuestionIndex];
             
-            // Прогресс бар
+            // Progress bar
             progressContainer.innerHTML = `
                 <div class="progress-container">
                     <div class="progress-bar">
@@ -756,7 +2206,7 @@
                 </div>
             `;
 
-            // Вопрос и варианты ответов с цветовой подсветкой
+            // Question and answers with color highlighting
             questionContainer.innerHTML = `
                 <div class="question-card">
                     <h2>${question.question}</h2>
@@ -766,7 +2216,7 @@
                             let statusIcon = "";
                             
                             if (isChecked) {
-                                // ПОСЛЕ ПРОВЕРКИ - цветовая подсветка
+                                // AFTER CHECKING - color highlighting
                                 if (answer.isCorrect) {
                                     answerClass += " answer-correct";
                                     statusIcon = '<span class="answer-status"><i class="fas fa-check"></i></span>';
@@ -777,7 +2227,7 @@
                                     answerClass += " answer-neutral";
                                 }
                             } else {
-                                // ДО ПРОВЕРКИ - обычное выделение
+                                // BEFORE CHECKING - normal selection
                                 if (userAnswer === index) {
                                     answerClass += " selected";
                                 }
@@ -795,7 +2245,7 @@
             `;
         }
 
-        // ===== ВЫБОР ОТВЕТА =====
+        // ===== SELECT ANSWER =====
         function selectAnswer(answerIndex) {
             if (checkedQuestions.has(currentQuestionIndex)) {
                 return;
@@ -804,9 +2254,12 @@
             userAnswers[currentQuestionIndex] = answerIndex;
             displayCurrentQuestion();
             document.getElementById('answer-feedback').innerHTML = '';
+            
+            // Haptic feedback
+            triggerHapticFeedback(window.innerWidth / 2, window.innerHeight / 2);
         }
 
-        // ===== ПРОВЕРКА ОТВЕТА ТОЛЬКО С ЦВЕТОВОЙ ПОДСВЕТКОЙ =====
+        // ===== CHECK ANSWER WITH COLOR HIGHLIGHTING ONLY =====
         function checkAnswer() {
             const currentAnswer = userAnswers[currentQuestionIndex];
             
@@ -814,14 +2267,17 @@
                 return;
             }
             
-            // Помечаем вопрос как проверенный
+            // Mark question as checked
             checkedQuestions.add(currentQuestionIndex);
             
-            // Перерисовываем вопрос с цветовой подсветкой
+            // Redraw question with color highlighting
             displayCurrentQuestion();
+            
+            // Haptic feedback
+            triggerHapticFeedback(window.innerWidth / 2, window.innerHeight / 2);
         }
 
-        // ===== НАВИГАЦИЯ ПО ВОПРОСАМ =====
+        // ===== QUESTION NAVIGATION =====
         function nextQuestion() {
             document.getElementById('answer-feedback').innerHTML = '';
             
@@ -833,6 +2289,9 @@
             if (currentQuestionIndex < currentTest.questions.length - 1) {
                 currentQuestionIndex++;
                 displayCurrentQuestion();
+                
+                // Haptic feedback
+                triggerHapticFeedback(window.innerWidth / 2, window.innerHeight / 2);
             } else {
                 finishTest();
             }
@@ -849,10 +2308,13 @@
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
                 displayCurrentQuestion();
+                
+                // Haptic feedback
+                triggerHapticFeedback(window.innerWidth / 2, window.innerHeight / 2);
             }
         }
 
-        // ===== СТАТИСТИКА И FIREBASE =====
+        // ===== STATISTICS AND FIREBASE =====
         function saveTestResults(correctAnswers, totalQuestions, timeSpentSeconds) {
             const user = auth.currentUser;
             if (!user) return;
@@ -860,16 +2322,16 @@
             const userRef = database.ref('users').child(user.uid);
             const timestamp = Date.now();
             
-            // Очистка названия теста от недопустимых символов
+            // Clean test title from invalid characters
             const safeTestTitle = currentTest.title.replace(/[.#$\[\]]/g, '_');
             const percentage = Math.round((correctAnswers / totalQuestions) * 100);
 
-            // Определение времени суток для статистики
+            // Determine time of day for statistics
             const hour = new Date().getHours();
             const activityField = hour >= 6 && hour <= 12 ? "activityMorning" : 
                                 hour >= 13 && hour <= 18 ? "activityDay" : "activityEvening";
 
-            // Сохранение истории теста
+            // Save test history
             const testHistoryData = {
                 score: correctAnswers,
                 testDurationSeconds: timeSpentSeconds,
@@ -881,10 +2343,10 @@
 
             userRef.child('testHistory').child(safeTestTitle).child(timestamp).set(testHistoryData);
 
-            // Сохраняем email пользователя
+            // Save user email
             userRef.child('email').set(user.email);
 
-            // Обновление общей статистики
+            // Update general statistics
             userRef.child('stats').once('value').then((snapshot) => {
                 const currentStats = snapshot.val() || {
                     completedTests: 0,
@@ -903,7 +2365,7 @@
                     timestamp: 0
                 };
 
-                // Проверяем, был ли сегодня тест
+                // Check if test was taken today
                 const today = new Date().toDateString();
                 userRef.child('lastActivityDate').once('value').then((lastDateSnapshot) => {
                     const lastActivityDate = lastDateSnapshot.val();
@@ -933,32 +2395,61 @@
                     };
 
                     userRef.child('stats').set(updatedStats);
+
+                    // Update weekly statistics
+                    const weekStart = getWeekStartTimestamp();
+                    userRef.child('weeklyStats').child(weekStart).once('value').then((weeklySnapshot) => {
+                        const weeklyData = weeklySnapshot.val() || {
+                            correct: 0,
+                            wrong: 0,
+                            tests: 0,
+                            time: 0
+                        };
+
+                        const updatedWeeklyStats = {
+                            correct: weeklyData.correct + correctAnswers,
+                            wrong: weeklyData.wrong + (totalQuestions - correctAnswers),
+                            tests: weeklyData.tests + 1,
+                            time: weeklyData.time + timeSpentSeconds
+                        };
+
+                        userRef.child('weeklyStats').child(weekStart).set(updatedWeeklyStats);
+                    });
                 });
             });
         }
 
-        function formatTime(totalSeconds) {
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
+        function getWeekStartTimestamp() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - dayOfWeek);
+            startOfWeek.setHours(0, 0, 0, 0);
+            return startOfWeek.getTime();
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
             
             if (hours > 0) {
-                return `${hours}ч ${minutes}м ${seconds}с`;
+                return `${hours}ч ${minutes}м ${secs}с`;
             } else if (minutes > 0) {
-                return `${minutes}м ${seconds}с`;
+                return `${minutes}м ${secs}с`;
             } else {
-                return `${seconds}с`;
+                return `${secs}с`;
             }
         }
 
-        // ===== ЗАВЕРШЕНИЕ ТЕСТА =====
+        // ===== FINISH TEST =====
         function finishTest() {
             if (!currentTest) return;
 
             const totalQuestions = currentTest.questions.length;
             let correctAnswers = 0;
 
-            // Подсчет правильных ответов
+            // Count correct answers
             for (let i = 0; i < totalQuestions; i++) {
                 const userAnswer = userAnswers[i];
                 const question = currentTest.questions[i];
@@ -971,24 +2462,24 @@
             const timeSpentSeconds = Math.round((Date.now() - testStartTime) / 1000);
             const percentage = Math.round((correctAnswers / totalQuestions) * 100);
 
-            // Сохранение результатов
+            // Save results
             saveTestResults(correctAnswers, totalQuestions, timeSpentSeconds);
 
-            // Отображение результатов
+            // Display results
             const questionContainer = document.getElementById('question-container');
             const progressContainer = document.getElementById('test-progress');
             const feedbackContainer = document.getElementById('answer-feedback');
             const testControls = document.querySelector('.test-controls');
 
-            // Скрываем кнопки управления тестом
+            // Hide test controls
             if (testControls) {
                 testControls.style.display = 'none';
             }
 
-            // Очищаем прогресс
+            // Clear progress
             progressContainer.innerHTML = '';
 
-            // Отображаем результаты
+            // Display results
             questionContainer.innerHTML = `
                 <div class="results-card">
                     <div class="results-header">
@@ -1029,29 +2520,34 @@
                 </div>
             `;
 
-            // Очищаем сообщения
+            // Clear messages
             feedbackContainer.innerHTML = '';
+            
+            // Haptic feedback for completion
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100]);
+            }
         }
 
-        // ===== СИСТЕМА ВКЛАДОК СТАТИСТИКИ =====
+        // ===== STATISTICS TAB SYSTEM =====
         function switchTab(tabId) {
-            // Скрываем все вкладки
+            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Убираем активный класс со всех кнопок
+            // Remove active class from all buttons
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.classList.remove('active');
             });
             
-            // Показываем выбранную вкладку
+            // Show selected tab
             document.getElementById(tabId).classList.add('active');
             
-            // Активируем соответствующую кнопку
+            // Activate corresponding button
             document.querySelector(`.tab-button[onclick="switchTab('${tabId}')"]`).classList.add('active');
             
-            // Загружаем данные для вкладки
+            // Load data for tab
             if (tabId === 'general-stats') {
                 loadGeneralStats();
             } else if (tabId === 'weekly-stats') {
@@ -1059,23 +2555,32 @@
             } else if (tabId === 'global-stats') {
                 loadGlobalStats();
             }
+            
+            // Haptic feedback
+            triggerHapticFeedback(window.innerWidth / 2, 100);
         }
 
         function changeWeeklyFilter(filter) {
             currentWeeklyFilter = filter;
-            document.querySelectorAll('#weekly-stats .filter-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`#weekly-stats .filter-button[onclick="changeWeeklyFilter('${filter}')"]`).classList.add('active');
+            document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-button[onclick="changeWeeklyFilter('${filter}')"]`).classList.add('active');
             loadWeeklyStats();
+            
+            // Haptic feedback
+            triggerHapticFeedback(window.innerWidth / 2, 100);
         }
 
         function changeGlobalFilter(filter) {
             currentGlobalFilter = filter;
-            document.querySelectorAll('#global-stats .filter-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`#global-stats .filter-button[onclick="changeGlobalFilter('${filter}')"]`).classList.add('active');
+            document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-button[onclick="changeGlobalFilter('${filter}')"]`).classList.add('active');
             loadGlobalStats();
+            
+            // Haptic feedback
+            triggerHapticFeedback(window.innerWidth / 2, 100);
         }
 
-        // ===== ЗАГРУЗКА ОБЩЕЙ СТАТИСТИКИ =====
+        // ===== LOAD GENERAL STATISTICS =====
         function loadGeneralStats() {
             const user = auth.currentUser;
             if (!user) return;
@@ -1153,20 +2658,23 @@
                             </div>
                         </div>
                         
-                        <div class="activity-section">
+                        <div class="activity-chart">
                             <h3><i class="fas fa-chart-pie"></i> Активность по времени суток</h3>
-                            <div class="activity-list">
-                                <div class="activity-item">
-                                    <span class="activity-time">🌅 Утро (6-12)</span>
-                                    <span class="activity-count">${stats.activityMorning || 0} тестов</span>
+                            <div class="chart-container">
+                                <div class="chart-item">
+                                    <div class="chart-bar morning" style="height: ${(stats.activityMorning || 0) * 20}px"></div>
+                                    <div class="chart-label">Утро</div>
+                                    <div class="chart-value">${stats.activityMorning || 0}</div>
                                 </div>
-                                <div class="activity-item">
-                                    <span class="activity-time">☀️ День (13-18)</span>
-                                    <span class="activity-count">${stats.activityDay || 0} тестов</span>
+                                <div class="chart-item">
+                                    <div class="chart-bar day" style="height: ${(stats.activityDay || 0) * 20}px"></div>
+                                    <div class="chart-label">День</div>
+                                    <div class="chart-value">${stats.activityDay || 0}</div>
                                 </div>
-                                <div class="activity-item">
-                                    <span class="activity-time">🌙 Вечер (19+)</span>
-                                    <span class="activity-count">${stats.activityEvening || 0} тестов</span>
+                                <div class="chart-item">
+                                    <div class="chart-bar evening" style="height: ${(stats.activityEvening || 0) * 20}px"></div>
+                                    <div class="chart-label">Вечер</div>
+                                    <div class="chart-value">${stats.activityEvening || 0}</div>
                                 </div>
                             </div>
                         </div>
@@ -1189,7 +2697,7 @@
                 });
         }
 
-        // ===== ЗАГРУЗКА НЕДЕЛЬНОЙ СТАТИСТИКИ =====
+        // ===== LOAD WEEKLY STATISTICS =====
         function loadWeeklyStats() {
             const user = auth.currentUser;
             if (!user) return;
@@ -1197,52 +2705,80 @@
             const statsContainer = document.getElementById('weekly-stats-content');
             statsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем недельную статистику...</p></div>';
 
-            // Для демонстрации используем фиктивные данные
-            const weeklyStats = {
-                correct: 15,
-                wrong: 5,
-                tests: 3,
-                time: 1800
-            };
+            const weekStart = getWeekStartTimestamp();
+            database.ref('users').child(user.uid).child('weeklyStats').child(weekStart).once('value')
+                .then((snapshot) => {
+                    const weeklyStats = snapshot.val();
+                    
+                    if (!weeklyStats) {
+                        statsContainer.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-calendar-week"></i>
+                                <h3>Нет данных за эту неделю</h3>
+                                <p>Пройдите тест, чтобы увидеть статистику</p>
+                            </div>
+                        `;
+                        return;
+                    }
 
-            let statsContent = '';
-            
-            if (currentWeeklyFilter === 'correct') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-value">${weeklyStats.correct}</div>
-                        <div class="stat-label">Правильных ответов за неделю</div>
-                    </div>
-                `;
-            } else if (currentWeeklyFilter === 'completed') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <div class="stat-value">${weeklyStats.tests}</div>
-                        <div class="stat-label">Пройденных тестов за неделю</div>
-                    </div>
-                `;
-            } else if (currentWeeklyFilter === 'time') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-value">${formatTime(weeklyStats.time)}</div>
-                        <div class="stat-label">Общее время за неделю</div>
-                    </div>
-                `;
-            }
+                    const totalQuestions = weeklyStats.correct + weeklyStats.wrong;
+                    const percentage = totalQuestions > 0 ? Math.round((weeklyStats.correct / totalQuestions) * 100) : 0;
+                    const avgTimePerTest = weeklyStats.tests > 0 ? Math.round(weeklyStats.time / weeklyStats.tests) : 0;
 
-            statsContainer.innerHTML = statsContent;
+                    let statsContent = '';
+                    
+                    if (currentWeeklyFilter === 'correct') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-value">${weeklyStats.correct}</div>
+                                <div class="stat-label">Правильных ответов за неделю</div>
+                            </div>
+                        `;
+                    } else if (currentWeeklyFilter === 'completed') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="stat-value">${weeklyStats.tests}</div>
+                                <div class="stat-label">Пройденных тестов за неделю</div>
+                            </div>
+                        `;
+                    } else if (currentWeeklyFilter === 'time') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-value">${formatTime(weeklyStats.time)}</div>
+                                <div class="stat-label">Общее время за неделю</div>
+                            </div>
+                        `;
+                    }
+
+                    statsContainer.innerHTML = statsContent;
+                })
+                .catch((error) => {
+                    console.error('Ошибка загрузки недельной статистики:', error);
+                    statsContainer.innerHTML = `
+                        <div class="error-container">
+                            <div class="error-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <h3>Не удалось загрузить недельную статистику</h3>
+                            <p class="error-details">${error.message}</p>
+                            <button onclick="loadWeeklyStats()" class="btn btn-primary">
+                                <i class="fas fa-redo"></i> Попробовать снова
+                            </button>
+                        </div>
+                    `;
+                });
         }
 
-        // ===== ЗАГРУЗКА ГЛОБАЛЬНОЙ СТАТИСТИКИ =====
+        // ===== LOAD GLOBAL STATISTICS =====
         function loadGlobalStats() {
             const user = auth.currentUser;
             if (!user) return;
@@ -1250,1047 +2786,234 @@
             const statsContainer = document.getElementById('global-stats-content');
             statsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем глобальную статистику...</p></div>';
 
-            // Для демонстрации используем фиктивные данные
-            const topUsers = [
-                { name: 'Алексей', score: 45 },
-                { name: 'Мария', score: 38 },
-                { name: 'Дмитрий', score: 32 },
-                { name: 'Анна', score: 28 },
-                { name: 'Сергей', score: 25 }
-            ];
-
-            let statsContent = '';
-            
-            if (currentGlobalFilter === 'correct') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-value">156</div>
-                        <div class="stat-label">Всего правильных ответов</div>
-                    </div>
+            database.ref('users').once('value')
+                .then((snapshot) => {
+                    const usersData = snapshot.val();
                     
-                    <div class="top-users">
-                        <h3><i class="fas fa-crown"></i> Топ пользователей по правильным ответам</h3>
-                        <div class="users-list">
-                            ${topUsers.map((user, index) => `
-                                <div class="user-item">
-                                    <div class="user-rank">${index + 1}</div>
-                                    <div class="user-name">${user.name}</div>
-                                    <div class="user-score">${user.score} правильных</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            } else if (currentGlobalFilter === 'completed') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <div class="stat-value">42</div>
-                        <div class="stat-label">Всего пройденных тестов</div>
-                    </div>
-                `;
-            } else if (currentGlobalFilter === 'time') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-value">${formatTime(12600)}</div>
-                        <div class="stat-label">Общее время всех пользователей</div>
-                    </div>
-                `;
-            } else if (currentGlobalFilter === 'days') {
-                statsContent = `
-                    <div class="stat-card large">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-day"></i>
-                        </div>
-                        <div class="stat-value">87</div>
-                        <div class="stat-label">Всего активных дней</div>
-                    </div>
-                `;
-            }
+                    if (!usersData) {
+                        statsContainer.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-globe"></i>
+                                <h3>Нет глобальной статистики</h3>
+                                <p>Пока нет данных от пользователей</p>
+                            </div>
+                        `;
+                        return;
+                    }
 
-            statsContainer.innerHTML = statsContent;
+                    let globalStats = {
+                        totalCorrect: 0,
+                        totalWrong: 0,
+                        totalTests: 0,
+                        totalTimeSeconds: 0,
+                        totalUsers: 0,
+                        activeDays: 0,
+                        topUsers: []
+                    };
+
+                    // Collect data from all users
+                    Object.values(usersData).forEach(userData => {
+                        if (userData.stats) {
+                            globalStats.totalCorrect += userData.stats.totalCorrect || 0;
+                            globalStats.totalWrong += userData.stats.totalWrong || 0;
+                            globalStats.totalTests += userData.stats.totalTests || 0;
+                            globalStats.totalTimeSeconds += userData.stats.totalTimeSeconds || 0;
+                            globalStats.activeDays += userData.stats.activeDays || 0;
+                            
+                            // Add user to top
+                            if (userData.stats.totalCorrect > 0) {
+                                globalStats.topUsers.push({
+                                    nickname: getUserDisplayName(userData),
+                                    correct: userData.stats.totalCorrect || 0,
+                                    tests: userData.stats.totalTests || 0,
+                                    time: userData.stats.totalTimeSeconds || 0,
+                                    days: userData.stats.activeDays || 0
+                                });
+                            }
+                        }
+                    });
+
+                    globalStats.totalUsers = Object.keys(usersData).length;
+                    
+                    // Sort top users
+                    if (currentGlobalFilter === 'correct') {
+                        globalStats.topUsers.sort((a, b) => b.correct - a.correct);
+                    } else if (currentGlobalFilter === 'completed') {
+                        globalStats.topUsers.sort((a, b) => b.tests - a.tests);
+                    } else if (currentGlobalFilter === 'time') {
+                        globalStats.topUsers.sort((a, b) => b.time - a.time);
+                    } else if (currentGlobalFilter === 'days') {
+                        globalStats.topUsers.sort((a, b) => b.days - a.days);
+                    }
+
+                    let statsContent = '';
+                    
+                    if (currentGlobalFilter === 'correct') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-value">${globalStats.totalCorrect}</div>
+                                <div class="stat-label">Всего правильных ответов</div>
+                            </div>
+                            
+                            <div class="top-users">
+                                <h3><i class="fas fa-crown"></i> Топ пользователей по правильным ответам</h3>
+                                <div class="users-list">
+                                    ${globalStats.topUsers.slice(0, 10).map((user, index) => `
+                                        <div class="user-item">
+                                            <div class="user-rank">${index + 1}</div>
+                                            <div class="user-name">${user.nickname}</div>
+                                            <div class="user-score">${user.correct} правильных</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else if (currentGlobalFilter === 'completed') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="stat-value">${globalStats.totalTests}</div>
+                                <div class="stat-label">Всего пройденных тестов</div>
+                            </div>
+                            
+                            <div class="top-users">
+                                <h3><i class="fas fa-crown"></i> Топ пользователей по пройденным тестам</h3>
+                                <div class="users-list">
+                                    ${globalStats.topUsers.slice(0, 10).map((user, index) => `
+                                        <div class="user-item">
+                                            <div class="user-rank">${index + 1}</div>
+                                            <div class="user-name">${user.nickname}</div>
+                                            <div class="user-score">${user.tests} тестов</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else if (currentGlobalFilter === 'time') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-value">${formatTime(globalStats.totalTimeSeconds)}</div>
+                                <div class="stat-label">Общее время всех пользователей</div>
+                            </div>
+                            
+                            <div class="top-users">
+                                <h3><i class="fas fa-crown"></i> Топ пользователей по времени</h3>
+                                <div class="users-list">
+                                    ${globalStats.topUsers.slice(0, 10).map((user, index) => `
+                                        <div class="user-item">
+                                            <div class="user-rank">${index + 1}</div>
+                                            <div class="user-name">${user.nickname}</div>
+                                            <div class="user-score">${formatTime(user.time)}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else if (currentGlobalFilter === 'days') {
+                        statsContent = `
+                            <div class="stat-card large">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <div class="stat-value">${globalStats.activeDays}</div>
+                                <div class="stat-label">Всего активных дней</div>
+                            </div>
+                            
+                            <div class="top-users">
+                                <h3><i class="fas fa-crown"></i> Топ пользователей по активным дням</h3>
+                                <div class="users-list">
+                                    ${globalStats.topUsers.slice(0, 10).map((user, index) => `
+                                        <div class="user-item">
+                                            <div class="user-rank">${index + 1}</div>
+                                            <div class="user-name">${user.nickname}</div>
+                                            <div class="user-score">${user.days} дней</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    statsContainer.innerHTML = statsContent;
+                })
+                .catch((error) => {
+                    console.error('Ошибка загрузки глобальной статистики:', error);
+                    statsContainer.innerHTML = `
+                        <div class="error-container">
+                            <div class="error-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <h3>Не удалось загрузить глобальную статистику</h3>
+                            <p class="error-details">${error.message}</p>
+                            <button onclick="loadGlobalStats()" class="btn btn-primary">
+                                <i class="fas fa-redo"></i> Попробовать снова
+                            </button>
+                        </div>
+                    `;
+                });
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSwipeGestures();
+            initializePullToRefresh();
+            
+            // Add iOS specific classes
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                document.body.classList.add('ios-device');
+            }
+            
+            // Prevent zoom on double tap
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(e) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        });
+
+        // ===== OFFLINE DETECTION =====
+        window.addEventListener('online', function() {
+            showMessage('Соединение восстановлено', 'success');
+        });
+
+        window.addEventListener('offline', function() {
+            showMessage('Отсутствует интернет-соединение', 'error');
+        });
+
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${message}`;
+            messageDiv.style.position = 'fixed';
+            messageDiv.style.top = '20px';
+            messageDiv.style.left = '50%';
+            messageDiv.style.transform = 'translateX(-50%)';
+            messageDiv.style.zIndex = '10000';
+            messageDiv.style.maxWidth = '90%';
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                document.body.removeChild(messageDiv);
+            }, 3000);
         }
     </script>
-
-    <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        #app {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ===== ЭКРАНЫ ===== */
-        .screen {
-            display: none;
-            min-height: 100vh;
-            padding: 20px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .screen.active {
-            display: flex;
-            flex-direction: column;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* ===== КАРТОЧКИ ===== */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        /* ===== ЗАГОЛОВКИ ===== */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            color: white;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .header p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-        }
-
-        .user-email {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        /* ===== ЛОГОТИП ===== */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(238, 90, 36, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: white;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .logo-container h1 {
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
-        }
-
-        /* ===== ФОРМЫ ===== */
-        .auth-form {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-        }
-
-        .input:focus {
-            outline: none;
-            border-color: #ee5a24;
-            background: white;
-            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.1);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-            transition: color 0.3s ease;
-        }
-
-        .input:focus + .input-icon {
-            color: #ee5a24;
-        }
-
-        /* ===== КНОПКИ ===== */
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 15px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            color: white;
-            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            border-color: #ee5a24;
-            color: #ee5a24;
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            color: white;
-        }
-
-        .btn-small {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            width: auto;
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .btn-text {
-            flex: 1;
-            text-align: center;
-        }
-
-        .btn-icon {
-            font-size: 1rem;
-        }
-
-        /* ===== МЕНЮ ===== */
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .menu-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .menu-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            background: white;
-        }
-
-        .menu-card.logout:hover {
-            background: rgba(231, 76, 60, 0.1);
-        }
-
-        .menu-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.3rem;
-        }
-
-        .menu-content {
-            flex: 1;
-        }
-
-        .menu-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .menu-content p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .menu-arrow {
-            color: #999;
-            font-size: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-card:hover .menu-arrow {
-            transform: translateX(5px);
-            color: #ee5a24;
-        }
-
-        /* ===== ТЕСТЫ ===== */
-        .tests-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .test-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .test-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            background: white;
-        }
-
-        .test-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .test-header h3 {
-            font-size: 1.4rem;
-            color: #333;
-            margin-right: 15px;
-        }
-
-        .test-difficulty {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .difficulty-easy {
-            background: rgba(46, 204, 113, 0.2);
-            color: #27ae60;
-        }
-
-        .difficulty-medium {
-            background: rgba(241, 196, 15, 0.2);
-            color: #f39c12;
-        }
-
-        .difficulty-hard {
-            background: rgba(231, 76, 60, 0.2);
-            color: #c0392b;
-        }
-
-        .test-description {
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .test-info {
-            display: flex;
-            gap: 20px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        .test-info span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .file-type {
-            background: rgba(52, 152, 219, 0.1);
-            padding: 3px 8px;
-            border-radius: 10px;
-            color: #3498db;
-        }
-
-        /* ===== ВОПРОСЫ И ОТВЕТЫ ===== */
-        .question-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .question-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            color: #333;
-            line-height: 1.4;
-        }
-
-        .answers-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .answer-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .answer-option:hover {
-            background: white;
-            border-color: #ee5a24;
-            transform: translateX(5px);
-        }
-
-        .answer-option.selected {
-            background: rgba(238, 90, 36, 0.1);
-            border-color: #ee5a24;
-            color: #ee5a24;
-        }
-
-        .answer-correct {
-            background: rgba(46, 204, 113, 0.2);
-            border-color: #27ae60;
-            color: #27ae60;
-        }
-
-        .answer-incorrect {
-            background: rgba(231, 76, 60, 0.2);
-            border-color: #c0392b;
-            color: #c0392b;
-        }
-
-        .answer-neutral {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .answer-text {
-            flex: 1;
-            font-size: 1rem;
-        }
-
-        .answer-status {
-            font-size: 1rem;
-            margin-left: 10px;
-        }
-
-        /* ===== ПРОГРЕСС БАР ===== */
-        .progress-container {
-            margin: 20px 0;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ee5a24, #ff6b6b);
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-
-        .progress-text {
-            text-align: center;
-            color: white;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        /* ===== УПРАВЛЕНИЕ ТЕСТОМ ===== */
-        .test-controls {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-
-        /* ===== РЕЗУЛЬТАТЫ ТЕСТА ===== */
-        .results-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .results-header {
-            margin-bottom: 30px;
-        }
-
-        .results-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 2rem;
-        }
-
-        .results-header h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .results-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        .results-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .result-item {
-            text-align: center;
-        }
-
-        .result-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .result-value.correct {
-            color: #27ae60;
-        }
-
-        .result-value.wrong {
-            color: #c0392b;
-        }
-
-        .result-value.percentage {
-            color: #ee5a24;
-        }
-
-        .result-value.time {
-            color: #3498db;
-        }
-
-        .result-label {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .results-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* ===== СТАТИСТИКА ===== */
-        .nickname-section {
-            margin-bottom: 30px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 5px;
-        }
-
-        .tab-button {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            background: transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .tab-button.active {
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            color: white;
-            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .stats-filters {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filter-button {
-            padding: 10px 15px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .filter-button.active {
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            color: white;
-            border-color: #ee5a24;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card.large {
-            grid-column: 1 / -1;
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .activity-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .activity-section h3 {
-            margin-bottom: 20px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .activity-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            transition: background 0.3s ease;
-        }
-
-        .activity-item:hover {
-            background: white;
-        }
-
-        .activity-time {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .activity-count {
-            color: #666;
-            font-weight: 600;
-        }
-
-        .top-users {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-
-        .top-users h3 {
-            margin-bottom: 20px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .users-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .user-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            transition: background 0.3s ease;
-        }
-
-        .user-item:hover {
-            background: white;
-        }
-
-        .user-rank {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .user-name {
-            flex: 1;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .user-score {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* ===== СООБЩЕНИЯ ===== */
-        .message-container {
-            margin: 20px 0;
-        }
-
-        .message {
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-
-        .message.error {
-            background: rgba(231, 76, 60, 0.1);
-            color: #c0392b;
-            border: 1px solid rgba(231, 76, 60, 0.2);
-        }
-
-        .message.success {
-            background: rgba(46, 204, 113, 0.1);
-            color: #27ae60;
-            border: 1px solid rgba(46, 204, 113, 0.2);
-        }
-
-        .message.info {
-            background: rgba(52, 152, 219, 0.1);
-            color: #2980b9;
-            border: 1px solid rgba(52, 152, 219, 0.2);
-        }
-
-        /* ===== СОСТОЯНИЯ ЗАГРУЗКИ И ОШИБОК ===== */
-        .loading-container, .error-container, .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #ee5a24;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error-icon, .empty-state i {
-            font-size: 3rem;
-            color: #ee5a24;
-            margin-bottom: 20px;
-        }
-
-        .empty-state i {
-            color: #999;
-        }
-
-        .error-details {
-            color: #666;
-            margin: 15px 0;
-        }
-
-        /* ===== НИЖНИЕ КНОПКИ ===== */
-        .bottom-actions {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* ===== АДАПТИВНОСТЬ ===== */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .logo-container h1 {
-                font-size: 2.5rem;
-            }
-            
-            .auth-form {
-                padding: 30px 20px;
-            }
-            
-            .test-controls {
-                flex-direction: column;
-            }
-            
-            .results-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .results-actions {
-                flex-direction: column;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .stats-filters {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .logo-container h1 {
-                font-size: 2rem;
-            }
-            
-            .test-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .test-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .results-stats {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </body>
 </html>
