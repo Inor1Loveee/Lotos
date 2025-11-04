@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lycoris Tests</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#922B3E">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- Экран авторизации -->
+        <div id="auth-screen" class="screen active">
+            <div class="container">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h1>Lycoris</h1>
+                    <p class="subtitle">Тесты и обучение</p>
+                </div>
+            
+                <div class="auth-form">
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" placeholder="Email" class="input">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" placeholder="Пароль" class="input">
+                    </div>
+                    <button onclick="handleAuth()" class="btn btn-primary" id="auth-button">
+                        <span class="btn-text">Войти</span>
+                        <i class="fas fa-sign-in-alt btn-icon"></i>
+                    </button>
+                    <button onclick="toggleAuthMode()" class="btn btn-secondary" id="toggle-auth-button">
+                        <span class="btn-text">Регистрация</span>
+                    </button>
+                </div>
+            
+                <div id="auth-message" class="message-container"></div>
+            </div>
+        </div>
+        
+        <!-- Главный экран -->
+        <div id="main-screen" class="screen">
+            <div class="container">
+                <div class="header">
+                    <h1>Главная</h1>
+                    <p id="user-email" class="user-email"></p>
+                </div>
+                
+                <div class="menu">
+                    <button onclick="showTests()" class="menu-card">
+                        <div class="menu-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="menu-content">
+                            <h3>Пройти тест</h3>
+                            <p>Выберите тест для прохождения</p>
+                        </div>
+                        <i class="fas fa-chevron-right menu-arrow"></i>
+                    </button>
+                    
+                    <button onclick="showStats()" class="menu-card">
+                        <div class="menu-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="menu-content">
+                            <h3>Статистика</h3>
+                            <p>Просмотр ваших результатов</p>
+                        </div>
+                        <i class="fas fa-chevron-right menu-arrow"></i>
+                    </button>
+                    
+                    <button onclick="logout()" class="menu-card logout">
+                        <div class="menu-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="menu-content">
+                            <h3>Выйти</h3>
+                            <p>Завершить текущую сессию</p>
+                        </div>
+                        <i class="fas fa-chevron-right menu-arrow"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран списка тестов -->
+        <div id="tests-screen" class="screen">
+            <div class="container">
+                <div class="header">
+                    <h1><i class="fas fa-book-open"></i> Тесты</h1>
+                    <p>Выберите тест для прохождения</p>
+                </div>
+                
+                <div id="tests-list" class="tests-container">
+                    <!-- Тесты будут здесь -->
+                </div>
+                
+                <div class="bottom-actions">
+                    <button onclick="showScreen('main-screen')" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран прохождения теста -->
+        <div id="test-session-screen" class="screen">
+            <div class="container">
+                <div id="question-container">
+                    <!-- Вопрос и варианты -->
+                </div>
+                
+                <div class="test-controls">
+                    <button onclick="finishTest()" class="btn-small btn-danger">
+                        <i class="fas fa-stop"></i> Завершить
+                    </button>
+                    <button onclick="previousQuestion()" class="btn-small btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button onclick="checkAnswer()" class="btn-small btn-warning">
+                        <i class="fas fa-check"></i> Проверить
+                    </button>
+                    <button onclick="nextQuestion()" class="btn-small btn-primary">
+                        Далее <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div id="test-progress"></div>
+                <div id="answer-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Экран статистики -->
+        <div id="stats-screen" class="screen">
+            <div class="container">
+                <div class="header">
+                    <h1><i class="fas fa-chart-bar"></i> Статистика</h1>
+                </div>
+                
+                <!-- Поле для ввода никнейма -->
+                <div class="card nickname-section">
+                    <h3><i class="fas fa-user"></i> Ваш никнейм</h3>
+                    <div class="input-group">
+                        <i class="fas fa-tag input-icon"></i>
+                        <input type="text" id="user-nickname" placeholder="Введите ваш никнейм" class="input">
+                    </div>
+                    <button onclick="saveNickname()" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Сохранить никнейм
+                    </button>
+                    <div id="nickname-message" class="message-container"></div>
+                </div>
+                
+                <!-- Вкладки -->
+                <div class="tabs">
+                    <button class="tab-button active" onclick="switchTab('general-stats')">
+                        <i class="fas fa-chart-pie"></i> Общая
+                    </button>
+                    <button class="tab-button" onclick="switchTab('weekly-stats')">
+                        <i class="fas fa-calendar-week"></i> Неделя
+                    </button>
+                    <button class="tab-button" onclick="switchTab('global-stats')">
+                        <i class="fas fa-globe"></i> Глобальная
+                    </button>
+                </div>
+                
+                <!-- Общая статистика -->
+                <div id="general-stats" class="tab-content active">
+                    <div id="general-stats-content">
+                        <!-- Общая статистика будет здесь -->
+                    </div>
+                </div>
+                
+                <!-- Недельная статистика -->
+                <div id="weekly-stats" class="tab-content">
+                    <div class="stats-filters">
+                        <button class="filter-button active" onclick="changeWeeklyFilter('correct')">
+                            <i class="fas fa-check-circle"></i> Правильные
+                        </button>
+                        <button class="filter-button" onclick="changeWeeklyFilter('completed')">
+                            <i class="fas fa-tasks"></i> Тесты
+                        </button>
+                        <button class="filter-button" onclick="changeWeeklyFilter('time')">
+                            <i class="fas fa-clock"></i> Время
+                        </button>
+                    </div>
+                    <div id="weekly-stats-content">
+                        <!-- Недельная статистика будет здесь -->
+                    </div>
+                </div>
+                
+                <!-- Глобальная статистика -->
+                <div id="global-stats" class="tab-content">
+                    <div class="stats-filters">
+                        <button class="filter-button active" onclick="changeGlobalFilter('correct')">
+                            <i class="fas fa-check-circle"></i> Правильные
+                        </button>
+                        <button class="filter-button" onclick="changeGlobalFilter('completed')">
+                            <i class="fas fa-tasks"></i> Тесты
+                        </button>
+                        <button class="filter-button" onclick="changeGlobalFilter('time')">
+                            <i class="fas fa-clock"></i> Время
+                        </button>
+                        <button class="filter-button" onclick="changeGlobalFilter('days')">
+                            <i class="fas fa-calendar-day"></i> Дни
+                        </button>
+                    </div>
+                    <div id="global-stats-content">
+                        <!-- Глобальная статистика будет здесь -->
+                    </div>
+                </div>
+                
+                <div class="bottom-actions">
+                    <button onclick="showScreen('main-screen')" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== FIREBASE CONFIG =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrixbCDYIDnQJy9i-5OqfRBzl-yv6VPCo",
+            authDomain: "lotos-vbinc.firebaseapp.com",
+            projectId: "lotos-vbinc",
+            storageBucket: "lotos-vbinc.appspot.com",
+            messagingSenderId: "000000000000",
+            appId: "your_app_id"
+        };
+
+        // Инициализация Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
+        let currentTest = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let testStartTime = null;
+        let checkedQuestions = new Set();
+        let currentWeeklyFilter = 'correct';
+        let currentGlobalFilter = 'correct';
+        let userNickname = '';
+
+        // ===== БАЗОВАЯ НАВИГАЦИЯ =====
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            // Скрываем кнопки управления тестом на экране результатов
+            if (screenId === 'test-session-screen') {
+                const testControls = document.querySelector('.test-controls');
+                if (testControls) {
+                    testControls.style.display = 'flex';
+                }
+            } else {
+                const testControls = document.querySelector('.test-controls');
+                if (testControls) {
+                    testControls.style.display = 'none';
+                }
+            }
+            
+            // Загружаем никнейм при показе экрана статистики
+            if (screenId === 'stats-screen') {
+                loadUserNickname();
+            }
+        }
+        
+        // ===== СИСТЕМА НИКНЕЙМОВ =====
+        function loadUserNickname() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            database.ref('users').child(user.uid).child('nickname').once('value')
+                .then((snapshot) => {
+                    const nickname = snapshot.val();
+                    const nicknameInput = document.getElementById('user-nickname');
+                    if (nicknameInput) {
+                        nicknameInput.value = nickname || '';
+                        userNickname = nickname || '';
+                    }
+                })
+                .catch((error) => {
+                    console.error('Ошибка загрузки никнейма:', error);
+                });
+        }
+
+        function saveNickname() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const nicknameInput = document.getElementById('user-nickname');
+            const nickname = nicknameInput.value.trim();
+            const messageDiv = document.getElementById('nickname-message');
+
+            if (!nickname) {
+                messageDiv.innerHTML = '<p class="message error"><i class="fas fa-exclamation-circle"></i> Введите никнейм</p>';
+                return;
+            }
+
+            if (nickname.length < 2 || nickname.length > 20) {
+                messageDiv.innerHTML = '<p class="message error"><i class="fas fa-exclamation-circle"></i> Никнейм должен быть от 2 до 20 символов</p>';
+                return;
+            }
+
+            database.ref('users').child(user.uid).child('nickname').set(nickname)
+                .then(() => {
+                    userNickname = nickname;
+                    messageDiv.innerHTML = '<p class="message success"><i class="fas fa-check-circle"></i> Никнейм сохранен!</p>';
+                    setTimeout(() => {
+                        messageDiv.innerHTML = '';
+                    }, 2000);
+                })
+                .catch((error) => {
+                    console.error('Ошибка сохранения никнейма:', error);
+                    messageDiv.innerHTML = '<p class="message error"><i class="fas fa-exclamation-circle"></i> Ошибка сохранения</p>';
+                });
+        }
+
+        function getUserDisplayName(userData) {
+            // Сначала пробуем получить никнейм, потом имя из email, потом "Аноним"
+            if (userData.nickname) {
+                return userData.nickname;
+            }
+            if (userData.email) {
+                return userData.email.split('@')[0];
+            }
+            return 'Аноним';
+        }
+
+        // ===== АВТОРИЗАЦИЯ FIREBASE =====
+        let isLoginMode = true;
+
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            const authButton = document.getElementById('auth-button');
+            const toggleButton = document.getElementById('toggle-auth-button');
+            const messageDiv = document.getElementById('auth-message');
+            
+            if (isLoginMode) {
+                authButton.innerHTML = '<span class="btn-text">Войти</span><i class="fas fa-sign-in-alt btn-icon"></i>';
+                toggleButton.innerHTML = '<span class="btn-text">Регистрация</span>';
+                messageDiv.innerHTML = '';
+            } else {
+                authButton.innerHTML = '<span class="btn-text">Зарегистрироваться</span><i class="fas fa-user-plus btn-icon"></i>';
+                toggleButton.innerHTML = '<span class="btn-text">Уже есть аккаунт</span>';
+                messageDiv.innerHTML = '<p class="message info"><i class="fas fa-info-circle"></i> Минимальная длина пароля - 6 символов</p>';
+            }
+        }
+
+        async function handleAuth() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('auth-message');
+            const authButton = document.getElementById('auth-button');
+            
+            if (!email || !password) {
+                showAuthMessage('Заполните все поля', 'error');
+                return;
+            }
+            
+            if (password.length < 6 && !isLoginMode) {
+                showAuthMessage('Пароль должен быть не менее 6 символов', 'error');
+                return;
+            }
+            
+            // Блокируем кнопку
+            authButton.disabled = true;
+            authButton.innerHTML = isLoginMode 
+                ? '<span class="btn-text">Вход...</span><i class="fas fa-spinner fa-spin btn-icon"></i>' 
+                : '<span class="btn-text">Регистрация...</span><i class="fas fa-spinner fa-spin btn-icon"></i>';
+            
+            try {
+                if (isLoginMode) {
+                    await auth.signInWithEmailAndPassword(email, password);
+                } else {
+                    await auth.createUserWithEmailAndPassword(email, password);
+                }
+            } catch (error) {
+                let errorMessage = 'Ошибка авторизации';
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'Пользователь не найден';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Неверный пароль';
+                        break;
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'Email уже используется';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'Пароль слишком простой';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Неверный формат email';
+                        break;
+                }
+                showAuthMessage(errorMessage, 'error');
+            } finally {
+                authButton.disabled = false;
+                authButton.innerHTML = isLoginMode 
+                    ? '<span class="btn-text">Войти</span><i class="fas fa-sign-in-alt btn-icon"></i>' 
+                    : '<span class="btn-text">Зарегистрироваться</span><i class="fas fa-user-plus btn-icon"></i>';
+            }
+        }
+
+        function showAuthMessage(message, type) {
+            const messageDiv = document.getElementById('auth-message');
+            const icon = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
+            messageDiv.innerHTML = `<p class="message ${type}"><i class="fas ${icon}"></i> ${message}</p>`;
+        }
+
+        // ===== ПРОВЕРКА АВТОРИЗАЦИИ ПРИ ЗАГРУЗКЕ =====
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // Пользователь авторизован
+                showScreen('main-screen');
+                document.getElementById('user-email').textContent = user.email;
+                console.log('Пользователь авторизован:', user.email);
+                loadUserNickname();
+            } else {
+                // Пользователь не авторизован
+                showScreen('auth-screen');
+                document.getElementById('user-email').textContent = '';
+            }
+        });
+
+        // ===== ВЫХОД ИЗ СИСТЕМЫ =====
+        function logout() {
+            auth.signOut();
+        }
+
+        // ===== ФУНКЦИИ ТЕСТОВ =====
+        function showTests() {
+            showScreen('tests-screen');
+            loadTestsList();
+        }
+        
+        function showStats() {
+            showScreen('stats-screen');
+            loadGeneralStats();
+        }
+
+        // ===== ЗАГРУЗКА СПИСКА ТЕСТОВ =====
+        async function loadTestsList() {
+            const testsContainer = document.getElementById('tests-list');
+            testsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем тесты...</p></div>';
+
+            try {
+                // Используем тестовые данные вместо внешнего файла
+                const testData = getMockTestsData();
+                displayTests(testData.tests);
+            } catch (error) {
+                console.error('Ошибка загрузки списка тестов:', error);
+                testsContainer.innerHTML = `
+                    <div class="error-container">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Не удалось загрузить тесты</h3>
+                        <p class="error-details">${error.message}</p>
+                        <button onclick="loadTestsList()" class="btn btn-primary">
+                            <i class="fas fa-redo"></i> Попробовать снова
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // ===== ТЕСТОВЫЕ ДАННЫЕ =====
+        function getMockTestsData() {
+            return {
+                tests: [
+                    {
+                        id: 'test1',
+                        name: 'Основы JavaScript',
+                        description: 'Проверьте свои знания основ JavaScript',
+                        difficulty: 'Легкий',
+                        questionCount: 5,
+                        estimatedTime: '10 мин',
+                        fileName: 'javascript-basic.json'
+                    },
+                    {
+                        id: 'test2', 
+                        name: 'HTML и CSS',
+                        description: 'Основы веб-разработки: HTML и CSS',
+                        difficulty: 'Средний',
+                        questionCount: 7,
+                        estimatedTime: '15 мин',
+                        fileName: 'html-css.json'
+                    },
+                    {
+                        id: 'test3',
+                        name: 'Алгоритмы',
+                        description: 'Основные алгоритмы и структуры данных',
+                        difficulty: 'Сложный',
+                        questionCount: 10,
+                        estimatedTime: '25 мин',
+                        fileName: 'algorithms.lyc'
+                    }
+                ]
+            };
+        }
+
+        // ===== ОТОБРАЖЕНИЕ СПИСКА ТЕСТОВ =====
+        function displayTests(tests) {
+            const testsContainer = document.getElementById('tests-list');
+            
+            if (tests.length === 0) {
+                testsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Тесты не найдены</p></div>';
+                return;
+            }
+
+            testsContainer.innerHTML = tests.map(test => `
+                <div class="test-card" onclick="startTest('${test.id}')">
+                    <div class="test-header">
+                        <h3>${test.name}</h3>
+                        <span class="test-difficulty ${getDifficultyClass(test.difficulty)}">${test.difficulty}</span>
+                    </div>
+                    <p class="test-description">${test.description}</p>
+                    <div class="test-info">
+                        <span><i class="fas fa-question-circle"></i> ${test.questionCount} вопросов</span>
+                        <span><i class="fas fa-clock"></i> ${test.estimatedTime}</span>
+                        <span class="file-type">
+                            ${test.fileName.endsWith('.lyc') ? '<i class="fas fa-lock"></i>' : '<i class="fas fa-file-alt"></i>'} 
+                            ${test.fileName.split('.').pop()}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getDifficultyClass(difficulty) {
+            const difficultyMap = {
+                'Легкий': 'difficulty-easy',
+                'Средний': 'difficulty-medium', 
+                'Сложный': 'difficulty-hard',
+                'Easy': 'difficulty-easy',
+                'Medium': 'difficulty-medium',
+                'Hard': 'difficulty-hard'
+            };
+            return difficultyMap[difficulty] || 'difficulty-medium';
+        }
+
+        // ===== ЗАПУСК ТЕСТА =====
+        async function startTest(testId) {
+            const testsContainer = document.getElementById('tests-list');
+    
+            try {
+                testsContainer.innerHTML = `
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>Загружаем тест...</p>
+                    </div>
+                `;
+
+                // СБРАСЫВАЕМ СОСТОЯНИЕ ПЕРЕД НОВЫМ ТЕСТОМ
+                resetTestState();
+
+                const testData = await loadTestData(testId);
+            
+                if (!testData || !testData.questions || testData.questions.length === 0) {
+                    throw new Error('Тест пустой или поврежден');
+                }
+
+                currentTest = testData;
+                currentQuestionIndex = 0;
+                userAnswers = [];
+                checkedQuestions = new Set();
+                testStartTime = Date.now();
+            
+                showScreen('test-session-screen');
+                displayCurrentQuestion();
+            
+            } catch (error) {
+                console.error('Ошибка запуска теста:', error);
+                testsContainer.innerHTML = `
+                    <div class="error-container">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3>Не удалось загрузить тест</h3>
+                        <p class="error-details">${error.message}</p>
+                        <button onclick="loadTestsList()" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Вернуться к списку
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // ===== ЗАГРУЗКА ДАННЫХ ТЕСТА =====
+        async function loadTestData(testId) {
+            // Используем тестовые данные вместо загрузки из файлов
+            const mockTests = {
+                'test1': {
+                    id: 'test1',
+                    title: 'Основы JavaScript',
+                    questions: [
+                        {
+                            question: 'Что такое JavaScript?',
+                            answers: [
+                                { text: 'Язык программирования для веб-разработки', isCorrect: true },
+                                { text: 'База данных', isCorrect: false },
+                                { text: 'Графический редактор', isCorrect: false },
+                                { text: 'Операционная система', isCorrect: false }
+                            ]
+                        },
+                        {
+                            question: 'Как объявить переменную в JavaScript?',
+                            answers: [
+                                { text: 'var x = 5;', isCorrect: true },
+                                { text: 'variable x = 5;', isCorrect: false },
+                                { text: 'int x = 5;', isCorrect: false },
+                                { text: 'x := 5;', isCorrect: false }
+                            ]
+                        },
+                        {
+                            question: 'Что выведет console.log(typeof null)?',
+                            answers: [
+                                { text: 'object', isCorrect: true },
+                                { text: 'null', isCorrect: false },
+                                { text: 'undefined', isCorrect: false },
+                                { text: 'string', isCorrect: false }
+                            ]
+                        }
+                    ]
+                },
+                'test2': {
+                    id: 'test2',
+                    title: 'HTML и CSS',
+                    questions: [
+                        {
+                            question: 'Что означает HTML?',
+                            answers: [
+                                { text: 'HyperText Markup Language', isCorrect: true },
+                                { text: 'HighTech Modern Language', isCorrect: false },
+                                { text: 'HyperTransfer Markup Language', isCorrect: false },
+                                { text: 'Home Tool Markup Language', isCorrect: false }
+                            ]
+                        },
+                        {
+                            question: 'Какой тег используется для создания ссылки?',
+                            answers: [
+                                { text: '<a>', isCorrect: true },
+                                { text: '<link>', isCorrect: false },
+                                { text: '<href>', isCorrect: false },
+                                { text: '<url>', isCorrect: false }
+                            ]
+                        }
+                    ]
+                },
+                'test3': {
+                    id: 'test3',
+                    title: 'Алгоритмы',
+                    questions: [
+                        {
+                            question: 'Что такое временная сложность алгоритма?',
+                            answers: [
+                                { text: 'Оценка времени выполнения алгоритма', isCorrect: true },
+                                { text: 'Время компиляции программы', isCorrect: false },
+                                { text: 'Время работы процессора', isCorrect: false },
+                                { text: 'Скорость интернета', isCorrect: false }
+                            ]
+                        },
+                        {
+                            question: 'Какая временная сложность у бинарного поиска?',
+                            answers: [
+                                { text: 'O(log n)', isCorrect: true },
+                                { text: 'O(n)', isCorrect: false },
+                                { text: 'O(n²)', isCorrect: false },
+                                { text: 'O(1)', isCorrect: false }
+                            ]
+                        }
+                    ]
+                }
+            };
+
+            return mockTests[testId];
+        }
+
+        // ===== СБРОС СОСТОЯНИЯ ТЕСТА =====
+        function resetTestState() {
+            currentTest = null;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            checkedQuestions = new Set();
+            testStartTime = null;
+            
+            // Восстанавливаем видимость элементов
+            const testControls = document.querySelector('.test-controls');
+            if (testControls) {
+                testControls.style.display = 'flex';
+            }
+            
+            const progressContainer = document.getElementById('test-progress');
+            if (progressContainer) {
+                progressContainer.innerHTML = '';
+            }
+            
+            const feedbackContainer = document.getElementById('answer-feedback');
+            if (feedbackContainer) {
+                feedbackContainer.innerHTML = '';
+            }
+        }
+
+        // ===== ОТОБРАЖЕНИЕ ВОПРОСА С ЦВЕТОВОЙ ПОДСВЕТКОЙ =====
+        function displayCurrentQuestion() {
+            const questionContainer = document.getElementById('question-container');
+            const progressContainer = document.getElementById('test-progress');
+            
+            // Проверяем, что тест загружен
+            if (!currentTest || !currentTest.questions) {
+                showScreen('tests-screen');
+                return;
+            }
+            
+            if (!currentTest.questions[currentQuestionIndex]) {
+                finishTest();
+                return;
+            }
+
+            const question = currentTest.questions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / currentTest.questions.length * 100).toFixed(0);
+            const isChecked = checkedQuestions.has(currentQuestionIndex);
+            const userAnswer = userAnswers[currentQuestionIndex];
+            
+            // Прогресс бар
+            progressContainer.innerHTML = `
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="progress-text">${currentQuestionIndex + 1} / ${currentTest.questions.length}</div>
+                </div>
+            `;
+
+            // Вопрос и варианты ответов с цветовой подсветкой
+            questionContainer.innerHTML = `
+                <div class="question-card">
+                    <h2>${question.question}</h2>
+                    <div class="answers-list">
+                        ${question.answers.map((answer, index) => {
+                            let answerClass = "answer-option";
+                            let statusIcon = "";
+                            
+                            if (isChecked) {
+                                // ПОСЛЕ ПРОВЕРКИ - цветовая подсветка
+                                if (answer.isCorrect) {
+                                    answerClass += " answer-correct";
+                                    statusIcon = '<span class="answer-status"><i class="fas fa-check"></i></span>';
+                                } else if (userAnswer === index && !answer.isCorrect) {
+                                    answerClass += " answer-incorrect";
+                                    statusIcon = '<span class="answer-status"><i class="fas fa-times"></i></span>';
+                                } else {
+                                    answerClass += " answer-neutral";
+                                }
+                            } else {
+                                // ДО ПРОВЕРКИ - обычное выделение
+                                if (userAnswer === index) {
+                                    answerClass += " selected";
+                                }
+                            }
+                            
+                            return `
+                                <div class="${answerClass}" onclick="selectAnswer(${index})">
+                                    <span class="answer-text">${answer.text}</span>
+                                    ${statusIcon}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== ВЫБОР ОТВЕТА =====
+        function selectAnswer(answerIndex) {
+            if (checkedQuestions.has(currentQuestionIndex)) {
+                return;
+            }
+            
+            userAnswers[currentQuestionIndex] = answerIndex;
+            displayCurrentQuestion();
+            document.getElementById('answer-feedback').innerHTML = '';
+        }
+
+        // ===== ПРОВЕРКА ОТВЕТА ТОЛЬКО С ЦВЕТОВОЙ ПОДСВЕТКОЙ =====
+        function checkAnswer() {
+            const currentAnswer = userAnswers[currentQuestionIndex];
+            
+            if (currentAnswer === undefined) {
+                return;
+            }
+            
+            // Помечаем вопрос как проверенный
+            checkedQuestions.add(currentQuestionIndex);
+            
+            // Перерисовываем вопрос с цветовой подсветкой
+            displayCurrentQuestion();
+        }
+
+        // ===== НАВИГАЦИЯ ПО ВОПРОСАМ =====
+        function nextQuestion() {
+            document.getElementById('answer-feedback').innerHTML = '';
+            
+            if (!currentTest) {
+                showScreen('tests-screen');
+                return;
+            }
+            
+            if (currentQuestionIndex < currentTest.questions.length - 1) {
+                currentQuestionIndex++;
+                displayCurrentQuestion();
+            } else {
+                finishTest();
+            }
+        }
+
+        function previousQuestion() {
+            document.getElementById('answer-feedback').innerHTML = '';
+            
+            if (!currentTest) {
+                showScreen('tests-screen');
+                return;
+            }
+            
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayCurrentQuestion();
+            }
+        }
+
+        // ===== СТАТИСТИКА И FIREBASE =====
+        function saveTestResults(correctAnswers, totalQuestions, timeSpentSeconds) {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const userRef = database.ref('users').child(user.uid);
+            const timestamp = Date.now();
+            
+            // Очистка названия теста от недопустимых символов
+            const safeTestTitle = currentTest.title.replace(/[.#$\[\]]/g, '_');
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Определение времени суток для статистики
+            const hour = new Date().getHours();
+            const activityField = hour >= 6 && hour <= 12 ? "activityMorning" : 
+                                hour >= 13 && hour <= 18 ? "activityDay" : "activityEvening";
+
+            // Сохранение истории теста
+            const testHistoryData = {
+                score: correctAnswers,
+                testDurationSeconds: timeSpentSeconds,
+                timestamp: timestamp,
+                totalQuestions: totalQuestions,
+                percentage: percentage,
+                testTitle: currentTest.title
+            };
+
+            userRef.child('testHistory').child(safeTestTitle).child(timestamp).set(testHistoryData);
+
+            // Сохраняем email пользователя
+            userRef.child('email').set(user.email);
+
+            // Обновление общей статистики
+            userRef.child('stats').once('value').then((snapshot) => {
+                const currentStats = snapshot.val() || {
+                    completedTests: 0,
+                    totalCorrect: 0,
+                    totalWrong: 0,
+                    totalTests: 0,
+                    totalTimeSeconds: 0,
+                    activeDays: 0,
+                    activityMorning: 0,
+                    activityDay: 0,
+                    activityEvening: 0,
+                    lastCorrect: 0,
+                    lastWrong: 0,
+                    lastPercent: 0,
+                    lastTime: 0,
+                    timestamp: 0
+                };
+
+                // Проверяем, был ли сегодня тест
+                const today = new Date().toDateString();
+                userRef.child('lastActivityDate').once('value').then((lastDateSnapshot) => {
+                    const lastActivityDate = lastDateSnapshot.val();
+                    let newActiveDays = currentStats.activeDays;
+                    
+                    if (lastActivityDate !== today) {
+                        newActiveDays++;
+                        userRef.child('lastActivityDate').set(today);
+                    }
+
+                    const updatedStats = {
+                        completedTests: (currentStats.completedTests || 0) + 1,
+                        totalCorrect: (currentStats.totalCorrect || 0) + correctAnswers,
+                        totalWrong: (currentStats.totalWrong || 0) + (totalQuestions - correctAnswers),
+                        totalTests: (currentStats.totalTests || 0) + 1,
+                        totalTimeSeconds: (currentStats.totalTimeSeconds || 0) + timeSpentSeconds,
+                        totalTimeFormatted: formatTime((currentStats.totalTimeSeconds || 0) + timeSpentSeconds),
+                        activeDays: newActiveDays,
+                        activityMorning: activityField === "activityMorning" ? (currentStats.activityMorning || 0) + 1 : (currentStats.activityMorning || 0),
+                        activityDay: activityField === "activityDay" ? (currentStats.activityDay || 0) + 1 : (currentStats.activityDay || 0),
+                        activityEvening: activityField === "activityEvening" ? (currentStats.activityEvening || 0) + 1 : (currentStats.activityEvening || 0),
+                        lastCorrect: correctAnswers,
+                        lastWrong: totalQuestions - correctAnswers,
+                        lastPercent: percentage,
+                        lastTime: timeSpentSeconds,
+                        timestamp: timestamp
+                    };
+
+                    userRef.child('stats').set(updatedStats);
+                });
+            });
+        }
+
+        function formatTime(totalSeconds) {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            if (hours > 0) {
+                return `${hours}ч ${minutes}м ${seconds}с`;
+            } else if (minutes > 0) {
+                return `${minutes}м ${seconds}с`;
+            } else {
+                return `${seconds}с`;
+            }
+        }
+
+        // ===== ЗАВЕРШЕНИЕ ТЕСТА =====
+        function finishTest() {
+            if (!currentTest) return;
+
+            const totalQuestions = currentTest.questions.length;
+            let correctAnswers = 0;
+
+            // Подсчет правильных ответов
+            for (let i = 0; i < totalQuestions; i++) {
+                const userAnswer = userAnswers[i];
+                const question = currentTest.questions[i];
+                
+                if (userAnswer !== undefined && question.answers[userAnswer]?.isCorrect) {
+                    correctAnswers++;
+                }
+            }
+
+            const timeSpentSeconds = Math.round((Date.now() - testStartTime) / 1000);
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Сохранение результатов
+            saveTestResults(correctAnswers, totalQuestions, timeSpentSeconds);
+
+            // Отображение результатов
+            const questionContainer = document.getElementById('question-container');
+            const progressContainer = document.getElementById('test-progress');
+            const feedbackContainer = document.getElementById('answer-feedback');
+            const testControls = document.querySelector('.test-controls');
+
+            // Скрываем кнопки управления тестом
+            if (testControls) {
+                testControls.style.display = 'none';
+            }
+
+            // Очищаем прогресс
+            progressContainer.innerHTML = '';
+
+            // Отображаем результаты
+            questionContainer.innerHTML = `
+                <div class="results-card">
+                    <div class="results-header">
+                        <div class="results-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2>Тест завершен!</h2>
+                        <p>${currentTest.title}</p>
+                    </div>
+                    
+                    <div class="results-stats">
+                        <div class="result-item">
+                            <div class="result-value correct">${correctAnswers}</div>
+                            <div class="result-label">Правильные ответы</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value wrong">${totalQuestions - correctAnswers}</div>
+                            <div class="result-label">Неправильные ответы</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value percentage">${percentage}%</div>
+                            <div class="result-label">Результат</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value time">${formatTime(timeSpentSeconds)}</div>
+                            <div class="result-label">Время</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-actions">
+                        <button onclick="showScreen('tests-screen')" class="btn btn-primary">
+                            <i class="fas fa-redo"></i> Пройти другой тест
+                        </button>
+                        <button onclick="showScreen('stats-screen')" class="btn btn-secondary">
+                            <i class="fas fa-chart-bar"></i> Посмотреть статистику
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Очищаем сообщения
+            feedbackContainer.innerHTML = '';
+        }
+
+        // ===== СИСТЕМА ВКЛАДОК СТАТИСТИКИ =====
+        function switchTab(tabId) {
+            // Скрываем все вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убираем активный класс со всех кнопок
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Показываем выбранную вкладку
+            document.getElementById(tabId).classList.add('active');
+            
+            // Активируем соответствующую кнопку
+            document.querySelector(`.tab-button[onclick="switchTab('${tabId}')"]`).classList.add('active');
+            
+            // Загружаем данные для вкладки
+            if (tabId === 'general-stats') {
+                loadGeneralStats();
+            } else if (tabId === 'weekly-stats') {
+                loadWeeklyStats();
+            } else if (tabId === 'global-stats') {
+                loadGlobalStats();
+            }
+        }
+
+        function changeWeeklyFilter(filter) {
+            currentWeeklyFilter = filter;
+            document.querySelectorAll('#weekly-stats .filter-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#weekly-stats .filter-button[onclick="changeWeeklyFilter('${filter}')"]`).classList.add('active');
+            loadWeeklyStats();
+        }
+
+        function changeGlobalFilter(filter) {
+            currentGlobalFilter = filter;
+            document.querySelectorAll('#global-stats .filter-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#global-stats .filter-button[onclick="changeGlobalFilter('${filter}')"]`).classList.add('active');
+            loadGlobalStats();
+        }
+
+        // ===== ЗАГРУЗКА ОБЩЕЙ СТАТИСТИКИ =====
+        function loadGeneralStats() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const statsContainer = document.getElementById('general-stats-content');
+            statsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем статистику...</p></div>';
+
+            database.ref('users').child(user.uid).child('stats').once('value')
+                .then((snapshot) => {
+                    const stats = snapshot.val();
+                    
+                    if (!stats) {
+                        statsContainer.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-chart-bar"></i>
+                                <h3>Статистика отсутствует</h3>
+                                <p>Пройдите первый тест, чтобы увидеть статистику</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    const totalQuestions = (stats.totalCorrect || 0) + (stats.totalWrong || 0);
+                    const avgPercentage = totalQuestions > 0 ? Math.round((stats.totalCorrect / totalQuestions) * 100) : 0;
+                    const avgTimePerTest = stats.totalTests > 0 ? Math.round(stats.totalTimeSeconds / stats.totalTests) : 0;
+
+                    statsContainer.innerHTML = `
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-value">${stats.totalCorrect || 0}</div>
+                                <div class="stat-label">Правильных ответов</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="stat-value">${stats.totalWrong || 0}</div>
+                                <div class="stat-label">Неправильных ответов</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="stat-value">${stats.totalTests || 0}</div>
+                                <div class="stat-label">Пройденных тестов</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-value">${formatTime(stats.totalTimeSeconds || 0)}</div>
+                                <div class="stat-label">Общее время</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="stat-value">${avgPercentage}%</div>
+                                <div class="stat-label">Средний результат</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <div class="stat-value">${stats.activeDays || 0}</div>
+                                <div class="stat-label">Активных дней</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-section">
+                            <h3><i class="fas fa-chart-pie"></i> Активность по времени суток</h3>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <span class="activity-time">🌅 Утро (6-12)</span>
+                                    <span class="activity-count">${stats.activityMorning || 0} тестов</span>
+                                </div>
+                                <div class="activity-item">
+                                    <span class="activity-time">☀️ День (13-18)</span>
+                                    <span class="activity-count">${stats.activityDay || 0} тестов</span>
+                                </div>
+                                <div class="activity-item">
+                                    <span class="activity-time">🌙 Вечер (19+)</span>
+                                    <span class="activity-count">${stats.activityEvening || 0} тестов</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                })
+                .catch((error) => {
+                    console.error('Ошибка загрузки статистики:', error);
+                    statsContainer.innerHTML = `
+                        <div class="error-container">
+                            <div class="error-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <h3>Не удалось загрузить статистику</h3>
+                            <p class="error-details">${error.message}</p>
+                            <button onclick="loadGeneralStats()" class="btn btn-primary">
+                                <i class="fas fa-redo"></i> Попробовать снова
+                            </button>
+                        </div>
+                    `;
+                });
+        }
+
+        // ===== ЗАГРУЗКА НЕДЕЛЬНОЙ СТАТИСТИКИ =====
+        function loadWeeklyStats() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const statsContainer = document.getElementById('weekly-stats-content');
+            statsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем недельную статистику...</p></div>';
+
+            // Для демонстрации используем фиктивные данные
+            const weeklyStats = {
+                correct: 15,
+                wrong: 5,
+                tests: 3,
+                time: 1800
+            };
+
+            let statsContent = '';
+            
+            if (currentWeeklyFilter === 'correct') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-value">${weeklyStats.correct}</div>
+                        <div class="stat-label">Правильных ответов за неделю</div>
+                    </div>
+                `;
+            } else if (currentWeeklyFilter === 'completed') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-value">${weeklyStats.tests}</div>
+                        <div class="stat-label">Пройденных тестов за неделю</div>
+                    </div>
+                `;
+            } else if (currentWeeklyFilter === 'time') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-value">${formatTime(weeklyStats.time)}</div>
+                        <div class="stat-label">Общее время за неделю</div>
+                    </div>
+                `;
+            }
+
+            statsContainer.innerHTML = statsContent;
+        }
+
+        // ===== ЗАГРУЗКА ГЛОБАЛЬНОЙ СТАТИСТИКИ =====
+        function loadGlobalStats() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const statsContainer = document.getElementById('global-stats-content');
+            statsContainer.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Загружаем глобальную статистику...</p></div>';
+
+            // Для демонстрации используем фиктивные данные
+            const topUsers = [
+                { name: 'Алексей', score: 45 },
+                { name: 'Мария', score: 38 },
+                { name: 'Дмитрий', score: 32 },
+                { name: 'Анна', score: 28 },
+                { name: 'Сергей', score: 25 }
+            ];
+
+            let statsContent = '';
+            
+            if (currentGlobalFilter === 'correct') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Всего правильных ответов</div>
+                    </div>
+                    
+                    <div class="top-users">
+                        <h3><i class="fas fa-crown"></i> Топ пользователей по правильным ответам</h3>
+                        <div class="users-list">
+                            ${topUsers.map((user, index) => `
+                                <div class="user-item">
+                                    <div class="user-rank">${index + 1}</div>
+                                    <div class="user-name">${user.name}</div>
+                                    <div class="user-score">${user.score} правильных</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else if (currentGlobalFilter === 'completed') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Всего пройденных тестов</div>
+                    </div>
+                `;
+            } else if (currentGlobalFilter === 'time') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-value">${formatTime(12600)}</div>
+                        <div class="stat-label">Общее время всех пользователей</div>
+                    </div>
+                `;
+            } else if (currentGlobalFilter === 'days') {
+                statsContent = `
+                    <div class="stat-card large">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-value">87</div>
+                        <div class="stat-label">Всего активных дней</div>
+                    </div>
+                `;
+            }
+
+            statsContainer.innerHTML = statsContent;
+        }
+    </script>
+</body>
+</html>
