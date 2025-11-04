@@ -2063,7 +2063,7 @@
             try {
                 console.log('Загружаем тест ID:', testId);
                 
-                const testsResponse = await fetch('https://Inor1Loveee/Lotos/tests/index.json');
+                const testsResponse = await fetch('https://Inor1Loveee.github.io/Lotos/tests/index.json');
                 const testsData = await testsResponse.json();
                 
                 const testInfo = testsData.tests.find(test => test.id === testId);
@@ -2077,7 +2077,7 @@
                 
                 try {
                     console.log('Пробуем загрузить JSON:', testInfo.fileName);
-                    const jsonResponse = await fetch(`https://Inor1Loveee/Lotos/tests/${testInfo.fileName}`);
+                    const jsonResponse = await fetch(`https://Inor1Loveee.github.io/Lotos/tests/${testInfo.fileName}`);
                     
                     if (!jsonResponse.ok) {
                         throw new Error(`HTTP error! status: ${jsonResponse.status}`);
@@ -2090,7 +2090,7 @@
                     console.log('JSON не доступен, пробуем LYC...', jsonError);
                     
                     const lycFileName = testInfo.fileName.replace('.json', '.lyc');
-                    const lycResponse = await fetch(`https://Inor1Loveee/Lotos/tests/${lycFileName}`);
+                    const lycResponse = await fetch(`https://Inor1Loveee.github.io/Lotos/tests/${lycFileName}`);
                     
                     if (!lycResponse.ok) {
                         throw new Error(`LYC файл тоже не доступен: ${lycResponse.status}`);
