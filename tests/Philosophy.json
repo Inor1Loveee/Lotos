@@ -1,0 +1,1356 @@
+{
+  "title": "Тесты по дисциплине «Основы философии» для студентов 2,3,4 курса",
+  "questions": [
+    {
+      "question": "Кто, как принято считать, первым ввел термин «философия»?",
+      "answers": [
+        {"text": "Гераклит", "isCorrect": false},
+        {"text": "Платон", "isCorrect": false},
+        {"text": "Декарт", "isCorrect": false},
+        {"text": "Пифагор", "isCorrect": true},
+        {"text": "Демокрит", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из данных философов не является представителем немецкой классической философии?",
+      "answers": [
+        {"text": "Кант", "isCorrect": false},
+        {"text": "Гегель", "isCorrect": false},
+        {"text": "Спиноза", "isCorrect": true},
+        {"text": "Шеллинг", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Каким из названных свойств не обладает пространство?",
+      "answers": [
+        {"text": "однородность", "isCorrect": false},
+        {"text": "изотропность", "isCorrect": false},
+        {"text": "модальность", "isCorrect": true},
+        {"text": "структурность", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Одним из основных идеалов эпохи Античности является ...",
+      "answers": [
+        {"text": "мудрость", "isCorrect": true},
+        {"text": "закон", "isCorrect": false},
+        {"text": "власть", "isCorrect": false},
+        {"text": "богатство", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите мыслителя, который первым обосновал необходимость построения философии на основе антропологического принципа:",
+      "answers": [
+        {"text": "Г. Гегель", "isCorrect": false},
+        {"text": "Н.Г Чернышевский", "isCorrect": false},
+        {"text": "Л. Фейербах", "isCorrect": true},
+        {"text": "О. Конт", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Основная категория социальной философии марксизма, фиксирующая общество на определенном этапе развития его производительных сил и соответствующих ему общественных отношений",
+      "answers": [
+        {"text": "корпорация", "isCorrect": false},
+        {"text": "нация", "isCorrect": false},
+        {"text": "формация", "isCorrect": true},
+        {"text": "цивилизация", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Философская антропология -- это:",
+      "answers": [
+        {"text": "философское направление, занимающееся проблемами природы (сущности) человека", "isCorrect": true},
+        {"text": "теория антропогенеза", "isCorrect": false},
+        {"text": "то же, что и антропоморфизм", "isCorrect": false},
+        {"text": "антимарксизм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кому из древнегреческих мыслителей принадлежит утверждение, что «Всё сущее есть число»?",
+      "answers": [
+        {"text": "Ксенофан", "isCorrect": false},
+        {"text": "Парменид", "isCorrect": false},
+        {"text": "Зенон", "isCorrect": false},
+        {"text": "Пифагор", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Особое состояние, при котором отсутствуют земные желания и привязанности, страдание и удовольствия, в индийской философии называется ...",
+      "answers": [
+        {"text": "Дао", "isCorrect": false},
+        {"text": "Жень", "isCorrect": false},
+        {"text": "Нирваной", "isCorrect": true},
+        {"text": "Сансарой", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Течение в теории познания, считающее веру, интуицию основной адекватного познания действительности.",
+      "answers": [
+        {"text": "рационализм", "isCorrect": false},
+        {"text": "иррационализм", "isCorrect": true},
+        {"text": "марксизм", "isCorrect": false},
+        {"text": "эмпиризм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из античных философов является автором атомистической трактовки бытия?",
+      "answers": [
+        {"text": "Сократ", "isCorrect": false},
+        {"text": "Эмпедокл", "isCorrect": false},
+        {"text": "Демокрит", "isCorrect": true},
+        {"text": "Гераклит", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите мыслителя, который не относится к традиции материализма:",
+      "answers": [
+        {"text": "Н.Я. Данилевский", "isCorrect": true},
+        {"text": "Н.Г. Чернышевский", "isCorrect": false},
+        {"text": "Н.А. Добролюбов", "isCorrect": false},
+        {"text": "В.Г. Белинский", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Понятие «воля к власти» ввёл:",
+      "answers": [
+        {"text": "Гегель", "isCorrect": false},
+        {"text": "Кант", "isCorrect": false},
+        {"text": "Фихте", "isCorrect": false},
+        {"text": "Ницше", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Что в философии традиционно противопоставляется феноменальному бытию?",
+      "answers": [
+        {"text": "физическая реальность", "isCorrect": false},
+        {"text": "ноуменальное бытие", "isCorrect": true},
+        {"text": "объективная реальность", "isCorrect": false},
+        {"text": "экзистенция", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите течение XIX века, отрицающее самостоятельное значение философского познания:",
+      "answers": [
+        {"text": "позитивизм", "isCorrect": true},
+        {"text": "абсолютный идеализм", "isCorrect": false},
+        {"text": "волюнтаризм", "isCorrect": false},
+        {"text": "«философия жизни»", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Представителем немецкой классической философии является ...",
+      "answers": [
+        {"text": "Николай Кузанский", "isCorrect": false},
+        {"text": "Фома Аквинский", "isCorrect": false},
+        {"text": "Эразм Роттердамский", "isCorrect": false},
+        {"text": "Иммануил Кант", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Знание, предшествующее опыту и независимое от него называется:",
+      "answers": [
+        {"text": "диалектическим", "isCorrect": false},
+        {"text": "априорным", "isCorrect": true},
+        {"text": "идеальным", "isCorrect": false},
+        {"text": "апостериорным", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое философское учение по своей сущности диаметрально противоположно агностицизму?",
+      "answers": [
+        {"text": "скептицизм", "isCorrect": false},
+        {"text": "солипсизм", "isCorrect": false},
+        {"text": "субъективизм", "isCorrect": false},
+        {"text": "гносеологический оптимизм", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Кому из указанных ниже философов принадлежит мысль о том, что свобода выше бытия?",
+      "answers": [
+        {"text": "Н.А. Бердяев", "isCorrect": true},
+        {"text": "В.И. Ленин", "isCorrect": false},
+        {"text": "А.И. Введенский", "isCorrect": false},
+        {"text": "А.А. Богданов", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В концепции О. Шпенглера основой развития определенной культуры являются",
+      "answers": [
+        {"text": "производительные силы", "isCorrect": false},
+        {"text": "технология", "isCorrect": false},
+        {"text": "прасимвол", "isCorrect": true},
+        {"text": "наука", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто является автором следующего высказывания: «Великий основной вопрос всей, в особенности новейшей философии, есть вопрос об отношении мышления к бытию»?",
+      "answers": [
+        {"text": "Платон", "isCorrect": false},
+        {"text": "Маркс", "isCorrect": false},
+        {"text": "Энгельс", "isCorrect": true},
+        {"text": "Кант", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как в философии называется учение о сущем?",
+      "answers": [
+        {"text": "эпистемология", "isCorrect": false},
+        {"text": "логика", "isCorrect": false},
+        {"text": "аксиология", "isCorrect": false},
+        {"text": "онтология", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Позицию какого из ниже перечисленных философов характеризует понимание бытия как бестелесной идеи?",
+      "answers": [
+        {"text": "Протагор", "isCorrect": false},
+        {"text": "Эпикур", "isCorrect": false},
+        {"text": "Демокрит", "isCorrect": false},
+        {"text": "Платон", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Борьба _______ являлась постоянным фактором развития русской философии и культуры.",
+      "answers": [
+        {"text": "гностицизма и агностицизма", "isCorrect": false},
+        {"text": "западничества и славянофильства", "isCorrect": true},
+        {"text": "идеализма и материализма", "isCorrect": false},
+        {"text": "эмпиризма и рационализма", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "К какому из перечисленных ниже направлений принадлежат такие мыслители как П.Н. Савицкий, Н.С. Трубецкой, Н.И. Алексеев, Л.П. Карсавин?",
+      "answers": [
+        {"text": "постиндустриализм", "isCorrect": false},
+        {"text": "евразийство", "isCorrect": true},
+        {"text": "почвенничество", "isCorrect": false},
+        {"text": "западничество", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Согласно какой философской позиции сущее сводится к одному началу?",
+      "answers": [
+        {"text": "плюрализм", "isCorrect": false},
+        {"text": "монизм", "isCorrect": true},
+        {"text": "дуализм", "isCorrect": false},
+        {"text": "солипсизм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто является автором высказывания «Мыслю, следовательно, существую»:",
+      "answers": [
+        {"text": "Джордж Беркли", "isCorrect": false},
+        {"text": "Клод Гельвеций", "isCorrect": false},
+        {"text": "Рене Декарт", "isCorrect": true},
+        {"text": "Блез Паскаль", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Направление, отстаивавшее особый путь развития России, связанный с особенностями ее культуры, исторического пути развития и вероисповедания:",
+      "answers": [
+        {"text": "марксизм", "isCorrect": false},
+        {"text": "славянофильство", "isCorrect": true},
+        {"text": "западничество", "isCorrect": false},
+        {"text": "евразийство", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите одно из самых известных произведений Аврелия Августина:",
+      "answers": [
+        {"text": "«Исповедь»", "isCorrect": true},
+        {"text": "«Трактат о первоначале»", "isCorrect": false},
+        {"text": "«Сумма против язычников»", "isCorrect": false},
+        {"text": "«История моих бедствий»", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Платон писал свои сочинения в форме:",
+      "answers": [
+        {"text": "афоризмов", "isCorrect": false},
+        {"text": "трактатов", "isCorrect": false},
+        {"text": "стихотворений", "isCorrect": false},
+        {"text": "диалогов", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Автором теории трудового социогенеза является ...",
+      "answers": [
+        {"text": "Т. Гоббс", "isCorrect": false},
+        {"text": "В. Соловьев", "isCorrect": false},
+        {"text": "А. Блаженный", "isCorrect": false},
+        {"text": "Ф. Энгельс", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Принцип «бытие есть -- небытия нет» в философии первым сформулировал:",
+      "answers": [
+        {"text": "Парменид", "isCorrect": true},
+        {"text": "Левкипп", "isCorrect": false},
+        {"text": "Августин Блаженный", "isCorrect": false},
+        {"text": "Плотин", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из философов доказывал тезис о том, что «человек есть политическое животное», наделённое разумом?",
+      "answers": [
+        {"text": "Платон", "isCorrect": false},
+        {"text": "Сократ", "isCorrect": false},
+        {"text": "Демокрит", "isCorrect": false},
+        {"text": "Аристотель", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Выберите основную форму отчуждения с точки зрения марксистской концепции",
+      "answers": [
+        {"text": "религиозная", "isCorrect": false},
+        {"text": "социально - политическая", "isCorrect": false},
+        {"text": "экономическая", "isCorrect": true},
+        {"text": "искусство", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите основного систематизатора средневековой схоластики:",
+      "answers": [
+        {"text": "Августин", "isCorrect": false},
+        {"text": "Абеляр", "isCorrect": false},
+        {"text": "Авиценна", "isCorrect": false},
+        {"text": "Фома Аквинский", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Кто из немецких философов осуществил своего рода гносеологический переворот, связанный с переносом внимания с объекта познания на саму специфику познающего субъекта?",
+      "answers": [
+        {"text": "Гегель", "isCorrect": false},
+        {"text": "Лейбниц", "isCorrect": false},
+        {"text": "Фейербах", "isCorrect": false},
+        {"text": "Кант", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Назовите мыслителя, развивающего учение о трех основных слоях личности (оно, я, сверх-я):",
+      "answers": [
+        {"text": "Ф. Ницше", "isCorrect": false},
+        {"text": "А. Шопенгауэр", "isCorrect": false},
+        {"text": "З. Фрейд", "isCorrect": true},
+        {"text": "Г. Спенсер", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В поведении человека бессознательное проявляется в форме ...",
+      "answers": [
+        {"text": "знаний", "isCorrect": false},
+        {"text": "навыков", "isCorrect": true},
+        {"text": "страхов", "isCorrect": false},
+        {"text": "умений", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Высшая форма отражения есть:",
+      "answers": [
+        {"text": "чувствительность", "isCorrect": false},
+        {"text": "сознание", "isCorrect": true},
+        {"text": "представление", "isCorrect": false},
+        {"text": "восприятие", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой философ в Древней Греции провозгласил принцип: «Человек есть мера всех вещей»?",
+      "answers": [
+        {"text": "Горгий", "isCorrect": false},
+        {"text": "Сократ", "isCorrect": false},
+        {"text": "Протагор", "isCorrect": true},
+        {"text": "Эпикур", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Учение, считающее, что решающим фактором развития общества являются географические условия.",
+      "answers": [
+        {"text": "географический детерминизм", "isCorrect": true},
+        {"text": "прагматизм", "isCorrect": false},
+        {"text": "социал - дарвинизм", "isCorrect": false},
+        {"text": "марксизм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Философское учение о ценностях:",
+      "answers": [
+        {"text": "аксиология", "isCorrect": true},
+        {"text": "гносеология", "isCorrect": false},
+        {"text": "антропология", "isCorrect": false},
+        {"text": "праксиология", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из английских философов Нового времени является автором высказывания «Знание-сила»?",
+      "answers": [
+        {"text": "Беркли", "isCorrect": false},
+        {"text": "Юм", "isCorrect": false},
+        {"text": "Гоббс", "isCorrect": false},
+        {"text": "Бэкон", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "В трех формах: ощущениях, восприятиях, представлениях -- осуществляется.............познание.",
+      "answers": [
+        {"text": "рациональное", "isCorrect": false},
+        {"text": "чувственное", "isCorrect": true},
+        {"text": "научное", "isCorrect": false},
+        {"text": "фантазийное", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Основным критерием истины в современной версии классической концепции истины является:",
+      "answers": [
+        {"text": "ясность", "isCorrect": false},
+        {"text": "непротиворечивость", "isCorrect": true},
+        {"text": "практика", "isCorrect": false},
+        {"text": "общепризнанность", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Способ рассуждения, при котором частные выводы делаются из положений общего характера",
+      "answers": [
+        {"text": "дедукция", "isCorrect": true},
+        {"text": "абдукция", "isCorrect": false},
+        {"text": "индукция", "isCorrect": false},
+        {"text": "конструкция", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Позиция какого из перечисленных ниже философов может быть охарактеризована как субъективный идеализм?",
+      "answers": [
+        {"text": "Гоббс", "isCorrect": false},
+        {"text": "Бэкон", "isCorrect": false},
+        {"text": "Декарт", "isCorrect": false},
+        {"text": "Юм", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "В философии монотеизмом называется ...",
+      "answers": [
+        {"text": "многобожие", "isCorrect": false},
+        {"text": "вера", "isCorrect": false},
+        {"text": "неверие", "isCorrect": false},
+        {"text": "единобожие", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Форма социальных и политических перемен, для которой характерны постепенность и плавность, называется ...",
+      "answers": [
+        {"text": "регрессом", "isCorrect": false},
+        {"text": "кризисом", "isCorrect": false},
+        {"text": "реформой", "isCorrect": true},
+        {"text": "революцией", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В основе христианской этики лежат..",
+      "answers": [
+        {"text": "Упанишады", "isCorrect": false},
+        {"text": "Веды", "isCorrect": false},
+        {"text": "мантры", "isCorrect": false},
+        {"text": "заповеди", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Индустриально развитые страны Запада сегодня принято называть ...",
+      "answers": [
+        {"text": "«Полупереферией»", "isCorrect": false},
+        {"text": "«золотым миллиардом»", "isCorrect": true},
+        {"text": "«третьим миром»", "isCorrect": false},
+        {"text": "«периферией»", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Учения, объясняющие происхождение мира из одной субстанции, называются ...",
+      "answers": [
+        {"text": "монистическими", "isCorrect": true},
+        {"text": "дуалистическими", "isCorrect": false},
+        {"text": "плюралистическими", "isCorrect": false},
+        {"text": "политеистическими", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите философа, который не входит в число представителей философии эпохи Возрождения:",
+      "answers": [
+        {"text": "Джордано Бруно", "isCorrect": false},
+        {"text": "Поль Гольбах", "isCorrect": true},
+        {"text": "Томас Мор", "isCorrect": false},
+        {"text": "Эразм Роттердамский", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Философский термин, обозначающий то, что существует само по себе и не нуждается в своем существовании ни в чем кроме самое себя.",
+      "answers": [
+        {"text": "атрибут", "isCorrect": false},
+        {"text": "субстанция", "isCorrect": true},
+        {"text": "модус", "isCorrect": false},
+        {"text": "акциденция", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Универсальными свойствами материи являются ...",
+      "answers": [
+        {"text": "движение и изменение", "isCorrect": true},
+        {"text": "святость и праведность", "isCorrect": false},
+        {"text": "милосердие и справедливость", "isCorrect": false},
+        {"text": "самобытность и всемогущество", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из философов определял материю как «постоянную возможность ощущений»?",
+      "answers": [
+        {"text": "Мах", "isCorrect": true},
+        {"text": "Авенариус", "isCorrect": false},
+        {"text": "Беркли", "isCorrect": false},
+        {"text": "Юм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Течение, которому свойственно сведение закономерностей развития человеческого общества к закономерностям биологической эволюции и возвышение принципов естественного отбора, борьбы за существование и выживания наиболее приспособленных в качестве определяющих факторов общественной жизни:",
+      "answers": [
+        {"text": "марксизм", "isCorrect": false},
+        {"text": "персонализм", "isCorrect": false},
+        {"text": "социал-дарвинизм", "isCorrect": true},
+        {"text": "фрейдизм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Совокупность объективных закономерностей и процессов, действующих в материальном мире в ходе его движения и развития, называется ...",
+      "answers": [
+        {"text": "диалектикой", "isCorrect": true},
+        {"text": "эстетикой", "isCorrect": false},
+        {"text": "патристикой", "isCorrect": false},
+        {"text": "антропологией", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из перечисленных философов выдвинул отрицает тождество бытия и мышления?",
+      "answers": [
+        {"text": "Кант", "isCorrect": false},
+        {"text": "Шопенгауэр", "isCorrect": false},
+        {"text": "Гегель", "isCorrect": false},
+        {"text": "Фихте", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Установите соответствие между утверждением и философским направлением. А)Мир познаваем Б)Мир не познаваем В)Наши знания о мире относительны",
+      "answers": [
+        {"text": "А-Оптимизм, Б-Агностицизм, В-Скептицизм", "isCorrect": true},
+        {"text": "А-Агностицизм, Б-Скептицизм, В-Оптимизм", "isCorrect": false},
+        {"text": "А-Скептицизм, Б-Оптимизм, В-Агностицизм", "isCorrect": false},
+        {"text": "А-Дуализм, Б-Монизм, В-Плюрализм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как можно обозначить основную философскую позицию Л.Фейербаха?",
+      "answers": [
+        {"text": "идеализм", "isCorrect": false},
+        {"text": "схоластика", "isCorrect": false},
+        {"text": "материализм", "isCorrect": true},
+        {"text": "рационализм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Философия Нового времени -- это период развития философии, характеризующийся бурным развитием ...",
+      "answers": [
+        {"text": "схоластики", "isCorrect": false},
+        {"text": "мистицизма", "isCorrect": false},
+        {"text": "наукоцентризма", "isCorrect": true},
+        {"text": "рационализма", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что из перечисленного не является законом диалектики:",
+      "answers": [
+        {"text": "тождество бытия и мышления", "isCorrect": false},
+        {"text": "отрицание отрицания", "isCorrect": false},
+        {"text": "переход количества в качество", "isCorrect": false},
+        {"text": "закон достаточного основания", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Подход в философии, утверждающий, что движущей силой развития любого предмета являются внутренние противоречия",
+      "answers": [
+        {"text": "диалектика", "isCorrect": true},
+        {"text": "дуализм", "isCorrect": false},
+        {"text": "гностицизм", "isCorrect": false},
+        {"text": "позитивизм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Космическая теория происхождения сознания предполагает, что оно ...",
+      "answers": [
+        {"text": "накоплено жизненным опытом", "isCorrect": false},
+        {"text": "независимо от человека", "isCorrect": false},
+        {"text": "происходит из живой природы", "isCorrect": false},
+        {"text": "исходит из космоса", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Этика -- это наука о ...",
+      "answers": [
+        {"text": "политике", "isCorrect": false},
+        {"text": "нравственности", "isCorrect": false},
+        {"text": "праве", "isCorrect": false},
+        {"text": "морали", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Назовите авторов теории «пределов роста»:",
+      "answers": [
+        {"text": "Д. Форрестер, Д. Медоуз", "isCorrect": true},
+        {"text": "К. Маркс, Ф. Энгельс", "isCorrect": false},
+        {"text": "А. Кинг, Б. Шнайдер", "isCorrect": false},
+        {"text": "Э. Тофлер, М. Кастельс", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Течение, которое считает, что философия должна стать общим методом решения тех проблем, которые встают перед людьми в различных жизненных ситуациях, возникающих в непрерывно меняющемся мире:",
+      "answers": [
+        {"text": "марксизм", "isCorrect": false},
+        {"text": "позитивизм", "isCorrect": false},
+        {"text": "прагматизм", "isCorrect": true},
+        {"text": "неокантианство", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Онтология -- это раздел философии, изучающий ...",
+      "answers": [
+        {"text": "разум", "isCorrect": false},
+        {"text": "сущее", "isCorrect": true},
+        {"text": "сознание", "isCorrect": false},
+        {"text": "бытие", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Речь в предложенном выше отрывке идет об английском философе, историке, политическом деятеле ...",
+      "answers": [
+        {"text": "Джордано Бруно", "isCorrect": false},
+        {"text": "Петре Чаадаеве", "isCorrect": false},
+        {"text": "Джордже Беркли", "isCorrect": true},
+        {"text": "Альбере Камю", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Представителями британского эмпиризма XVII--XVIII вв. являются ...",
+      "answers": [
+        {"text": "Джон Локк", "isCorrect": false},
+        {"text": "Иоанн Златоуст", "isCorrect": false},
+        {"text": "Уильям Оккам", "isCorrect": true},
+        {"text": "Френсис Бэкон", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В предложенном тексте речь идет о философии древней ...",
+      "answers": [
+        {"text": "Италии", "isCorrect": false},
+        {"text": "Индии", "isCorrect": true},
+        {"text": "Испании", "isCorrect": false},
+        {"text": "Японии", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите мыслителя, который не занимался анализом проблемы отчуждения:",
+      "answers": [
+        {"text": "Г. Маркузе", "isCorrect": false},
+        {"text": "К. Маркс", "isCorrect": true},
+        {"text": "У. Джеймс", "isCorrect": false},
+        {"text": "Э. Фромм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Наиболее значимыми последователями философской линии Фрэнсиса Бэкона в философии Нового времени в Англии стали: Джордж Беркли, Дэвид Юм ...",
+      "answers": [
+        {"text": "Джон Локк", "isCorrect": true},
+        {"text": "Владимир Соловьев", "isCorrect": false},
+        {"text": "Томас Гоббс", "isCorrect": false},
+        {"text": "Фридрих Ницше", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Международная общественная организация, в центре исследования которой находятся глобальные проблемы человечества:",
+      "answers": [
+        {"text": "Пен-клуб", "isCorrect": false},
+        {"text": "Римский клуб", "isCorrect": true},
+        {"text": "ЮНЕСКО", "isCorrect": false},
+        {"text": "Армия спасения", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите мыслителей которые не входят в число развивавших так называемую договорную теорию:",
+      "answers": [
+        {"text": "Ж.Ж. Руссо", "isCorrect": false},
+        {"text": "Г. Гроций", "isCorrect": false},
+        {"text": "Г. Лейбниц", "isCorrect": true},
+        {"text": "Д.Локк", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Установите соответствие между определением и философским понятием. A) Форма развития знаний, представляющая собой обоснованное предположение B) Метод мышления, при котором частное положение логическим путем выводится из общего C) Метод исследования некоторого явления в управляемых условиях",
+      "answers": [
+        {"text": "A-Гипотеза, B-Дедукция, C-Эксперимент", "isCorrect": true},
+        {"text": "A-Дедукция, B-Индукция, C-Гипотеза", "isCorrect": false},
+        {"text": "A-Эксперимент, B-Гипотеза, C-Дедукция", "isCorrect": false},
+        {"text": "A-Индукция, B-Эксперимент, C-Гипотеза", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Одним из основных идеалов эпохи Античности является ...",
+      "answers": [
+        {"text": "закон", "isCorrect": false},
+        {"text": "мудрость", "isCorrect": true},
+        {"text": "богатство", "isCorrect": false},
+        {"text": "власть", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Вера выше разума по мнению философов эпохи ...",
+      "answers": [
+        {"text": "Возрождения", "isCorrect": false},
+        {"text": "Средневековья", "isCorrect": true},
+        {"text": "Просвещения", "isCorrect": false},
+        {"text": "Новейшего времени", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Представителем немецкой классической философии является ...",
+      "answers": [
+        {"text": "Д. Локк", "isCorrect": false},
+        {"text": "Т. Гоббс", "isCorrect": false},
+        {"text": "Г. Гегель", "isCorrect": true},
+        {"text": "Р. Декарт", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Борьба _______ являлась постоянным фактором развития русской философии и культуры.",
+      "answers": [
+        {"text": "западничества и славянофильства", "isCorrect": true},
+        {"text": "идеализма и материализма", "isCorrect": false},
+        {"text": "гностицизма и агностицизма", "isCorrect": false},
+        {"text": "эмпиризма и рационализма", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Чарльзом Дарвином была разработана концепция _______ возникновения человека.",
+      "answers": [
+        {"text": "революционного", "isCorrect": false},
+        {"text": "эволюционного", "isCorrect": true},
+        {"text": "инопланетарного", "isCorrect": false},
+        {"text": "креационистского", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите одно из самых известных произведений Аврелия Августина:",
+      "answers": [
+        {"text": "«Исповедь»", "isCorrect": true},
+        {"text": "«Трактат о первоначале»", "isCorrect": false},
+        {"text": "«Сумма против язычников»", "isCorrect": false},
+        {"text": "«История моих бедствий»", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "«Две вещи наполняют душу всегда новым и всё более сильным удивлением и благоговением чем чаще и продолжительнее мы размышляем о них,- это звёздное небо и моральный закон во мне».",
+      "answers": [
+        {"text": "Гегель", "isCorrect": false},
+        {"text": "Лейбниц", "isCorrect": false},
+        {"text": "Фейербах", "isCorrect": false},
+        {"text": "Кант", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Кто из представителей немецкой классической философии оказал наибольшее влияние на формирование материалистической позиции Маркса?",
+      "answers": [
+        {"text": "Кант", "isCorrect": false},
+        {"text": "Гегель", "isCorrect": true},
+        {"text": "Фихте", "isCorrect": false},
+        {"text": "Шеллинг", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кому принадлежит высказывание: «Не вещи (тела), а звуки, давление пространство, времени (то, что мы называем обыкновенно ощущениями) суть настоящие элементы мира»?",
+      "answers": [
+        {"text": "Авенариус", "isCorrect": false},
+        {"text": "Гельмгольц", "isCorrect": false},
+        {"text": "Мах", "isCorrect": true},
+        {"text": "Беркли", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Резервуаром нашей биологической энергии: комплексов, страхов, неврозов, инстинктов -- называют ...",
+      "answers": [
+        {"text": "разум", "isCorrect": false},
+        {"text": "знание", "isCorrect": false},
+        {"text": "бессознательное", "isCorrect": true},
+        {"text": "сознание", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какая сфера психики, согласно теории З.Фрейда, отождествляется с установками общества, моральной цензурой?",
+      "answers": [
+        {"text": "«Я»", "isCorrect": false},
+        {"text": "«Сверх Я»", "isCorrect": true},
+        {"text": "«Оно»", "isCorrect": false},
+        {"text": "«Общественный идеал»", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Положение, принимаемое без логического доказательства, называется ...",
+      "answers": [
+        {"text": "аксиомой", "isCorrect": true},
+        {"text": "теорией", "isCorrect": false},
+        {"text": "гипотезой", "isCorrect": false},
+        {"text": "восприятием", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В философии монотеизмом называется ...",
+      "answers": [
+        {"text": "многобожие", "isCorrect": false},
+        {"text": "вера", "isCorrect": false},
+        {"text": "единобожие", "isCorrect": true},
+        {"text": "неверие", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Процесс усвоения человеком определенной системы знаний, норм и ценностей, позволяющих ему функционировать в качестве полноправного члена общества, имеющий как стихийные, так и целенаправленные формы:",
+      "answers": [
+        {"text": "обучение", "isCorrect": false},
+        {"text": "инкультурация", "isCorrect": false},
+        {"text": "социализация", "isCorrect": true},
+        {"text": "воспитание", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Форма социальных и политических перемен, для которой характерны постепенность и плавность, называется ...",
+      "answers": [
+        {"text": "реформой", "isCorrect": true},
+        {"text": "революцией", "isCorrect": false},
+        {"text": "регрессом", "isCorrect": false},
+        {"text": "кризисом", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Индустриально развитые страны Запада сегодня принято называть ...",
+      "answers": [
+        {"text": "Полупереферией", "isCorrect": false},
+        {"text": "Периферией", "isCorrect": false},
+        {"text": "Третьим миром", "isCorrect": false},
+        {"text": "Золотым миллиардом", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Этикет является составляющей частью и логическим продолжением ...",
+      "answers": [
+        {"text": "искусства", "isCorrect": true},
+        {"text": "этики", "isCorrect": false},
+        {"text": "дизайна", "isCorrect": false},
+        {"text": "схоластики", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "«Платон мне друг, но истина дороже». Кто является автором этого высказывания?",
+      "answers": [
+        {"text": "Сократ", "isCorrect": false},
+        {"text": "Демокрит", "isCorrect": false},
+        {"text": "Аристотель", "isCorrect": true},
+        {"text": "Диоген", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Философская категория, обозначающая то, что лежит в основе -- сущность, называется ...",
+      "answers": [
+        {"text": "утопией", "isCorrect": false},
+        {"text": "абстракцией", "isCorrect": false},
+        {"text": "субъектом", "isCorrect": false},
+        {"text": "субстанцией", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Гилозоизм -- это:",
+      "answers": [
+        {"text": "синоним пантеизма", "isCorrect": false},
+        {"text": "философская концепция, признающая одушевлённость всех тел, космоса, материи, природы", "isCorrect": true},
+        {"text": "способность биологических систем сохранять устойчивость", "isCorrect": false},
+        {"text": "признание воли как высшего принципа бытия", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Атрибутом материи является ...",
+      "answers": [
+        {"text": "идея", "isCorrect": false},
+        {"text": "движение", "isCorrect": true},
+        {"text": "мысль", "isCorrect": false},
+        {"text": "духовность", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Способность постижения истины путем прямого ее усмотрения без обоснования с помощью доказательства называется:",
+      "answers": [
+        {"text": "гипотеза", "isCorrect": false},
+        {"text": "интуиция", "isCorrect": true},
+        {"text": "аксиома", "isCorrect": false},
+        {"text": "созерцание", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите мыслителя, не относящегося, к так называемому, цивилизационному подходу:",
+      "answers": [
+        {"text": "А. Тойнби", "isCorrect": false},
+        {"text": "П. Сорокин", "isCorrect": false},
+        {"text": "Н.Я. Данилевский", "isCorrect": false},
+        {"text": "К. Маркс", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Термин «диалектика» переводится с греческого языка как «_______».",
+      "answers": [
+        {"text": "знаю, что ничего не знаю", "isCorrect": false},
+        {"text": "веду беседу", "isCorrect": true},
+        {"text": "возделываю почву", "isCorrect": false},
+        {"text": "мыслю, следовательно, существую", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите создателя и систематизатора диалектики как философского метода.",
+      "answers": [
+        {"text": "Декарт", "isCorrect": false},
+        {"text": "Беркли", "isCorrect": false},
+        {"text": "Гегель", "isCorrect": true},
+        {"text": "Лейбниц", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из философов является автором следующего афоризма: «Я знаю, что я ничего не знаю, но и другие не знают даже и этого».",
+      "answers": [
+        {"text": "Платон", "isCorrect": false},
+        {"text": "Эпикур", "isCorrect": false},
+        {"text": "Сократ", "isCorrect": true},
+        {"text": "Демокрит", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Установите соответствие между утверждением и философским направлением. А) Мир познаваем Б) Мир не познаваем В) Наши знания о мире относительны",
+      "answers": [
+        {"text": "А-Оптимизм, Б-Агностицизм, В-Скептицизм", "isCorrect": true},
+        {"text": "А-Агностицизм, Б-Скептицизм, В-Оптимизм", "isCorrect": false},
+        {"text": "А-Скептицизм, Б-Оптимизм, В-Агностицизм", "isCorrect": false},
+        {"text": "А-Дуализм, Б-Монизм, В-Плюрализм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Представителями философии Нового времени являются ...",
+      "answers": [
+        {"text": "Ф. Бэкон", "isCorrect": false},
+        {"text": "Р. Декарт", "isCorrect": true},
+        {"text": "А. Заневский", "isCorrect": false},
+        {"text": "Ж. Рансьер", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Биологическая теория происхождения сознания предполагает, что оно ...",
+      "answers": [
+        {"text": "исходит из космоса", "isCorrect": false},
+        {"text": "является порождением живой природы", "isCorrect": true},
+        {"text": "образуется из монад -- первичных духовных единиц", "isCorrect": false},
+        {"text": "присуще всем живым организмам, а не только человеку", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Система воззрений, признающая ценность человека как личности, его право на свободу, счастье, развитие и проявление своих способностей, считающая благо человека критерием оценки социальных институтов, а принципы равенства, справедливости -- желаемой нормой отношения между людьми:",
+      "answers": [
+        {"text": "гедонизм", "isCorrect": false},
+        {"text": "гуманизм", "isCorrect": true},
+        {"text": "персонализм", "isCorrect": false},
+        {"text": "индивидуализм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из представителей немецкой философии относится к философам-материалистам?",
+      "answers": [
+        {"text": "Шопенгауэр", "isCorrect": false},
+        {"text": "Кант", "isCorrect": false},
+        {"text": "Гегель", "isCorrect": false},
+        {"text": "Фейербах", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Этика -- это наука о ...",
+      "answers": [
+        {"text": "морали", "isCorrect": true},
+        {"text": "политике", "isCorrect": false},
+        {"text": "праве", "isCorrect": false},
+        {"text": "нравственности", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Выделите свойство, не являющееся фундаментальной характеристикой материи:",
+      "answers": [
+        {"text": "движение", "isCorrect": false},
+        {"text": "объективность существования", "isCorrect": false},
+        {"text": "вечность", "isCorrect": false},
+        {"text": "плотность", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Философская концепция, отрицающая случайность как явление или процесс, возникающее вне и независимо от какой -- либо причины.",
+      "answers": [
+        {"text": "телеология", "isCorrect": false},
+        {"text": "конвенциализм", "isCorrect": false},
+        {"text": "детерминизм", "isCorrect": true},
+        {"text": "фатализм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В основе религиозных представлений о мире лежат такие концепции, как ...",
+      "answers": [
+        {"text": "рационализм", "isCorrect": false},
+        {"text": "утилитаризм", "isCorrect": false},
+        {"text": "креационизм", "isCorrect": false},
+        {"text": "теоцентризм", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Совокупность правил и норм поведения, которыми люди руководствуются в своей жизни, один из способов нормативной регуляции общественной деятельности индивидов:",
+      "answers": [
+        {"text": "мораль", "isCorrect": false},
+        {"text": "этика", "isCorrect": false},
+        {"text": "право", "isCorrect": true},
+        {"text": "указ", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Древнегреческим философом из Абдер, основателем атомизма является ...",
+      "answers": [
+        {"text": "Будда", "isCorrect": false},
+        {"text": "Конфуций", "isCorrect": false},
+        {"text": "Авиценна", "isCorrect": false},
+        {"text": "Демокрит", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Идеи атомизма поддерживали древнегреческие философы ...",
+      "answers": [
+        {"text": "Продик", "isCorrect": false},
+        {"text": "Платон", "isCorrect": false},
+        {"text": "Эпикур", "isCorrect": false},
+        {"text": "Протагор", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "В предложенном тексте речь идет о философии древней ...",
+      "answers": [
+        {"text": "Испании", "isCorrect": false},
+        {"text": "Индии", "isCorrect": true},
+        {"text": "Италии", "isCorrect": false},
+        {"text": "Японии", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Мыслитель, которому принадлежит учение о сверхчеловеке:",
+      "answers": [
+        {"text": "Ф. Ницше", "isCorrect": true},
+        {"text": "Л. Фейербах", "isCorrect": false},
+        {"text": "В. Соловьев", "isCorrect": false},
+        {"text": "И. Ильин", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Социальный слой, состоящий из наиболее одаренных людей, которые в силу своей интеллектуальной развитости и творческой энергии занимают высокое место в социальной иерархии постиндустриального общества:",
+      "answers": [
+        {"text": "аристократия", "isCorrect": false},
+        {"text": "меритократия", "isCorrect": true},
+        {"text": "буржуазия", "isCorrect": false},
+        {"text": "пролетариат", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Установите соответствие между определением и философским понятием. 1) Вселенский причинно-следственный закон 2) Блаженное состояние отрешенности от жизни 3) Мировая религия, важнейшим положением которой является идея тождества между бытием и страданием",
+      "answers": [
+        {"text": "1-Карма, 2-Нирвана, 3-Буддизм", "isCorrect": true},
+        {"text": "1-Нирвана, 2-Буддизм, 3-Карма", "isCorrect": false},
+        {"text": "1-Буддизм, 2-Карма, 3-Нирвана", "isCorrect": false},
+        {"text": "1-Карма, 2-Буддизм, 3-Нирвана", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой концепции истины соответствует определение истины как логического соответствия, непротиворечивости одного знания -- другому?",
+      "answers": [
+        {"text": "корреспондентской", "isCorrect": false},
+        {"text": "прагматистской", "isCorrect": false},
+        {"text": "когерентной", "isCorrect": true},
+        {"text": "экзистенциальной", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Наиболее значимыми последователями философской линии Фрэнсиса Бэкона в философии Нового времени в Англии стали: Джордж Беркли, Дэвид Юм ...",
+      "answers": [
+        {"text": "Джон Локк", "isCorrect": true},
+        {"text": "Фридрих Ницше", "isCorrect": false},
+        {"text": "Томас Гоббс", "isCorrect": false},
+        {"text": "Владимир Соловьев", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Установите соответствие между определением и философским понятием. 1) Форма развития знаний, представляющая собой обоснованное предположение 2) Метод мышления, при котором частное положение логическим путем выводится из общего 3) Метод исследования некоторого явления в управляемых условиях",
+      "answers": [
+        {"text": "1-Гипотеза, 2-Дедукция, 3-Эксперимент", "isCorrect": true},
+        {"text": "1-Дедукция, 2-Индукция, 3-Гипотеза", "isCorrect": false},
+        {"text": "1-Эксперимент, 2-Гипотеза, 3-Дедукция", "isCorrect": false},
+        {"text": "1-Индукция, 2-Эксперимент, 3-Гипотеза", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Концепция, которая рассматривает в качестве преобладающей тенденцию к сближению двух социальных систем -- капиталистической и социалистической:",
+      "answers": [
+        {"text": "теория постмодернити", "isCorrect": false},
+        {"text": "концепция информационного общества", "isCorrect": false},
+        {"text": "теория конвергенции", "isCorrect": true},
+        {"text": "теория социального действия", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто из древнегреческих философов считал воздух началом всего сущего?",
+      "answers": [
+        {"text": "Фалес", "isCorrect": false},
+        {"text": "Анаксимен", "isCorrect": true},
+        {"text": "Анаксимандр", "isCorrect": false},
+        {"text": "Демокрит", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Религиозное учение о сотворении мира",
+      "answers": [
+        {"text": "антропоцентризм", "isCorrect": false},
+        {"text": "теизм", "isCorrect": false},
+        {"text": "креационизм", "isCorrect": true},
+        {"text": "телеология", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Философская категория, выражающая неотделимую от бытия объекта его существенную определенность, благодаря которой он является именно этим, а не иным объектом.",
+      "answers": [
+        {"text": "свойство", "isCorrect": false},
+        {"text": "качество", "isCorrect": true},
+        {"text": "характеристика", "isCorrect": false},
+        {"text": "форма", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Понятие, характеризующее количественную степень возможности проявления события при данных условиях.",
+      "answers": [
+        {"text": "вероятность", "isCorrect": true},
+        {"text": "реальность", "isCorrect": false},
+        {"text": "возможность", "isCorrect": false},
+        {"text": "предположение", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Представителем Милетской школы не является:",
+      "answers": [
+        {"text": "Анаксимандр", "isCorrect": false},
+        {"text": "Пифагор", "isCorrect": true},
+        {"text": "Анаксимен", "isCorrect": false},
+        {"text": "Фалес", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Ф.Ницше в начале своего философского пути считал своим учителем:",
+      "answers": [
+        {"text": "Г.Гегеля", "isCorrect": false},
+        {"text": "Р.Декарта", "isCorrect": false},
+        {"text": "Ф. Бэкона", "isCorrect": false},
+        {"text": "А.Шопенгауэра", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "С точки зрения диалектики процесс развития имеет следующий характер",
+      "answers": [
+        {"text": "циклический", "isCorrect": false},
+        {"text": "спиралевидный", "isCorrect": true},
+        {"text": "линейный", "isCorrect": false},
+        {"text": "ломаный", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Кто в истории философии первым определил философию как учение о первопричинах, первых принципах, самых общих началах бытия?",
+      "answers": [
+        {"text": "Эпикур", "isCorrect": false},
+        {"text": "Сенека", "isCorrect": false},
+        {"text": "Аристотель", "isCorrect": true},
+        {"text": "Спиноза", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Учение об отсутствии реальной объективной связи между явлениями, имеющей причинно -- следственный характер :",
+      "answers": [
+        {"text": "логика", "isCorrect": false},
+        {"text": "индетерминизм", "isCorrect": true},
+        {"text": "диалектика", "isCorrect": false},
+        {"text": "эпистемология", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Согласно, какой философской концепции, пространство и время не являются самостоятельными сущностями, а особые отношения между объектами и процессами существующего мира:",
+      "answers": [
+        {"text": "субстанциональной", "isCorrect": false},
+        {"text": "аксиологической", "isCorrect": false},
+        {"text": "реляционной", "isCorrect": true},
+        {"text": "ноэтической", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Учение о том, что процесс развития характеризуется наличием некоей предустановленной цели называется:",
+      "answers": [
+        {"text": "телеология", "isCorrect": true},
+        {"text": "детерминизм", "isCorrect": false},
+        {"text": "конвенциализм", "isCorrect": false},
+        {"text": "релятивизм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что из перечисленного является антонимом знания, полученного посредством опыта?",
+      "answers": [
+        {"text": "имманентное", "isCorrect": false},
+        {"text": "априорное", "isCorrect": false},
+        {"text": "спекулятивное", "isCorrect": true},
+        {"text": "трансцендентное", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите мыслителя, по мнению которого в развитии общества ведущую роль играют коллективные представления:",
+      "answers": [
+        {"text": "Ю. Хабермас", "isCorrect": false},
+        {"text": "Ф.Фукуяма", "isCorrect": false},
+        {"text": "Э.Дюркгейм", "isCorrect": true},
+        {"text": "М.Вебер", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Тип мировоззрения, сутью которого является абсолютизация позиции отдельного индивида в его противопоставлении обществу в целом, миру в целом:",
+      "answers": [
+        {"text": "персонализм", "isCorrect": false},
+        {"text": "коммунизм", "isCorrect": false},
+        {"text": "прагматизм", "isCorrect": false},
+        {"text": "индивидуализм", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "«Существовать - значит быть воспринимаемым». Кто из английских философов 18 в. является автором этого тезиса?",
+      "answers": [
+        {"text": "Локк", "isCorrect": false},
+        {"text": "Юм", "isCorrect": false},
+        {"text": "Гоббс", "isCorrect": false},
+        {"text": "Беркли", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Каузальность -- это:",
+      "answers": [
+        {"text": "целостность", "isCorrect": false},
+        {"text": "верность", "isCorrect": false},
+        {"text": "причинность", "isCorrect": true},
+        {"text": "подлинность", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Направление в теории познания, отдающее приоритет опыту как главной форме познания:",
+      "answers": [
+        {"text": "эмпиризм", "isCorrect": true},
+        {"text": "рационализм", "isCorrect": false},
+        {"text": "солипсизм", "isCorrect": false},
+        {"text": "сенсуализм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Ведущей проблемой философии Нового времени принято считать:",
+      "answers": [
+        {"text": "проблему Бога", "isCorrect": false},
+        {"text": "проблему человека", "isCorrect": true},
+        {"text": "проблему развития", "isCorrect": false},
+        {"text": "проблему субстанции", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Способность и возможность осуществлять свою волю, оказывать определяющее воздействие на их деятельность с помощью какого -- либо средства -- авторитета, права, насилия",
+      "answers": [
+        {"text": "благотворительность", "isCorrect": false},
+        {"text": "власть", "isCorrect": true},
+        {"text": "политкорректность", "isCorrect": false},
+        {"text": "влияние", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Выделите те формы, которые не относятся к рациональному освоению действительности:",
+      "answers": [
+        {"text": "понятие", "isCorrect": false},
+        {"text": "суждение", "isCorrect": false},
+        {"text": "силлогизм", "isCorrect": false},
+        {"text": "ощущение", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Назовите мыслителя, не относящегося к такому философскому направлению как экзистенциализм",
+      "answers": [
+        {"text": "К. Ясперс", "isCorrect": false},
+        {"text": "А. Камю", "isCorrect": false},
+        {"text": "Э. Мунье", "isCorrect": true},
+        {"text": "Г. Марсель", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Неповторимое своеобразие какого -- либо явления, существа, человека, при котором оно выступает как характеристика, выступающая в противовес общему, типическому",
+      "answers": [
+        {"text": "личность", "isCorrect": false},
+        {"text": "индивид", "isCorrect": false},
+        {"text": "индивидуальность", "isCorrect": true},
+        {"text": "особость", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Лидер философской антропологии как особого направления в философии:",
+      "answers": [
+        {"text": "Л. Шестов", "isCorrect": false},
+        {"text": "М. Шелер", "isCorrect": true},
+        {"text": "Ф. Ницше", "isCorrect": false},
+        {"text": "Э. Фромм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Форма государственного и политического устройства общества, при котором народ рассматривается как источник власти, и для которого присущи принципы равенства и свободы",
+      "answers": [
+        {"text": "либерализм", "isCorrect": false},
+        {"text": "олигархия", "isCorrect": false},
+        {"text": "демократия", "isCorrect": true},
+        {"text": "охлократия", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Каковы основные формы преодоления отчуждения по Э. Фромму",
+      "answers": [
+        {"text": "любовь", "isCorrect": true},
+        {"text": "революция", "isCorrect": false},
+        {"text": "диалог", "isCorrect": false},
+        {"text": "творчество", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Назовите мыслителя, который не занимался анализом проблемы отчуждения:",
+      "answers": [
+        {"text": "Г. Маркузе", "isCorrect": false},
+        {"text": "К. Маркс", "isCorrect": false},
+        {"text": "У. Джеймс", "isCorrect": true},
+        {"text": "Э. Фромм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Социальная стратификация -- это:",
+      "answers": [
+        {"text": "разделение общества на классы", "isCorrect": false},
+        {"text": "сложная неустойчивая структура в обществе", "isCorrect": false},
+        {"text": "деление людей на общественные группы в зависимости от выбора профессии", "isCorrect": false},
+        {"text": "процесс разделения людей на социальные слои", "isCorrect": true}
+      ]
+    }
+  ]
+}
