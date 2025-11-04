@@ -2658,26 +2658,45 @@
                             </div>
                         </div>
                         
-                        <div class="activity-chart">
-                            <h3><i class="fas fa-chart-pie"></i> Активность по времени суток</h3>
-                            <div class="chart-container">
-                                <div class="chart-item">
-                                    <div class="chart-bar morning" style="height: ${(stats.activityMorning || 0) * 20}px"></div>
-                                    <div class="chart-label">Утро</div>
-                                    <div class="chart-value">${stats.activityMorning || 0}</div>
-                                </div>
-                                <div class="chart-item">
-                                    <div class="chart-bar day" style="height: ${(stats.activityDay || 0) * 20}px"></div>
-                                    <div class="chart-label">День</div>
-                                    <div class="chart-value">${stats.activityDay || 0}</div>
-                                </div>
-                                <div class="chart-item">
-                                    <div class="chart-bar evening" style="height: ${(stats.activityEvening || 0) * 20}px"></div>
-                                    <div class="chart-label">Вечер</div>
-                                    <div class="chart-value">${stats.activityEvening || 0}</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="activity-pie-chart">
+    <h3><i class="fas fa-chart-pie"></i> Активность по времени суток</h3>
+    <div class="pie-chart-container">
+        <div class="pie-chart-wrapper">
+            <div class="pie-chart" id="activity-pie-chart">
+                <div class="pie-segment morning" style="--percentage: ${calculatePercentage(stats.activityMorning || 0, stats.activityMorning || 0, stats.activityDay || 0, stats.activityEvening || 0)}; --color: #4299E1; --offset: 0"></div>
+                <div class="pie-segment day" style="--percentage: ${calculatePercentage(stats.activityDay || 0, stats.activityMorning || 0, stats.activityDay || 0, stats.activityEvening || 0)}; --color: #D69E2E; --offset: ${calculatePercentage(stats.activityMorning || 0, stats.activityMorning || 0, stats.activityDay || 0, stats.activityEvening || 0)}"></div>
+                <div class="pie-segment evening" style="--percentage: ${calculatePercentage(stats.activityEvening || 0, stats.activityMorning || 0, stats.activityDay || 0, stats.activityEvening || 0)}; --color: #9F7AEA; --offset: ${calculatePercentage((stats.activityMorning || 0) + (stats.activityDay || 0), stats.activityMorning || 0, stats.activityDay || 0, stats.activityEvening || 0)}"></div>
+            </div>
+            <div class="pie-center">
+                <div class="total-tests">${(stats.activityMorning || 0) + (stats.activityDay || 0) + (stats.activityEvening || 0)}</div>
+                <div class="total-label">тестов</div>
+            </div>
+        </div>
+        <div class="pie-legend">
+            <div class="legend-item">
+                <div class="legend-color morning"></div>
+                <div class="legend-text">
+                    <span class="legend-label">Утро (6-12)</span>
+                    <span class="legend-value">${stats.activityMorning || 0} тестов</span>
+                </div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color day"></div>
+                <div class="legend-text">
+                    <span class="legend-label">День (13-18)</span>
+                    <span class="legend-value">${stats.activityDay || 0} тестов</span>
+                </div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color evening"></div>
+                <div class="legend-text">
+                    <span class="legend-label">Вечер (19-5)</span>
+                    <span class="legend-value">${stats.activityEvening || 0} тестов</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                     `;
                 })
                 .catch((error) => {
