@@ -2580,6 +2580,13 @@
             triggerHapticFeedback(window.innerWidth / 2, 100);
         }
 
+        // ===== CALCULATE PERCENTAGE FOR PIE CHART =====
+function calculatePercentage(value, morning, day, evening) {
+    const total = morning + day + evening;
+    if (total === 0) return 0;
+    return (value / total) * 100;
+}
+
         // ===== LOAD GENERAL STATISTICS =====
         function loadGeneralStats() {
             const user = auth.currentUser;
