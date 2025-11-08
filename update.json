@@ -1,9 +1,9 @@
 {
-  "latest_version": "0.0.27",
-  "version_code": 27,
-  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.27.apk",
+  "latest_version": "0.0.28",
+  "version_code": 28,
+  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.28.apk",
   "release_notes": [
-    "Поправил еженедельную статистику"
+    "Сохранения прогресса между сессиями"
   ],
   "mandatory": false
 }
