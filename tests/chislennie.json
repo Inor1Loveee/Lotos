@@ -1,0 +1,813 @@
+{
+    "title": "Дифференцированный зачет по дисциплине ОП.10 Численные методы",
+    "questions": [
+      {
+        "question": "Величина Δa называется:",
+        "answers": [
+          {"text": "погрешность метода", "isCorrect": false},
+          {"text": "погрешность округления", "isCorrect": false},
+          {"text": "абсолютная погрешность", "isCorrect": true},
+          {"text": "относительная погрешность", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Величина δa называется:",
+        "answers": [
+          {"text": "погрешность метода", "isCorrect": false},
+          {"text": "погрешность округления", "isCorrect": false},
+          {"text": "абсолютная погрешность", "isCorrect": false},
+          {"text": "относительная погрешность", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Цифра числа называется верной (в широком смысле), если абсолютная погрешность этого числа не превосходит ___ разряда, в котором стоит цифра:",
+        "answers": [
+          {"text": "единицы", "isCorrect": true},
+          {"text": "десятка", "isCorrect": false},
+          {"text": "сотни", "isCorrect": false},
+          {"text": "тысячи", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "a=2,91385, Δa=0,0097. В числе a верны в широком смысле цифры:",
+        "answers": [
+          {"text": "0,9,7", "isCorrect": false},
+          {"text": "2,9,1", "isCorrect": true},
+          {"text": "2,9,1,3", "isCorrect": false},
+          {"text": "0,0,90,7", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "___ цифрами числа являются все цифры в его правильной записи, начиная с первой ненулевой слева:",
+        "answers": [
+          {"text": "правильными", "isCorrect": false},
+          {"text": "верными", "isCorrect": false},
+          {"text": "сомнительными", "isCorrect": false},
+          {"text": "значащими", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Погрешность, обусловленная неточностью задания числовых данных, входящих в математическое описание задачи:",
+        "answers": [
+          {"text": "неустранимая погрешность", "isCorrect": true},
+          {"text": "погрешность метода", "isCorrect": false},
+          {"text": "вычислительная погрешность", "isCorrect": false},
+          {"text": "результирующая погрешность", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Погрешность, являющаяся следствием несоответствия математического описания задачи реальной действительности:",
+        "answers": [
+          {"text": "неустранимая погрешность", "isCorrect": true},
+          {"text": "погрешность метода", "isCorrect": false},
+          {"text": "вычислительная погрешность", "isCorrect": false},
+          {"text": "результирующая погрешность", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Погрешность, связанная со способом решения поставленной математической задачи:",
+        "answers": [
+          {"text": "неустранимая погрешность", "isCorrect": false},
+          {"text": "погрешность метода", "isCorrect": true},
+          {"text": "вычислительная погрешность", "isCorrect": false},
+          {"text": "результирующая погрешность", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Погрешность, обусловлена необходимостью выполнения арифметических операций над числами, усеченными до количества разрядов, зависящего от применяемой вычислительной техники:",
+        "answers": [
+          {"text": "неустранимая погрешность", "isCorrect": false},
+          {"text": "погрешность метода", "isCorrect": false},
+          {"text": "вычислительная погрешность", "isCorrect": true},
+          {"text": "результирующая погрешность", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Абсолютная погрешность округления с избытком числа 1,8 до целых равна:",
+        "answers": [
+          {"text": "0", "isCorrect": false},
+          {"text": "0,2", "isCorrect": true},
+          {"text": "-0,2", "isCorrect": false},
+          {"text": "0,1", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Известно, что π = 3,14... Точность приближенного равенства π ≈ 3,14 равна:",
+        "answers": [
+          {"text": "3,14 ± 0,01", "isCorrect": true},
+          {"text": "3,14", "isCorrect": false},
+          {"text": "0,01", "isCorrect": false},
+          {"text": "3,14 ± 0,1", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Известно, что 0,111 является приближенным значением для 1/9. Относительная погрешность этого приближения равна:",
+        "answers": [
+          {"text": "1/9", "isCorrect": false},
+          {"text": "1/900", "isCorrect": true},
+          {"text": "1/99", "isCorrect": false},
+          {"text": "1/999", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Абсолютная погрешность округления с избытком числа 1,6 до целых равна:",
+        "answers": [
+          {"text": "0", "isCorrect": false},
+          {"text": "0,4", "isCorrect": true},
+          {"text": "-0,4", "isCorrect": false},
+          {"text": "0,1", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Абсолютная погрешность округления с недостатком числа 1,5 до целых равна:",
+        "answers": [
+          {"text": "0", "isCorrect": false},
+          {"text": "0,5", "isCorrect": true},
+          {"text": "-0,5", "isCorrect": false},
+          {"text": "0,1", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Классы нелинейных уравнений:",
+        "answers": [
+          {"text": "алгебраические и трансцендентные", "isCorrect": true},
+          {"text": "точные и итерационные", "isCorrect": false},
+          {"text": "алгебраические и точные", "isCorrect": false},
+          {"text": "трансцендентные и точные", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Методы решения нелинейных уравнений:",
+        "answers": [
+          {"text": "алгебраический и трансцендентный", "isCorrect": false},
+          {"text": "точный и итерационный", "isCorrect": true},
+          {"text": "алгебраический и точный", "isCorrect": false},
+          {"text": "трансцендентный и точный", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Численные методы решения уравнений:",
+        "answers": [
+          {"text": "1 этап: построение графиков функций; 2 этап: нахождение точек пересечения", "isCorrect": false},
+          {"text": "1 этап: нахождение корней уравнения; 2 этап: выполнение проверки", "isCorrect": false},
+          {"text": "1 этап: отделение корней -- поиск интервалов, на которых содержится только по одному корню; 2 этап: уточнение корня на выбранном интервале, используя методы сужения интервала", "isCorrect": true},
+          {"text": "1 этап: построение графиков функций; 2 этап: выполнение проверки", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Критерий, позволяющий убедиться в том, что на рассматриваемом числовом множестве имеется корень уравнения и этот корень является единственным, используется:",
+        "answers": [
+          {"text": "в аналитическом методе отделения корней уравнения", "isCorrect": true},
+          {"text": "в графическом методе", "isCorrect": false},
+          {"text": "в графическом методе отделения корней уравнения", "isCorrect": false},
+          {"text": "в построении графика функции", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод проб -- это:",
+        "answers": [
+          {"text": "метод деления отрезка", "isCorrect": true},
+          {"text": "метод хорд", "isCorrect": false},
+          {"text": "метод касательных", "isCorrect": false},
+          {"text": "метод интеграций", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод секущих -- это:",
+        "answers": [
+          {"text": "метод деления отрезка", "isCorrect": false},
+          {"text": "метод хорд", "isCorrect": true},
+          {"text": "метод касательных", "isCorrect": false},
+          {"text": "метод интеграций", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод Ньютона -- это:",
+        "answers": [
+          {"text": "метод деления отрезка", "isCorrect": false},
+          {"text": "метод хорд", "isCorrect": false},
+          {"text": "метод касательных", "isCorrect": true},
+          {"text": "метод интеграций", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод, который приводит к решению алгебраических уравнений за конечное число арифметических операций, называется:",
+        "answers": [
+          {"text": "итерационный метод", "isCorrect": false},
+          {"text": "прямой метод", "isCorrect": true},
+          {"text": "метод хорд", "isCorrect": false},
+          {"text": "метод касательных", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод, в котором точное решение может быть получено лишь в результате бесконечного повторения единообразных действий, называется:",
+        "answers": [
+          {"text": "итерационный метод", "isCorrect": true},
+          {"text": "прямой метод", "isCorrect": false},
+          {"text": "метод хорд", "isCorrect": false},
+          {"text": "метод касательных", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "В методе итераций процесс итераций продолжается до тех пор, пока для двух последовательных приближений xn и xn-1 не будет обеспечено выполнение неравенства (ε -- точность вычислений):",
+        "answers": [
+          {"text": "|xn - xn-1| = ε", "isCorrect": false},
+          {"text": "|xn - xn-1| > ε", "isCorrect": false},
+          {"text": "|xn - xn-1| ≤ ε", "isCorrect": true},
+          {"text": "|xn - xn-1| ≥ ε", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Методом Ньютона найти корень уравнения x² - 2x - 4=0 на отрезке [1;1.7] с точностью до 0,01:",
+        "answers": [
+          {"text": "15,83", "isCorrect": false},
+          {"text": "15,74", "isCorrect": false},
+          {"text": "1,64", "isCorrect": true},
+          {"text": "1,57", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если функция f(x) представляет собой многочлен, то уравнение f(x) = 0 называется:",
+        "answers": [
+          {"text": "трансцендентным", "isCorrect": false},
+          {"text": "алгебраическим", "isCorrect": true},
+          {"text": "линейным", "isCorrect": false},
+          {"text": "комбинированным", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если функция f(x) является тригонометрической, то уравнение f(x) = 0 называется:",
+        "answers": [
+          {"text": "трансцендентным", "isCorrect": true},
+          {"text": "алгебраическим", "isCorrect": false},
+          {"text": "линейным", "isCorrect": false},
+          {"text": "комбинированным", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Отделить корень уравнения cosx = 2x:",
+        "answers": [
+          {"text": "[-1;1]", "isCorrect": false},
+          {"text": "[0;1]", "isCorrect": true},
+          {"text": "[1;2]", "isCorrect": false},
+          {"text": "[2;3]", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Даны матрицы A и B, det(A×B) равен:",
+        "answers": [
+          {"text": "-2", "isCorrect": false},
+          {"text": "13", "isCorrect": false},
+          {"text": "-6,5", "isCorrect": false},
+          {"text": "-26", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Дана матрица А= [[1, 2], [3, 4]]. Определитель матрицы равен:",
+        "answers": [
+          {"text": "-1", "isCorrect": false},
+          {"text": "4", "isCorrect": true},
+          {"text": "10", "isCorrect": false},
+          {"text": "12", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Дана матрица А= [[1, -2, 3], [-2, 1, 2], [3, -1, -5]]. Определитель матрицы равен:",
+        "answers": [
+          {"text": "-1", "isCorrect": false},
+          {"text": "4", "isCorrect": false},
+          {"text": "10", "isCorrect": false},
+          {"text": "2", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Метод решения СЛАУ с помощью формул Xj = Δj/ΔA называется:",
+        "answers": [
+          {"text": "Метод Крамера", "isCorrect": true},
+          {"text": "Метод Гаусса", "isCorrect": false},
+          {"text": "Метод обратной матрицы", "isCorrect": false},
+          {"text": "Метод Жордана-Гаусса", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод решения СЛАУ с помощью формул X = A⁻¹B называется:",
+        "answers": [
+          {"text": "Метод Крамера", "isCorrect": false},
+          {"text": "Метод Гаусса", "isCorrect": false},
+          {"text": "Метод обратной матрицы", "isCorrect": true},
+          {"text": "Метод Жордана-Гаусса", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод последовательного исключения неизвестных при решении СЛАУ называется:",
+        "answers": [
+          {"text": "Метод Крамера", "isCorrect": false},
+          {"text": "Метод Гаусса", "isCorrect": true},
+          {"text": "Метод обратной матрицы", "isCorrect": false},
+          {"text": "Метод Жордана-Гаусса", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод полного исключения неизвестных при решении СЛАУ называется:",
+        "answers": [
+          {"text": "Метод Крамера", "isCorrect": false},
+          {"text": "Метод Гаусса", "isCorrect": false},
+          {"text": "Метод обратной матрицы", "isCorrect": false},
+          {"text": "Метод Жордана-Гаусса", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "СЛАУ { -2x₃ + x₄ - x₅ = 8; x₁ + x₂ + 5x₃ + x₅ = 7 } решается:",
+        "answers": [
+          {"text": "Методом Крамера", "isCorrect": false},
+          {"text": "Методом Жордана-Гаусса", "isCorrect": true},
+          {"text": "Методом обратной матрицы", "isCorrect": false},
+          {"text": "Всеми вышеперечисленными методами", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "При решении СЛАУ используется правило прямоугольника в:",
+        "answers": [
+          {"text": "Методе Крамера", "isCorrect": false},
+          {"text": "Методе Жордана-Гаусса", "isCorrect": true},
+          {"text": "Методе обратной матрицы", "isCorrect": false},
+          {"text": "Во всех вышеперечисленных методах", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "К приближенным методам решения систем линейных уравнений относятся:",
+        "answers": [
+          {"text": "Метод Крамера", "isCorrect": false},
+          {"text": "Метод Гаусса", "isCorrect": false},
+          {"text": "Метод обратной матрицы", "isCorrect": false},
+          {"text": "Метод простой итерации", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Сколько единичных векторов имеет СЛАУ { -2x₃ + x₄ - x₅ = 8; x₁ + x₂ + 5x₃ + x₅ = 7 }:",
+        "answers": [
+          {"text": "0", "isCorrect": false},
+          {"text": "1", "isCorrect": false},
+          {"text": "2", "isCorrect": false},
+          {"text": "3", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Ранг матрицы СЛАУ { -2x₃ + x₄ - x₅ = 8; x₁ + x₂ + 5x₃ + x₅ = 7 } равен:",
+        "answers": [
+          {"text": "1", "isCorrect": false},
+          {"text": "2", "isCorrect": true},
+          {"text": "3", "isCorrect": false},
+          {"text": "4", "isCorrect": false},
+          {"text": "5", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "СЛАУ { -2x₃ + x₄ - x₅ = 8; x₁ + x₂ + 5x₃ + x₅ = 7 } разрешена относительно переменных:",
+        "answers": [
+          {"text": "x₁ и x₄", "isCorrect": true},
+          {"text": "x₂ и x₄", "isCorrect": true},
+          {"text": "x₁ и x₃", "isCorrect": false},
+          {"text": "x₂ и x₅", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если СЛАУ { -2x₃ + x₄ - x₅ = 8; x₁ + x₂ + 5x₃ + x₅ = 7 } разрешена относительно переменных x₂ и x₄, то имеется следующее решение:",
+        "answers": [
+          {"text": "x₁ = 0, x₂ = 7, x₃ = 0, x₄ = 8, x₅ = 0", "isCorrect": true},
+          {"text": "x₁ = 7, x₂ = 0, x₃ = 0, x₄ = 8, x₅ = 0", "isCorrect": false},
+          {"text": "x₁ = 7, x₂ = 8, x₃ = 0, x₄ = 0, x₅ = 0", "isCorrect": false},
+          {"text": "x₁ = 8, x₂ = 7, x₃ = 0, x₄ = 0, x₅ = 0", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если СЛАУ { -2x₃ + x₄ - x₅ = 8; x₁ + x₂ + 5x₃ + x₅ = 7 } разрешена относительно переменных x₁ и x₄, то имеется следующее решение:",
+        "answers": [
+          {"text": "x₁ = 0, x₂ = 7, x₃ = 0, x₄ = 8, x₅ = 0", "isCorrect": false},
+          {"text": "x₁ = 7, x₂ = 0, x₃ = 0, x₄ = 8, x₅ = 0", "isCorrect": true},
+          {"text": "x₁ = 7, x₂ = 8, x₃ = 0, x₄ = 0, x₅ = 0", "isCorrect": false},
+          {"text": "x₁ = 8, x₂ = 7, x₃ = 0, x₄ = 0, x₅ = 0", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод Якоби это --",
+        "answers": [
+          {"text": "Метод Крамера", "isCorrect": false},
+          {"text": "Метод Гаусса", "isCorrect": false},
+          {"text": "Метод обратной матрицы", "isCorrect": false},
+          {"text": "Метод простой итерации", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "В методе итераций вычисление заканчивается для каждой переменной xᵢ, i = 1, 2, ..., n при условии:",
+        "answers": [
+          {"text": "|xᵢˢ⁺¹ - xᵢˢ| = ε", "isCorrect": false},
+          {"text": "|xᵢˢ⁺¹ - xᵢˢ| > ε", "isCorrect": false},
+          {"text": "|xᵢˢ⁺¹ - xᵢˢ| ≤ ε", "isCorrect": true},
+          {"text": "|xᵢˢ⁺¹ - xᵢˢ| ≥ ε", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "В методе простой итерации достаточным условием сходимости является:",
+        "answers": [
+          {"text": "|aᵢⱼ| > Σ|aᵢₖ|, i=1, 2, ..., n", "isCorrect": true},
+          {"text": "|aᵢⱼ| < Σ|aᵢₖ|, i=1, 2, ..., n", "isCorrect": false},
+          {"text": "|aᵢⱼ| = Σ|aᵢₖ|, i=1, 2, ..., n", "isCorrect": false},
+          {"text": "|aᵢⱼ| ≤ Σ|aᵢₖ|, i=1, 2, ..., n", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Термин «аппроксимация» в переводе с латинского языка означает:",
+        "answers": [
+          {"text": "«приближение»", "isCorrect": true},
+          {"text": "«вычисление»", "isCorrect": false},
+          {"text": "«точность»", "isCorrect": false},
+          {"text": "«округление»", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Замена функции f(x) на более простую функцию g(x) для существенного сокращения времени вычислений называется:",
+        "answers": [
+          {"text": "корреляцией", "isCorrect": false},
+          {"text": "аппроксимацией", "isCorrect": true},
+          {"text": "дифференцированием", "isCorrect": false},
+          {"text": "интегрированием", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Способ нахождения промежуточных значений величины по имеющемуся дискретному набору известных значений:",
+        "answers": [
+          {"text": "экстраполяция", "isCorrect": false},
+          {"text": "интерполяция", "isCorrect": true},
+          {"text": "метод прогонки", "isCorrect": false},
+          {"text": "метод конечных элементов", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Определение значения функции f(x) за пределами заданного интервала. Это значит провести:",
+        "answers": [
+          {"text": "экстраполяцию", "isCorrect": true},
+          {"text": "интерполяцию", "isCorrect": false},
+          {"text": "метод прогонки", "isCorrect": false},
+          {"text": "метод конечных элементов", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Точность аппроксимации ε определяется соотношением:",
+        "answers": [
+          {"text": "|f(x) - g(x)| = ε", "isCorrect": false},
+          {"text": "|f(x) - g(x)| > ε", "isCorrect": false},
+          {"text": "|f(x) - g(x)| < ε", "isCorrect": true},
+          {"text": "|f(x) - g(x)| ≥ ε", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Приближение функции y = f(x), заданной либо таблицей, либо многочленом n-ой степени можно выполнить следующим способом:",
+        "answers": [
+          {"text": "найти многочлен Лагранжа", "isCorrect": true},
+          {"text": "использовать таблицу значений Лапласа", "isCorrect": false},
+          {"text": "методом Жордана-Гаусса", "isCorrect": false},
+          {"text": "методом простых итераций", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Интерполяционный многочлен Лагранжа для функций, заданной таблично: x=[1,2,3,5], y=[1,5,14,81] равен:",
+        "answers": [
+          {"text": "L(x) = x³-2x²+3x-1", "isCorrect": true},
+          {"text": "L(x) = x³-2x³+3x²+5x", "isCorrect": false},
+          {"text": "L(x) = x³+2x²+3x+5", "isCorrect": false},
+          {"text": "L(x) = 5x³-14x³+81x²+1", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Интерполяционный полином Лагранжа для двух узлов интерполяции x=[1,3], y=[1,9] равен:",
+        "answers": [
+          {"text": "L(x)= x³-2x²+3x-1", "isCorrect": false},
+          {"text": "L(x)= x³-2x³+3x²+5x", "isCorrect": false},
+          {"text": "L(х)=2x²+3x+5", "isCorrect": false},
+          {"text": "L(x) = 4x-3", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Интерполяционный многочлен Лагранжа для функции, заданной таблицей значений x=[1,3,4], f(x)=[12,4,6] имеет вид:",
+        "answers": [
+          {"text": "L(х)= х³+3х²+4", "isCorrect": false},
+          {"text": "L(x)=12x³+4x²+6x", "isCorrect": false},
+          {"text": "L(x)=2x²-12x+22", "isCorrect": false},
+          {"text": "L(x)= x+10", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Вычисление значений таблично заданной функции за пределами диапазона значений аргумента, отраженного в таблице, называется:",
+        "answers": [
+          {"text": "экстраполяция", "isCorrect": true},
+          {"text": "интерполяция", "isCorrect": false},
+          {"text": "метод прогонки", "isCorrect": false},
+          {"text": "метод конечных элементов", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Разновидность аппроксимации, при которой кривая построенной функции проходит точно через имеющиеся точки данных называется:",
+        "answers": [
+          {"text": "экстраполяция", "isCorrect": false},
+          {"text": "интерполяция", "isCorrect": true},
+          {"text": "метод прогонки", "isCorrect": false},
+          {"text": "метод конечных элементов", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Построение многочлена, позволяющего вычислить значение функции f(x) в точках, которых нет в таблице, составленной при обработке результатов эксперимента, является:",
+        "answers": [
+          {"text": "экстраполяцией", "isCorrect": false},
+          {"text": "интерполяцией", "isCorrect": true},
+          {"text": "методом прогонки", "isCorrect": false},
+          {"text": "методом конечных элементов", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Определенный интеграл вычисляется по формуле:",
+        "answers": [
+          {"text": "Ньютона-Лейбница", "isCorrect": true},
+          {"text": "метод прямоугольников", "isCorrect": false},
+          {"text": "метод трапеций", "isCorrect": false},
+          {"text": "Симпсона", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Формула ∫[a,b]f(x)dx = F(b) - F(a) называется:",
+        "answers": [
+          {"text": "Ньютона-Лейбница", "isCorrect": true},
+          {"text": "метод прямоугольников", "isCorrect": false},
+          {"text": "метод трапеций", "isCorrect": false},
+          {"text": "Симпсона", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Приближенное вычисление интегралов осуществляется методом:",
+        "answers": [
+          {"text": "Ньютона-Лейбница", "isCorrect": false},
+          {"text": "метод прямоугольников", "isCorrect": true},
+          {"text": "метод трапеций", "isCorrect": true},
+          {"text": "Симпсона", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "S ≈ ∫[a,b]f(x)dx ≈ h(y₀ + y₁ + y₂ + ... + yₙ₋₁)",
+        "answers": [
+          {"text": "формула левых прямоугольников", "isCorrect": true},
+          {"text": "формула правых прямоугольников", "isCorrect": false},
+          {"text": "формула средних прямоугольников", "isCorrect": false},
+          {"text": "формула прямоугольников", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "S ≈ ∫[a,b]f(x)dx ≈ h(y₁ + y₂ + y₃ + ... + yₙ)",
+        "answers": [
+          {"text": "формула левых прямоугольников", "isCorrect": false},
+          {"text": "формула правых прямоугольников", "isCorrect": true},
+          {"text": "формула средних прямоугольников", "isCorrect": false},
+          {"text": "формула прямоугольников", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "S ≈ hΣy(xᵢ + h/2)",
+        "answers": [
+          {"text": "формула левых прямоугольников", "isCorrect": false},
+          {"text": "формула правых прямоугольников", "isCorrect": false},
+          {"text": "формула средних прямоугольников", "isCorrect": true},
+          {"text": "формула прямоугольников", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "В методе прямоугольников длина каждого элементарного отрезка равна:",
+        "answers": [
+          {"text": "h = (b - a)/n", "isCorrect": true},
+          {"text": "h = |b - a|", "isCorrect": false},
+          {"text": "h = |a - b|", "isCorrect": false},
+          {"text": "h = (b - a)/2", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Приближенное значение интеграла ∫[0,5]x²dx (полагая n=5), вычисленное по формуле левых прямоугольников, равно:",
+        "answers": [
+          {"text": "15", "isCorrect": false},
+          {"text": "5", "isCorrect": false},
+          {"text": "12,5", "isCorrect": false},
+          {"text": "10", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Используя метод левых прямоугольников вычислен определенный интеграл ∫[1,2]lnxdx (полагая n=4), который приблизительно равен:",
+        "answers": [
+          {"text": "1,5744", "isCorrect": false},
+          {"text": "1,6024", "isCorrect": false},
+          {"text": "1,1053", "isCorrect": true},
+          {"text": "1,7845", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "S ≈ h/2(y₀ + 2y₁ + 2y₂ + ... + 2yₙ₋₁ + yₙ)",
+        "answers": [
+          {"text": "метод прямоугольников", "isCorrect": false},
+          {"text": "метод трапеции", "isCorrect": true},
+          {"text": "метод парабол", "isCorrect": false},
+          {"text": "метод Симпсона", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Приближенное значение интеграла ∫[0,1]1/(1+x)dx при n=4, вычисленное по формуле трапеции, равно:",
+        "answers": [
+          {"text": "0,783", "isCorrect": true},
+          {"text": "0,5", "isCorrect": false},
+          {"text": "0,645", "isCorrect": false},
+          {"text": "0,812", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "S = h/3(y₀ + 4y₁ + 2y₂ + 4y₃ + ... + 2yₙ₋₂ + 4yₙ₋₁ + yₙ)",
+        "answers": [
+          {"text": "метод Симпсона", "isCorrect": true},
+          {"text": "метод трапеций", "isCorrect": false},
+          {"text": "формула левых прямоугольников", "isCorrect": false},
+          {"text": "формула правых прямоугольников", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Приближенное значение интеграла ∫[0,1]1/(1+x)dx при h=0,25, вычисленное по формуле Симпсона, равно:",
+        "answers": [
+          {"text": "0,782", "isCorrect": false},
+          {"text": "0,702", "isCorrect": true},
+          {"text": "0,5", "isCorrect": false},
+          {"text": "0,645", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Метод Симпсона -- это метод:",
+        "answers": [
+          {"text": "парабол", "isCorrect": true},
+          {"text": "гипербол", "isCorrect": false},
+          {"text": "обратной пропорциональности", "isCorrect": false},
+          {"text": "хорд", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Как именуются формулы приближенного интегрирования?",
+        "answers": [
+          {"text": "Ньютона-Лейбница", "isCorrect": false},
+          {"text": "метод прямоугольников", "isCorrect": true},
+          {"text": "метод трапеций", "isCorrect": true},
+          {"text": "Симпсона", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Система ___ позволяет благодаря графическим возможностям проиллюстрировать геометрический смысл интеграла:",
+        "answers": [
+          {"text": "Match Cad", "isCorrect": true},
+          {"text": "Derive", "isCorrect": false},
+          {"text": "Mathematica", "isCorrect": false},
+          {"text": "Maple", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Уравнение, связывающее независимую переменную х, искомую функцию у и её производные Ф(x, у, у',..., уⁿ) = 0 называется:",
+        "answers": [
+          {"text": "дифференциальным", "isCorrect": true},
+          {"text": "интегральным", "isCorrect": false},
+          {"text": "алгебраическим", "isCorrect": false},
+          {"text": "трансцендентным", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Степень дифференциального уравнения определяет:",
+        "answers": [
+          {"text": "количество переменных уравнения", "isCorrect": false},
+          {"text": "высшая производная уравнения", "isCorrect": true},
+          {"text": "наименьшая производная уравнения", "isCorrect": false},
+          {"text": "у дифференциальных уравнений нет степени", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Порядок дифференциального уравнения определяет:",
+        "answers": [
+          {"text": "количество переменных уравнения", "isCorrect": false},
+          {"text": "наивысшая производная уравнения", "isCorrect": true},
+          {"text": "наименьшая производная уравнения", "isCorrect": false},
+          {"text": "у дифференциальных уравнений нет порядка", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Дифференциальное уравнение, разрешенное относительно первой производной у'= F(x, y) является дифференциальным уравнением:",
+        "answers": [
+          {"text": "первого порядка", "isCorrect": true},
+          {"text": "второго порядка", "isCorrect": false},
+          {"text": "относительно переменных x, y", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Найти приближенное численное решение дифференциального уравнения у'= F(x, y), составив таблицу приближенных значений функции y = f(x), удовлетворяющей заданным начальным условиям y = y₀ при х = х₀. Сформулированную задачу называют задачей:",
+        "answers": [
+          {"text": "Крамера", "isCorrect": false},
+          {"text": "Гаусса", "isCorrect": false},
+          {"text": "Симпсона", "isCorrect": false},
+          {"text": "Коши", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Идея метода ___ состоит в том, что интегральная кривая y = f(x) заменяется ломаной линией. На малом промежутке изменения независимой переменной х: х₀ ≤ х ≤ х₀ + h = x₁, где h -- шаг изменения переменной х, интегральная кривая дифференциального уравнения у'= F(x, y) заменяется отрезком прямой (касательной):",
+        "answers": [
+          {"text": "Крамера", "isCorrect": false},
+          {"text": "Гаусса", "isCorrect": false},
+          {"text": "Эйлера", "isCorrect": true},
+          {"text": "Жордана-Гаусса", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "При вычислении значений функции y = f(x) по методу Эйлера большой шаг изменения переменной х приводит:",
+        "answers": [
+          {"text": "к большой погрешности вычислений", "isCorrect": true},
+          {"text": "к увеличению времени вычислений", "isCorrect": false},
+          {"text": "к точному вычислению функции", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "При вычислении значений функции y = f(x) по методу Эйлера малый шаг изменения переменной х приводит:",
+        "answers": [
+          {"text": "к большой погрешности вычислений", "isCorrect": false},
+          {"text": "к увеличению времени вычислений", "isCorrect": true},
+          {"text": "к точному вычислению функции", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если последовательные значения функции, являющейся решением задачи Коши для дифференциального уравнения y'=f(x,y) с начальными условиями y(x₀) = y₀, x=x₀, находятся по методу Эйлера yₙ₊₁ = yₙ + h·f(xₙ,yₙ), то y₁, определяемая уравнением y'= х + y, при x₀=0, y₀=1 и шаге h=0,1 равно:",
+        "answers": [
+          {"text": "1,1", "isCorrect": true},
+          {"text": "2", "isCorrect": false},
+          {"text": "1,2", "isCorrect": false},
+          {"text": "1,3", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если последовательные значения функции, являющейся решением задачи Коши для дифференциального уравнения y'=f(x,y) с начальными условиями y(x₀) = y₀, x=x₀, находятся по методу Эйлера yₙ₊₁ = yₙ + h·f(xₙ,yₙ), то y₂, определяемая уравнением y'= х + y, при x₀=0, y₀=1 и шаге h=0,1 равно:",
+        "answers": [
+          {"text": "1,1", "isCorrect": false},
+          {"text": "2", "isCorrect": false},
+          {"text": "1,22", "isCorrect": true},
+          {"text": "1,3", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Если последовательные значения функции, являющейся решением задачи Коши для дифференциального уравнения y'=f(x,y) с начальными условиями y(x₀) = y₀, x=x₀, находятся по методу Эйлера yₙ₊₁ = yₙ + h·f(xₙ,yₙ), то y₃, определяемая уравнением y'= х + y, при x₀=0, y₀=1 и шаге h=0,1 равно:",
+        "answers": [
+          {"text": "1,1", "isCorrect": false},
+          {"text": "2", "isCorrect": false},
+          {"text": "1,2", "isCorrect": false},
+          {"text": "1,362", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Методом Эйлера для дифференциального уравнения y'=y-x с начальным условием y(0)=1 на отрезке [0;1,5] при h=0,25 y₁ равно:",
+        "answers": [
+          {"text": "1,875", "isCorrect": true},
+          {"text": "2,28125", "isCorrect": false},
+          {"text": "1,45", "isCorrect": false},
+          {"text": "4,75275", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "Методом Эйлера для дифференциального уравнения y'=y-x с начальным условием y(0)=1 на отрезке [0;1,5] при h=0,25 y₂ равно:",
+        "answers": [
+          {"text": "1,875", "isCorrect": false},
+          {"text": "2,28125", "isCorrect": true},
+          {"text": "1,45", "isCorrect": false},
+          {"text": "4,75275", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "При интегрировании методом Эйлера дифференциального уравнения y'=y-x с начальным условием y(0)=1 на отрезке [0;1,5] при h=0,25 Δy₁ равно:",
+        "answers": [
+          {"text": "0,406", "isCorrect": true},
+          {"text": "0,25", "isCorrect": false},
+          {"text": "0,375", "isCorrect": false},
+          {"text": "0,445", "isCorrect": false}
+        ]
+      },
+      {
+        "question": "При интегрировании методом Эйлера дифференциального уравнения y'=y-x с начальным условием y(0)=1 на отрезке [0;1,5] при h=0,25 Δy₂ равно:",
+        "answers": [
+          {"text": "0,406", "isCorrect": false},
+          {"text": "0,25", "isCorrect": false},
+          {"text": "0,375", "isCorrect": false},
+          {"text": "0,445", "isCorrect": true}
+        ]
+      },
+      {
+        "question": "Для оценки погрешности метода Эйлера функция y = f(x) раскладывается в ряд ___ в окрестности точки xₖ:",
+        "answers": [
+          {"text": "Тейлора", "isCorrect": true},
+          {"text": "Маклорена", "isCorrect": false},
+          {"text": "степенной", "isCorrect": false},
+          {"text": "знакочередующийся", "isCorrect": false}
+        ]
+      }
+    ]
+  }

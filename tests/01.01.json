@@ -1,0 +1,1436 @@
+{
+  "title": "Тесты 3 курс 01.01 Студенты",
+  "questions": [
+    {
+      "question": "Переменная - это ...",
+      "answers": [
+        {"text": "Отдельная операция процессора", "isCorrect": false},
+        {"text": "Комбинация значений", "isCorrect": false},
+        {"text": "Именованная область памяти", "isCorrect": true},
+        {"text": "Анализ, обработка и выполнение кода", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого указателя можно объявить переменную?",
+      "answers": [
+        {"text": "variable", "isCorrect": false},
+        {"text": "value", "isCorrect": false},
+        {"text": "link", "isCorrect": false},
+        {"text": "let", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nconst MAX_VALUE = 100;\nlet number = 10;\nMAX_VALUE = MAX_VALUE + number;\nalert(MAX_VALUE);",
+      "answers": [
+        {"text": "Программа отобразит число 100", "isCorrect": false},
+        {"text": "Программа отобразит число 10", "isCorrect": false},
+        {"text": "Ошибка!", "isCorrect": true},
+        {"text": "Программа отобразит число 110", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой оператор поможет определить тип данных переменной?",
+      "answers": [
+        {"text": "istype", "isCorrect": false},
+        {"text": "typeid ()", "isCorrect": false},
+        {"text": "typeof", "isCorrect": true},
+        {"text": "type ( )", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "К какому типу данных относится переменная n?\nlet n = 10;\nn = + String(n);",
+      "answers": [
+        {"text": "Строка", "isCorrect": false},
+        {"text": "Неопределённый тип", "isCorrect": false},
+        {"text": "Число", "isCorrect": false},
+        {"text": "Логический тип", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nalert((2 + 2) * 2);",
+      "answers": [
+        {"text": "4", "isCorrect": false},
+        {"text": "8", "isCorrect": true},
+        {"text": "2", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого оператора можно объединить строку с другой строкой?",
+      "answers": [
+        {"text": "&", "isCorrect": false},
+        {"text": "+", "isCorrect": true},
+        {"text": "++", "isCorrect": false},
+        {"text": "*", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое расширение представляют файлы JavaScript?",
+      "answers": [
+        {"text": "*.bat", "isCorrect": false},
+        {"text": "*.html", "isCorrect": false},
+        {"text": "*.py", "isCorrect": false},
+        {"text": "*.js", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "С помощью какого тега можно вставить программу, написанную на JavaScript, в HTML-документ?",
+      "answers": [
+        {"text": "div", "isCorrect": false},
+        {"text": "logic", "isCorrect": false},
+        {"text": "body", "isCorrect": false},
+        {"text": "script", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "С помощью какого атрибута подключается файл скрипта?",
+      "answers": [
+        {"text": "href", "isCorrect": false},
+        {"text": "path", "isCorrect": false},
+        {"text": "src", "isCorrect": true},
+        {"text": "file", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet n = null;\nalert(String(n));",
+      "answers": [
+        {"text": "\"null\"", "isCorrect": true},
+        {"text": "null", "isCorrect": false},
+        {"text": "undefined", "isCorrect": false},
+        {"text": "Ошибка!", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet n = null;\nalert(+n);",
+      "answers": [
+        {"text": "0", "isCorrect": true},
+        {"text": "Ошибка!", "isCorrect": false},
+        {"text": "1", "isCorrect": false},
+        {"text": "null", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы и какому типу данных относятся обе переменные?\nlet apples = 10;\nlet oranges = 8;\nalert(\"Quantity: \" + String(apples + oranges));",
+      "answers": [
+        {"text": "Quantity: 18 / Обе переменные строки", "isCorrect": false},
+        {"text": "Quantity: 18 / Обе переменные числа", "isCorrect": true},
+        {"text": "18 / Обе переменные числа", "isCorrect": false},
+        {"text": "Ошибка! Обе переменные NaN", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet apples = \"6\";\nlet oranges = \"3\";\nalert(apples + +oranges);",
+      "answers": [
+        {"text": "63", "isCorrect": true},
+        {"text": "32", "isCorrect": false},
+        {"text": "60", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что нужно изменить в программе, чтобы результат стал 3?\nlet a = prompt(\"Первое число?\", 1);\nlet b = prompt(\"Второе число?\", 2);\nalert(a + b);",
+      "answers": [
+        {"text": "Изменить переменным тип данных с string на number", "isCorrect": true},
+        {"text": "Добавить дополнительные круглые скобки", "isCorrect": false},
+        {"text": "Добавить постфиксную форму инкремента, чтобы сложить значения", "isCorrect": false},
+        {"text": "Занести переменные в обратные кавычки", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое число соответствует выражению 1 / 100000?",
+      "answers": [
+        {"text": "1e-6", "isCorrect": false},
+        {"text": "1e-5", "isCorrect": true},
+        {"text": "1e-7", "isCorrect": false},
+        {"text": "1e-4", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого метода можно из числа 0.7689792725424371 сделать такое число 0.769?",
+      "answers": [
+        {"text": ".toFixed()", "isCorrect": true},
+        {"text": ".round()", "isCorrect": false},
+        {"text": ".floor()", "isCorrect": false},
+        {"text": ".ceil()", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet word = \"Автоматизация\";\nalert(word[\"О\"]);",
+      "answers": [
+        {"text": "null", "isCorrect": false},
+        {"text": "undefined", "isCorrect": true},
+        {"text": "3", "isCorrect": false},
+        {"text": "-10", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что хранит переменная word?\nlet word = \"Автоматизация\";\nword[0] = \"а\";",
+      "answers": [
+        {"text": "undefined", "isCorrect": false},
+        {"text": "null", "isCorrect": false},
+        {"text": "Автоматизация", "isCorrect": true},
+        {"text": "автоматизация", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet word = \"Автоматизация\";\nalert(word.indexOf(\"О\"));",
+      "answers": [
+        {"text": "-10", "isCorrect": false},
+        {"text": "undefined", "isCorrect": false},
+        {"text": "3", "isCorrect": false},
+        {"text": "-1", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nword = \" Один из целей программирования это автоматизация ручной работы\"\nalert(word.trim().toUpperCase());",
+      "answers": [
+        {"text": "ОДИН ИЗ ЦЕЛЕЙ ПРОГРАММИРОВАНИЯ ЭТО АВТОМАТИЗАЦИЯ РУЧНОЙ РАБОТЫ", "isCorrect": true},
+        {"text": "один из целей программирования это автоматизация ручной работы", "isCorrect": false},
+        {"text": "Один из целей программирования это автоматизация ручной работы", "isCorrect": false},
+        {"text": "Один Из Целей Программирования Это Автоматизация Ручной Работы", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что такое массив?",
+      "answers": [
+        {"text": "Набор свойств и методов", "isCorrect": false},
+        {"text": "Упорядоченная коллекция данных", "isCorrect": true},
+        {"text": "Набор неизменяемых данных", "isCorrect": false},
+        {"text": "Упорядоченная последовательность символов", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как из массива let spam = [1, 2, 3]; сделать массив let spam = [1, 2, 3, 4, 5];?",
+      "answers": [
+        {"text": "spam[spam.length] = [4, 5];", "isCorrect": false},
+        {"text": "spam.unshift(4, 5);", "isCorrect": false},
+        {"text": "spam[3] = [4, 5];", "isCorrect": false},
+        {"text": "spam += [4, 5];", "isCorrect": false},
+        {"text": "spam.push(4, 5);", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Нужно выбрать верную конструкцию для удаления элемента объекта Map.\nlet shoppingList = new Map([\n  [\"Помидоры\", 250],\n  [\"Огурцы\", 190],\n  [\"Лук\", 32]\n]);",
+      "answers": [
+        {"text": "shoppingList.pop();", "isCorrect": false},
+        {"text": "delete shoppingList.get(\" Лук \");", "isCorrect": false},
+        {"text": "shoppingList.delete(\" Лук \");", "isCorrect": true},
+        {"text": "shoppingList.pop(\" Лук \");", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nconst many = new Set([1, 1, 2, 3, 4, 5]);\nconsole.log(many);",
+      "answers": [
+        {"text": "[1, 1, 2, 3, 4, 5]", "isCorrect": false},
+        {"text": "{1, 1, 2, 3, 4, 5}", "isCorrect": false},
+        {"text": "[1, 2, 3, 4, 5]", "isCorrect": false},
+        {"text": "{1, 2, 3, 4, 5}", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Как определить количество элементов в множестве?",
+      "answers": [
+        {"text": ".length", "isCorrect": false},
+        {"text": ".size", "isCorrect": true},
+        {"text": "len()", "isCorrect": false},
+        {"text": ".count", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого метода можно добавить элемент во множество?",
+      "answers": [
+        {"text": ".set()", "isCorrect": false},
+        {"text": ".add()", "isCorrect": true},
+        {"text": ".has()", "isCorrect": false},
+        {"text": ".get()", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet spam = new Set([\"cat\", \"dog\", \"mouse\", \"fox\", \"cat\", \"wolf\", \"cow\"]);\nlet many = new Set([\"cow\", \"mouse\", \"cat\", \"dog\", \"fox\", \"dog\", \"wolf\"]);\nalert(spam == many);",
+      "answers": [
+        {"text": "true", "isCorrect": false},
+        {"text": "false", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Выберите один вариант из списка - правильную формулировку",
+      "answers": [
+        {"text": "Тег <c></c> для того, чтобы сделать текст написанным курсивом", "isCorrect": false},
+        {"text": "Тег <bk> служит для того, чтобы переместить текст на следующую строку в параграфе", "isCorrect": false},
+        {"text": "тег <h1>< /h1> должен встречаться на странице минимум 4 раза", "isCorrect": false},
+        {"text": "Для форматирования текста в HTML используются теги <b>, <u>, <i>", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какое модальное окно возвращает значение логического типа?",
+      "answers": [
+        {"text": "alert", "isCorrect": false},
+        {"text": "prompt", "isCorrect": false},
+        {"text": "confirm", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какая из команд позволит преобразовать значение к логическому типу?",
+      "answers": [
+        {"text": "Number()", "isCorrect": false},
+        {"text": "Logic()", "isCorrect": false},
+        {"text": "Boolean()", "isCorrect": true},
+        {"text": "String()", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nalert(true + true - false);",
+      "answers": [
+        {"text": "0", "isCorrect": false},
+        {"text": "Ошибка!", "isCorrect": false},
+        {"text": "2", "isCorrect": true},
+        {"text": "1", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как работает break внутри case оператора switch?",
+      "answers": [
+        {"text": "Прервёт выполнение оператора switch", "isCorrect": true},
+        {"text": "Приведёт к дополнительным проверкам", "isCorrect": false},
+        {"text": "Выполнит блок команд, находящийся внутри default", "isCorrect": false},
+        {"text": "Прервёт выполнение всей программы", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Возможность выполнить блок кода для нескольких case - это ...",
+      "answers": [
+        {"text": "Группировка", "isCorrect": true},
+        {"text": "Проверка", "isCorrect": false},
+        {"text": "Перечисление", "isCorrect": false},
+        {"text": "Итерация", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как называется алгоритм, содержащий блок команд для повторения?",
+      "answers": [
+        {"text": "Рекурсия", "isCorrect": false},
+        {"text": "Линейный алгоритм", "isCorrect": false},
+        {"text": "Циклический алгоритм", "isCorrect": true},
+        {"text": "Разветвляющийся алгоритм", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что такое счётчик повторений?",
+      "answers": [
+        {"text": "Дополнительный оператор для завершения цикла", "isCorrect": false},
+        {"text": "Блок команд, находящийся внутри тела цикла", "isCorrect": false},
+        {"text": "Переменная для подсчёта запуска программы", "isCorrect": false},
+        {"text": "Переменная, контролирующая повторы выполнения цикла", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Как называется одно повторение блока команд?",
+      "answers": [
+        {"text": "Репитер", "isCorrect": false},
+        {"text": "Итерация", "isCorrect": true},
+        {"text": "Аллитерация", "isCorrect": false},
+        {"text": "Поток", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Блок команд, выполняющийся постоянно. Что это?",
+      "answers": [
+        {"text": "Событие", "isCorrect": false},
+        {"text": "Бесконечный цикл", "isCorrect": true},
+        {"text": "Цикл без условия", "isCorrect": false},
+        {"text": "Генератор", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой оператор прервёт выполнение цикла?",
+      "answers": [
+        {"text": "break", "isCorrect": true},
+        {"text": "destroy", "isCorrect": false},
+        {"text": "continue", "isCorrect": false},
+        {"text": "end", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой оператор пропустит оставшуюся часть тела цикла и перейдёт к выполнению следующего повтора?",
+      "answers": [
+        {"text": "next", "isCorrect": false},
+        {"text": "over", "isCorrect": false},
+        {"text": "continue", "isCorrect": true},
+        {"text": "step", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Будет ли выполняться блок команд, находящийся внутри цикла, если в качестве условия передать null?",
+      "answers": [
+        {"text": "Нет, т.к. null это false", "isCorrect": true},
+        {"text": "Да, т.к. null это true", "isCorrect": false},
+        {"text": "Возникнет ошибка, которая приведёт к остановке программы", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как начинается цикл while?",
+      "answers": [
+        {"text": "while true:", "isCorrect": false},
+        {"text": "while (true)", "isCorrect": true},
+        {"text": "while loop", "isCorrect": false},
+        {"text": "while (let i = 1, i <= 10, i++)", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nwhile (1)\n{\n  alert(1);\n  break;\n}",
+      "answers": [
+        {"text": "null", "isCorrect": false},
+        {"text": "Программа ничего не выполнит", "isCorrect": false},
+        {"text": "1", "isCorrect": true},
+        {"text": "0", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое число нужно ввести, чтобы прервать выполнение цикла?\nlet number = +prompt(\"Введите число\");\nwhile (number >= 0)\n{\n  number = +prompt(\"Введите число\");\n}",
+      "answers": [
+        {"text": "-1", "isCorrect": true},
+        {"text": "1", "isCorrect": false},
+        {"text": "0", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое число нужно ввести, чтобы прервать выполнение цикла?\nlet number = +prompt(\"Введите число\");\nwhile (number % 3 != 0)\n{\n  number = +prompt(\"Введите число\");\n}",
+      "answers": [
+        {"text": "1", "isCorrect": false},
+        {"text": "3", "isCorrect": true},
+        {"text": "4", "isCorrect": false},
+        {"text": "2", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое условие нужно указать, чтобы в конце показать 0?\nlet i = 5;\nwhile (?)\n{\n  alert(i);\n  i--;\n}",
+      "answers": [
+        {"text": "i <= 0", "isCorrect": false},
+        {"text": "i >= 0", "isCorrect": true},
+        {"text": "i != 0", "isCorrect": false},
+        {"text": "i == 0", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы, при условии ввода 1, 2, 3, 4, 0?\nlet number = +prompt(\"Введите число\");\nlet result = number;\nwhile (number != 0)\n{\n  number = +prompt(\"Введите число\");\n  result *= number;\n}\nalert(result);",
+      "answers": [
+        {"text": "12", "isCorrect": false},
+        {"text": "0", "isCorrect": true},
+        {"text": "1", "isCorrect": false},
+        {"text": "24", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Оператор break прервёт оба цикла или только вложенный?\nlet i = j = 0;\nwhile (i != 5)\n{\n  j = 0;\n  while (j <= i)\n  {\n    break;\n    j += 1;\n  }\n  i += 1;\n}",
+      "answers": [
+        {"text": "Оба цикла прервутся", "isCorrect": false},
+        {"text": "Будет прерываться только вложенный цикл", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Чему равны переменные i и j после завершения обоих циклов?\nlet i = j = 0;\nwhile (i != 5)\n{\n  j = 0;\n  while (j <= i)\n  {\n    j += 1;\n  }\n  i += 1;\n}",
+      "answers": [
+        {"text": "6 и 6", "isCorrect": false},
+        {"text": "0 и 5", "isCorrect": false},
+        {"text": "5 и 0", "isCorrect": false},
+        {"text": "5 и 5", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Для чего используются операторы if ... else if ... else?",
+      "answers": [
+        {"text": "Для равенства", "isCorrect": false},
+        {"text": "Для преобразования значений к логическому типу", "isCorrect": false},
+        {"text": "Для повтора действий", "isCorrect": false},
+        {"text": "Для выбора", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Как используется оператор else?",
+      "answers": [
+        {"text": "Указывает о завершении использования условного оператора", "isCorrect": false},
+        {"text": "Выполняет блок команд, если все другие условия ложны", "isCorrect": true},
+        {"text": "оператор является обязательным, нельзя его не указывать", "isCorrect": false},
+        {"text": "Проверяет дополнительное условие", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В каких скобках указывается условие при использовании условного ветвления?",
+      "answers": [
+        {"text": "[ ]", "isCorrect": false},
+        {"text": "{ }", "isCorrect": false},
+        {"text": "( )", "isCorrect": true},
+        {"text": "Скобки можно не указывать", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Сработает ли команда alert()?\nif (\"0\") {\n  alert(\"Hello!\");\n}",
+      "answers": [
+        {"text": "да", "isCorrect": true},
+        {"text": "нет", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nalert(alert(1) || 2 || alert(3));",
+      "answers": [
+        {"text": "2 и 3", "isCorrect": false},
+        {"text": "1 и 3", "isCorrect": false},
+        {"text": "undefined", "isCorrect": false},
+        {"text": "1 и 2", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "К какому типу преобразуют значения операторы сравнения?",
+      "answers": [
+        {"text": "Строки", "isCorrect": false},
+        {"text": "Логический тип", "isCorrect": true},
+        {"text": "Числа", "isCorrect": false},
+        {"text": "Неопределённый тип", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какая функция используется для ввода значений?",
+      "answers": [
+        {"text": "input()", "isCorrect": false},
+        {"text": "prompt()", "isCorrect": true},
+        {"text": "confirm()", "isCorrect": false},
+        {"text": "alert()", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое ключевое слово используется для объявления функции?",
+      "answers": [
+        {"text": "fun", "isCorrect": false},
+        {"text": "function", "isCorrect": true},
+        {"text": "def", "isCorrect": false},
+        {"text": "let", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого оператора можно вернуть значение функции?",
+      "answers": [
+        {"text": "break", "isCorrect": false},
+        {"text": "get", "isCorrect": false},
+        {"text": "return", "isCorrect": true},
+        {"text": "continue", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Переменная объявляется внутри функции - это переменная с ____ областью видимости.",
+      "answers": [
+        {"text": "локальной", "isCorrect": true},
+        {"text": "глобальной", "isCorrect": false},
+        {"text": "внешней", "isCorrect": false},
+        {"text": "блочной", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Переменная объявляется в основном потоке программы - это переменная с ____ областью видимости.",
+      "answers": [
+        {"text": "глобальной", "isCorrect": true},
+        {"text": "блочной", "isCorrect": false},
+        {"text": "локальной", "isCorrect": false},
+        {"text": "внутренней", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как называются переменные, которые используются внутри функции, но не объявлены в основном потоке программы и в самой функции?",
+      "answers": [
+        {"text": "Константы", "isCorrect": false},
+        {"text": "Передатчики", "isCorrect": false},
+        {"text": "Аргументы", "isCorrect": true},
+        {"text": "Утверждения", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое значение будет возвращено, если при вызове функции не указывать значение для дополнительного параметра?",
+      "answers": [
+        {"text": "undefined", "isCorrect": true},
+        {"text": "null", "isCorrect": false},
+        {"text": "Infinity", "isCorrect": false},
+        {"text": "NaN", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие скобки являются оператором вызова функции?",
+      "answers": [
+        {"text": "{}", "isCorrect": false},
+        {"text": "[]", "isCorrect": false},
+        {"text": "()", "isCorrect": true},
+        {"text": "<>", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Можно ли оператор return заменить на оператор break для завершения функции?",
+      "answers": [
+        {"text": "Да, если функция возвращает true или false", "isCorrect": false},
+        {"text": "Да, если функцию записать в переменную", "isCorrect": false},
+        {"text": "Да", "isCorrect": false},
+        {"text": "Нет", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet summa = (n1, n2) => n1 + n2;\nalert(typeof summa);",
+      "answers": [
+        {"text": "function", "isCorrect": true},
+        {"text": "number", "isCorrect": false},
+        {"text": "string", "isCorrect": false},
+        {"text": "boolean", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nfunction summa(n1, n2) {}\nalert(summa(2, 3));",
+      "answers": [
+        {"text": "null", "isCorrect": false},
+        {"text": "undefined", "isCorrect": true},
+        {"text": "None", "isCorrect": false},
+        {"text": "NaN", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet number = 10;\nfunction test()\n{\n  let number = 10;\n}\ntest();\nalert(number);",
+      "answers": [
+        {"text": "null", "isCorrect": false},
+        {"text": "undefined", "isCorrect": false},
+        {"text": "Ошибка!", "isCorrect": true},
+        {"text": "NaN", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet number = 10;\nfunction test(number)\n{\n  let result = number % 2;\n  return result;\n}\nnumber = test(number);\nalert(number);",
+      "answers": [
+        {"text": "5", "isCorrect": false},
+        {"text": "Ошибка!", "isCorrect": false},
+        {"text": "1", "isCorrect": false},
+        {"text": "0", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nfunction test(n1=5, n2=10)\n{\n  alert(n1 + n2);\n}\ntest(2, 3);",
+      "answers": [
+        {"text": "5", "isCorrect": true},
+        {"text": "Ошибка!", "isCorrect": false},
+        {"text": "20", "isCorrect": false},
+        {"text": "15", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что значит \"анонимная функция\"?",
+      "answers": [
+        {"text": "Функция без имени", "isCorrect": true},
+        {"text": "Функция, которая выполняется без вызова", "isCorrect": false},
+        {"text": "Функция, которая ничего не возвращает", "isCorrect": false},
+        {"text": "Функция, которая объявляется с помощью ключевого слова anonym", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как называется функция, которая передаётся в качестве дополнительного параметра другой функции для последующего её вызова?",
+      "answers": [
+        {"text": "Функция обратного вызова", "isCorrect": true},
+        {"text": "Функция-выражение", "isCorrect": false},
+        {"text": "Рекурсивная функция", "isCorrect": false},
+        {"text": "Анонимная функция", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nfunction test(n1, n2=n1)\n{\n  alert(n1 + n2);\n}\ntest(3, 2);",
+      "answers": [
+        {"text": "3", "isCorrect": false},
+        {"text": "Ошибка!", "isCorrect": false},
+        {"text": "6", "isCorrect": false},
+        {"text": "5", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Множество значений и действий, которые можно применить к этим значениям - это ...",
+      "answers": [
+        {"text": "Стек", "isCorrect": false},
+        {"text": "Последовательность битов", "isCorrect": false},
+        {"text": "Типы данных", "isCorrect": true},
+        {"text": "Адреса в памяти компьютера", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Объект - это ...",
+      "answers": [
+        {"text": "Управляющая конструкция", "isCorrect": false},
+        {"text": "Набор свойств, каждое из которых имеет имя и значение", "isCorrect": true},
+        {"text": "Функция с квадратными скобками", "isCorrect": false},
+        {"text": "Один из существующих примитивов", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как создать свойство с именем DIFFICULTY LEVEL (_уровень сложности_)?",
+      "answers": [
+        {"text": "Имя свойства нужно занести в квадратные скобки и присвоить значение - [difficulty level] = 3", "isCorrect": false},
+        {"text": "Имя свойства нужно занести в кавычки - \"difficulty level\"", "isCorrect": true},
+        {"text": "В JavaScript нет возможности создать свойство с таким именем", "isCorrect": false},
+        {"text": "Нужно заменить символ пробела на нижнее подчёркивание при указании имени свойства - difficulty_level", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого цикла можно перебрать все свойства в объекте?",
+      "answers": [
+        {"text": "while (условие)", "isCorrect": false},
+        {"text": "for (начало; условие; шаг)", "isCorrect": false},
+        {"text": "for ... in", "isCorrect": true},
+        {"text": "goto ()", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое ключевое слово используется для определения объекта?",
+      "answers": [
+        {"text": "Bigint", "isCorrect": false},
+        {"text": "Number", "isCorrect": false},
+        {"text": "Object", "isCorrect": true},
+        {"text": "Array", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как называется функция, которая присваивается свойству объекта?",
+      "answers": [
+        {"text": "Метод", "isCorrect": true},
+        {"text": "Команда", "isCorrect": false},
+        {"text": "Константа", "isCorrect": false},
+        {"text": "Литерал", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого ключевого слова можно получить доступ к хранящейся информации объекта?",
+      "answers": [
+        {"text": "this", "isCorrect": true},
+        {"text": "get", "isCorrect": false},
+        {"text": "self", "isCorrect": false},
+        {"text": "goto", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Чему равна переменная result после завершения цикла?\nlet result = 0;\nfor (i = 10; i > 0; i--) {\n  result += i;\n};",
+      "answers": [
+        {"text": "0", "isCorrect": false},
+        {"text": "45", "isCorrect": false},
+        {"text": "50", "isCorrect": false},
+        {"text": "55", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой будет результат программы?\nlet result = 0;\nfor (i = -10, i <= 10, i++) {\n  result += i;\n};",
+      "answers": [
+        {"text": "Ошибка!", "isCorrect": true},
+        {"text": "0", "isCorrect": false},
+        {"text": "10", "isCorrect": false},
+        {"text": "-10", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие элементы в HTML относятся к блочным элементам?",
+      "answers": [
+        {"text": "h1, p, div", "isCorrect": true},
+        {"text": "a, img, br", "isCorrect": false},
+        {"text": "span, em, strong", "isCorrect": false},
+        {"text": "i, b, u, s", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие элементы визуально создают самостоятельные структурные блоки?",
+      "answers": [
+        {"text": "i, b, u", "isCorrect": false},
+        {"text": "span, em, strong", "isCorrect": false},
+        {"text": "h1-h6, p, div", "isCorrect": true},
+        {"text": "a, img, br", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что отделяет блочные элементы от других элементов в HTML?",
+      "answers": [
+        {"text": "Абзацные отступы", "isCorrect": true},
+        {"text": "Граница блока (border)", "isCorrect": false},
+        {"text": "Поля (margin)", "isCorrect": false},
+        {"text": "Отступы (padding)", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие свойства определяют размер блока в CSS?",
+      "answers": [
+        {"text": "Фон и цвет текста", "isCorrect": false},
+        {"text": "Ширина и высота", "isCorrect": true},
+        {"text": "Граница и поля", "isCorrect": false},
+        {"text": "Отступы и поля", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие свойства задают дополнительное свободное пространство вокруг блока?",
+      "answers": [
+        {"text": "Поля (margin)", "isCorrect": true},
+        {"text": "Граница (border)", "isCorrect": false},
+        {"text": "Цвет фона (background-color)", "isCorrect": false},
+        {"text": "Отступы (padding)", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие свойства учитываются при определении размера блока?",
+      "answers": [
+        {"text": "Отступы и поля", "isCorrect": false},
+        {"text": "Ширина и высота", "isCorrect": true},
+        {"text": "Граница и поля", "isCorrect": false},
+        {"text": "Фон и цвет текста", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие элементы можно использовать для построения блочной верстки сайта?",
+      "answers": [
+        {"text": "h1-h6, p, div", "isCorrect": true},
+        {"text": "i, b, u, s", "isCorrect": false},
+        {"text": "a, img, br", "isCorrect": false},
+        {"text": "span, em, strong", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что такое CSS Keyframes?",
+      "answers": [
+        {"text": "Это атрибут HTML-элемента для создания анимаций.", "isCorrect": false},
+        {"text": "Это специальный тег для создания изображений.", "isCorrect": false},
+        {"text": "Это набор инструкций для создания анимаций в CSS.", "isCorrect": true},
+        {"text": "Это язык программирования для веб-разработки.", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что представляют собой ключевые моменты в CSS Keyframes?",
+      "answers": [
+        {"text": "Моменты во времени, на которых стили должны изменяться в анимации.", "isCorrect": true},
+        {"text": "Моменты, когда происходит загрузка изображений.", "isCorrect": false},
+        {"text": "Моменты, когда браузер обновляет страницу.", "isCorrect": false},
+        {"text": "Моменты, когда пользователь взаимодействует с веб-страницей.", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как создать документ с разметкой html, чтобы он отображался в браузере?",
+      "answers": [
+        {"text": "Создать текстовый документ и поменять его расширение на .html", "isCorrect": true},
+        {"text": "Создать папку и поменять её расширение на .html", "isCorrect": false},
+        {"text": "Зайти в настройки браузера и выбрать \"Создать документ html\"", "isCorrect": false},
+        {"text": "Найти ярлык браузера и изменить его расширение на .html", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Каким образом CSS Keyframes связываются с элементами HTML?",
+      "answers": [
+        {"text": "С помощью атрибута animation-name.", "isCorrect": true},
+        {"text": "С помощью атрибута css-keyframes.", "isCorrect": false},
+        {"text": "С помощью атрибута keyframes.", "isCorrect": false},
+        {"text": "С помощью атрибута animation-styles.", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Студент сохранил HTML-документ, но при просмотре в браузере увидел вместо текста непонятные символы. Что ему нужно сделать?",
+      "answers": [
+        {"text": "Установить русскую версию браузера", "isCorrect": false},
+        {"text": "Сохранить файл с расширением .utf 8", "isCorrect": false},
+        {"text": "Сохранить документ в кодировке UTF-8", "isCorrect": true},
+        {"text": "Перезагрузить веб-страницу в браузере", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что такое html-элемент?",
+      "answers": [
+        {"text": "Это дескриптор, определяющий, какие запросы делает пользователь на сервер", "isCorrect": false},
+        {"text": "Информация о том, каким образом видит страницу разработчик", "isCorrect": false},
+        {"text": "Некое событие, которое происходит в браузере", "isCorrect": false},
+        {"text": "Служебное слово/символ, определяющее, как будет выводиться информация в браузере", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "В каких случаях не указывается закрывающий тег?",
+      "answers": [
+        {"text": "Для элементов с атрибутами", "isCorrect": false},
+        {"text": "Для одиночных элементов", "isCorrect": true},
+        {"text": "Когда после одного элемента идёт такой же", "isCorrect": false},
+        {"text": "Когда один элемент вложен в другой", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое из следующих свойств CSS задает максимальную ширину элемента?",
+      "answers": [
+        {"text": "min-width", "isCorrect": false},
+        {"text": "width", "isCorrect": false},
+        {"text": "max-width", "isCorrect": true},
+        {"text": "max-height", "isCorrect": false},
+        {"text": "height", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью чего один атрибут отделяется от другого?",
+      "answers": [
+        {"text": "Кавычек", "isCorrect": false},
+        {"text": "Переноса строки", "isCorrect": false},
+        {"text": "Пробела", "isCorrect": true},
+        {"text": "Дефиса", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что из перечисленного НЕ ЯВЛЯЕТСЯ основным элементом адаптивного дизайна?",
+      "answers": [
+        {"text": "Адаптивные изображения", "isCorrect": false},
+        {"text": "Статические макеты", "isCorrect": true},
+        {"text": "Гибкие сетки", "isCorrect": false},
+        {"text": "Медиазапросы", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой элемент задаёт название страницы (вкладки в браузере)?",
+      "answers": [
+        {"text": "<type>", "isCorrect": false},
+        {"text": "<content>", "isCorrect": false},
+        {"text": "<name>", "isCorrect": false},
+        {"text": "<title>", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Что такое \"экранирование\"?",
+      "answers": [
+        {"text": "Вывод на экран изображений и ссылок", "isCorrect": false},
+        {"text": "Процесс снижения электромагнитного поля в области путём баррикадирования её проводящим или магнитным материалом", "isCorrect": false},
+        {"text": "Работа с браузером в экранном режиме", "isCorrect": false},
+        {"text": "Выведение на экран служебных символов в качестве текстовых", "isCorrect": true},
+        {"text": "Работа с блоками, выводящимися на весь экран", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что содержит тег title?",
+      "answers": [
+        {"text": "Изображение", "isCorrect": false},
+        {"text": "Название веб-страницы, отображаемое в \"шапке\" браузера", "isCorrect": true},
+        {"text": "Текст документа", "isCorrect": false},
+        {"text": "Заголовок, отображаемый в документе", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого тега создаётся гиперссылка?",
+      "answers": [
+        {"text": "<a>", "isCorrect": true},
+        {"text": "<b>", "isCorrect": false},
+        {"text": "<p>", "isCorrect": false},
+        {"text": "<c>", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "ОТМЕТЬТЕ ВЕРНОЕ УТВЕРЖДЕНИЕ:",
+      "answers": [
+        {"text": "вместо двойных кавычек можно использовать скобки", "isCorrect": false},
+        {"text": "за именем атрибута следует знак равенства и значение атрибута в кавычках", "isCorrect": true},
+        {"text": "атрибут тега встраивается в закрывающий тег", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Отметьте одно верное утверждение:",
+      "answers": [
+        {"text": "Формат JPEG поддерживает анимацию", "isCorrect": false},
+        {"text": "GIF – один из самых популярных форматов изображений для сайтов", "isCorrect": true},
+        {"text": "Формат SVG имеет малый вес, отлично масштабируется", "isCorrect": false},
+        {"text": "Изображения в формате PNG по качеству выглядят хуже, чем JPEG", "isCorrect": false},
+        {"text": "Формат WebP поддерживается всеми браузерами", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что обозначает HTML тег <p>?",
+      "answers": [
+        {"text": "Подпись к изображению", "isCorrect": false},
+        {"text": "Ссылка", "isCorrect": false},
+        {"text": "Заголовок", "isCorrect": false},
+        {"text": "Параграф или текстовый абзац", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой тег используется для того, чтобы перевести строку внутри абзаца",
+      "answers": [
+        {"text": "<br>", "isCorrect": true},
+        {"text": "<b>", "isCorrect": false},
+        {"text": "</br>", "isCorrect": false},
+        {"text": "<bb>", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Каким тегом обозначается ссылка?",
+      "answers": [
+        {"text": "<a></a>", "isCorrect": true},
+        {"text": "href", "isCorrect": false},
+        {"text": "<p></p>", "isCorrect": false},
+        {"text": "<b></b>", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой атрибут следует добавить к ссылке, чтобы она открывалась в новом окне?",
+      "answers": [
+        {"text": "target", "isCorrect": true},
+        {"text": "_blank", "isCorrect": false},
+        {"text": "new_win", "isCorrect": false},
+        {"text": "<a></a>", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "С помощью какого тега можно сделать текст жирным?",
+      "answers": [
+        {"text": "c", "isCorrect": false},
+        {"text": "m", "isCorrect": false},
+        {"text": "b", "isCorrect": true},
+        {"text": "i", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как можно подключить CSS к HTML?",
+      "answers": [
+        {"text": "С помощью тега <style> внутри тега <body>", "isCorrect": false},
+        {"text": "С помощью тега <link> внутри тега <head>", "isCorrect": true},
+        {"text": "С помощью тега <css> внутри тега <head>", "isCorrect": false},
+        {"text": "С помощью тега <script> внутри тега <head>", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие атрибуты используются при подключении внешнего файла CSS с использованием тега?",
+      "answers": [
+        {"text": "type, value, link", "isCorrect": false},
+        {"text": "link, path, stylesheet", "isCorrect": false},
+        {"text": "style, source, link", "isCorrect": false},
+        {"text": "rel, href, type", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какое из утверждений является преимуществом использования внешнего файла CSS?",
+      "answers": [
+        {"text": "Изменения в стилях автоматически применяются только к текущей странице.", "isCorrect": false},
+        {"text": "Стили хранятся внутри HTML-тегов, что делает код компактнее.", "isCorrect": false},
+        {"text": "Все перечисленное", "isCorrect": false},
+        {"text": "Можно использовать один и тот же файл CSS на нескольких страницах сайта.", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "К чему будут применены стили, если они определены внутри тега <style> в HTML-документе?",
+      "answers": [
+        {"text": "Ко всем страницам в Интернете.", "isCorrect": false},
+        {"text": "Ко всем документам в одном каталоге.", "isCorrect": false},
+        {"text": "Ко всем страницам сайта.", "isCorrect": false},
+        {"text": "Только к текущему документу.", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой из нижеперечисленных недостатков относится к встроенному CSS?",
+      "answers": [
+        {"text": "Невозможность использования на нескольких страницах.", "isCorrect": true},
+        {"text": "Сложность локализации стилей.", "isCorrect": false},
+        {"text": "Объемный код из-за множества файлов.", "isCorrect": false},
+        {"text": "Сложность обновления стилей.", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как CSS взаимодействует с HTML, когда используется внешний файл?",
+      "answers": [
+        {"text": "CSS подключается к HTML с помощью тега <link>.", "isCorrect": true},
+        {"text": "CSS автоматически наследует стили из HTML-тегов.", "isCorrect": false},
+        {"text": "CSS вставляется непосредственно в теги HTML.", "isCorrect": false},
+        {"text": "CSS не имеет отношения к HTML.", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое значение в атрибуте type используется при подключении CSS к HTML?",
+      "answers": [
+        {"text": "text/html", "isCorrect": false},
+        {"text": "application/css", "isCorrect": false},
+        {"text": "text/css", "isCorrect": true},
+        {"text": "style/css", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой селектор выбирает все абзацы на странице?",
+      "answers": [
+        {"text": "p", "isCorrect": true},
+        {"text": "#paragraph", "isCorrect": false},
+        {"text": "paragraph", "isCorrect": false},
+        {"text": ".paragraph", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как выбрать все элементы с классом \"content\" в CSS?",
+      "answers": [
+        {"text": ".content.", "isCorrect": false},
+        {"text": "#content", "isCorrect": false},
+        {"text": ".content", "isCorrect": true},
+        {"text": "Content", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Если у элемента есть класс и идентификатор, какой стиль будет иметь более высокий приоритет?",
+      "answers": [
+        {"text": "Класс", "isCorrect": false},
+        {"text": "Оба равны по приоритету", "isCorrect": false},
+        {"text": "Идентификатор", "isCorrect": true},
+        {"text": "Зависит от порядка в коде", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как выбрать элемент с идентификатором \"unique-element\" в CSS?",
+      "answers": [
+        {"text": "unique-element", "isCorrect": false},
+        {"text": "#unique-element", "isCorrect": true},
+        {"text": "element#unique", "isCorrect": false},
+        {"text": ".unique-element", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как выбрать все ссылки внутри элемента с классом \"navigation\"?",
+      "answers": [
+        {"text": "a.navigation", "isCorrect": false},
+        {"text": ".navigation a", "isCorrect": true},
+        {"text": "navigation > a", "isCorrect": false},
+        {"text": "navigation a", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что делает псевдокласс :hover в CSS?",
+      "answers": [
+        {"text": "Применяет стили к посещенной ссылке.", "isCorrect": false},
+        {"text": "Применяет стили к активной ссылке.", "isCorrect": false},
+        {"text": "Применяет стили к первому дочернему элементу.", "isCorrect": false},
+        {"text": "Применяет стили к ссылке, на которую наведен курсор.", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой псевдокласс применяет стили ко всем четным элементам внутри родительского контейнера?",
+      "answers": [
+        {"text": ":hover", "isCorrect": false},
+        {"text": ":first-child", "isCorrect": false},
+        {"text": ":nth-child(even)", "isCorrect": true},
+        {"text": ":nth-child(odd)", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В какой последовательности разрабатываются модули при нисходящем методе проектирования?",
+      "answers": [
+        {"text": "сначала разрабатывается головной модуль, затем – остальные модули", "isCorrect": true},
+        {"text": "сначала разрабатываются модули самого низкого уровня, затем – модули более высокого уровня, головной модуль разрабатывается в последнюю очередь", "isCorrect": false},
+        {"text": "модули всех уровней разрабатываются параллельно", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что делает псевдокласс :first-child в CSS?",
+      "answers": [
+        {"text": "Применяет стили ко всем дочерним элементам.", "isCorrect": false},
+        {"text": "Применяет стили ко всем нечетным элементам.", "isCorrect": false},
+        {"text": "Применяет стили к первому дочернему элементу в каждом родительском контейнере.", "isCorrect": false},
+        {"text": "Применяет стили только к первому дочернему элементу родителя.", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "В какой последовательности разрабатываются модули при восходящем методе проектирования?",
+      "answers": [
+        {"text": "сначала разрабатывается головной модуль, затем – остальные модули", "isCorrect": false},
+        {"text": "сначала разрабатываются модули самого низкого уровня, затем – модули более высокого уровня, головной модуль разрабатывается в последнюю очередь", "isCorrect": true},
+        {"text": "модули всех уровней разрабатываются параллельно", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какие элементы будут выбраны с использованием селектора :nth-child(2n)?",
+      "answers": [
+        {"text": "Только первый дочерний элемент.", "isCorrect": false},
+        {"text": "Только последний дочерний элемент.", "isCorrect": false},
+        {"text": "Все элементы с четными порядковыми номерами.", "isCorrect": true},
+        {"text": "Все элементы с нечетными порядковыми номерами.", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "При использовании какого метода проектирования сначала разрабатываются модули самого низкого уровня, затем – модули более высокого уровня, головной модуль разрабатывается на завершающем этапе проектирования?",
+      "answers": [
+        {"text": "при использовании восходящего метода", "isCorrect": true},
+        {"text": "при использовании нисходящего метода", "isCorrect": false},
+        {"text": "указанная последовательность проектирования является логичной во всех случаях, поэтому применяется во всех методах", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой CSS-свойство используется для изменения цвета текста?",
+      "answers": [
+        {"text": "color", "isCorrect": true},
+        {"text": "background-color", "isCorrect": false},
+        {"text": "font-color", "isCorrect": false},
+        {"text": "text-color", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что является преимуществом нисходящего метода проектирования?",
+      "answers": [
+        {"text": "не нужно писать заглушки", "isCorrect": false},
+        {"text": "логика программы (головной модуль) отлаживается на начальном этапе", "isCorrect": true},
+        {"text": "размер программного комплекса и его эксплуатационные характеристики можно оценить на начальном этапе проектирования", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как можно задать цвет фона элемента в CSS?",
+      "answers": [
+        {"text": "color-background", "isCorrect": false},
+        {"text": "bg-color", "isCorrect": false},
+        {"text": "background-color", "isCorrect": true},
+        {"text": "background", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что является преимуществом восходящего метода проектирования?",
+      "answers": [
+        {"text": "не нужно писать заглушки", "isCorrect": true},
+        {"text": "логика программы (головной модуль) отлаживается на начальном этапе", "isCorrect": false},
+        {"text": "отсутствует необходимость дорабатывать модули более низких уровней", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как можно задать цвет фона элемента в CSS?",
+      "answers": [
+        {"text": "rgb(255, 0, 0)", "isCorrect": true},
+        {"text": "red", "isCorrect": true},
+        {"text": "Все варианты верные", "isCorrect": true},
+        {"text": "#00FF00", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "В чём недостаток восходящего метода проектирования?",
+      "answers": [
+        {"text": "нужно писать заглушки", "isCorrect": false},
+        {"text": "головной модуль разрабатывается на завершающем этапе, поэтому необходимо дорабатывать модули более низких уровней", "isCorrect": true},
+        {"text": "логика программы (головной модуль) отлаживается на начальном этапе, поэтому в дальнейшем сложно вносить изменения в программу", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как создать градиентный фон в CSS?",
+      "answers": [
+        {"text": "gradient: linear(top, #FF0000, #0000FF);", "isCorrect": false},
+        {"text": "gradient-background: linear(top, #FF0000, #0000FF);", "isCorrect": false},
+        {"text": "background-gradient: linear(top, #FF0000, #0000FF);", "isCorrect": false},
+        {"text": "background-image: linear-gradient(top, #FF0000, #0000FF);", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "К чему нужно стремиться при проектировании модулей?",
+      "answers": [
+        {"text": "к максимальной независимости модулей между собой", "isCorrect": true},
+        {"text": "к максимальной связанности модулей в проекте", "isCorrect": false},
+        {"text": "к максимальному количеству передаваемой между блоками информации", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое CSS-свойство используется для задания шрифта текста?",
+      "answers": [
+        {"text": "font-style", "isCorrect": false},
+        {"text": "text-font", "isCorrect": false},
+        {"text": "font-size", "isCorrect": false},
+        {"text": "font-family", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Как изменить жирность (толщину) шрифта в CSS?",
+      "answers": [
+        {"text": "font-weight", "isCorrect": true},
+        {"text": "text-weight", "isCorrect": false},
+        {"text": "font-bold", "isCorrect": false},
+        {"text": "font-thickness", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какая составляющая определяет все модули, функции, их интерфейсы, а также алгоритмы работы и структуры данных?",
+      "answers": [
+        {"text": "системные требования к ПО", "isCorrect": false},
+        {"text": "организационные требования", "isCorrect": false},
+        {"text": "архитектура ПО", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какие единицы измерения можно использовать для задания размера шрифта?",
+      "answers": [
+        {"text": "Все вышеперечисленные", "isCorrect": true},
+        {"text": "em", "isCorrect": true},
+        {"text": "px (пиксели)", "isCorrect": true},
+        {"text": "% (проценты)", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Что определяет архитектура ПО?",
+      "answers": [
+        {"text": "описание всех модулей, функций, их интерфейсов, а также алгоритмы работы и структуры данных", "isCorrect": true},
+        {"text": "реализацию алгоритмов работы и структуры данных", "isCorrect": false},
+        {"text": "описание программного продукта на языке высокого уровня", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "На каком этапе разработки ПО определяются описания всех модулей, функций, их интерфейсов, а также алгоритмов работы и структур данных?",
+      "answers": [
+        {"text": "на этапе разработки требований к ПО", "isCorrect": false},
+        {"text": "на этапе разработки архитектуры ПО", "isCorrect": true},
+        {"text": "на этапе кодирования", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как называется методология разработки программного обеспечения, в основе которой лежит представление программы в виде иерархической структуры блоков?",
+      "answers": [
+        {"text": "модульное программирование", "isCorrect": false},
+        {"text": "структурное программирование", "isCorrect": true},
+        {"text": "объектно-ориентированное программирование", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Как называется методология разработки программного обеспечения, в основе которой лежит разделение программы на отдельные именованные сущности?",
+      "answers": [
+        {"text": "модульное программирование", "isCorrect": true},
+        {"text": "структурное программирование", "isCorrect": false},
+        {"text": "функциональное программирование", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что такое модульное программирование?",
+      "answers": [
+        {"text": "парадигма программирования, в которой основными концепциями являются понятия объектов и классов", "isCorrect": false},
+        {"text": "методология разработки программного обеспечения, в основе которой лежит разделение программы на отдельные именованные сущности", "isCorrect": true},
+        {"text": "методология разработки программного обеспечения, в основе которой лежит представление программы в виде иерархической структуры блоков", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Каково преимущество структурного подхода в программировании?",
+      "answers": [
+        {"text": "увеличение возможности повторного использования кода", "isCorrect": false},
+        {"text": "упрощение процесса тестирования и отладки программы", "isCorrect": true},
+        {"text": "возможность писать одну программу на разных языках программирования", "isCorrect": false},
+        {"text": "уменьшение необходимости блок-схем и других графических форм изображения алгоритмов (сама программа является собственной блок-схемой)", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какое утверждение НЕСПРАВЕДЛИВО для структурного программирования?",
+      "answers": [
+        {"text": "упрощается процесс тестирования и отладки программы", "isCorrect": false},
+        {"text": "программу можно писать на разных языках программирования", "isCorrect": true},
+        {"text": "увеличивается возможность повторного использования кода", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой метод используется при разработке сложного программного обеспечения?",
+      "answers": [
+        {"text": "структурное программирование", "isCorrect": false},
+        {"text": "модульное программирование", "isCorrect": true},
+        {"text": "оба метода одинаково подходят для разработки сложных систем", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой метод проектирования целесообразно применять при разработке новой программной системы?",
+      "answers": [
+        {"text": "метод нисходящего проектирования", "isCorrect": true},
+        {"text": "метод восходящего проектирования", "isCorrect": false},
+        {"text": "оба метода эффективны в данном случае", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой метод проектирования целесообразно применять при модификации уже существующей программной системы?",
+      "answers": [
+        {"text": "метод нисходящего проектирования", "isCorrect": false},
+        {"text": "метод восходящего проектирования", "isCorrect": true},
+        {"text": "оба метода эффективны в данном случае", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "В каком случае предпочтительным является использование восходящего метода проектирования?",
+      "answers": [
+        {"text": "при модификации уже существующей программной системы", "isCorrect": true},
+        {"text": "при разработке новой программной системы", "isCorrect": false},
+        {"text": "ни в одном из предложенных случаев", "isCorrect": false},
+        {"text": "в обоих предложенных случаях", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что обозначает функциональная завершенность программного модуля?",
+      "answers": [
+        {"text": "модуль выполняет операции для реализации каждой отдельной функции в полном составе, достаточные для завершения начатой обработки", "isCorrect": true},
+        {"text": "результат работы программного модуля зависит только от исходных данных, но не зависит от работы других модулей", "isCorrect": false},
+        {"text": "обмен информацией между модулями должен быть по возможности минимизирован", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что обозначает логическая независимость программного модуля?",
+      "answers": [
+        {"text": "модуль выполняет операции для реализации каждой отдельной функции в полном составе, достаточные для завершения начатой обработки", "isCorrect": false},
+        {"text": "результат работы программного модуля зависит только от исходных данных, но не зависит от работы других модулей", "isCorrect": true},
+        {"text": "обмен информацией между модулями должен быть по возможности минимизирован", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Что обозначают слабые информационные связи между программными модулями?",
+      "answers": [
+        {"text": "каждый модуль выполняет операции для реализации каждой отдельной функции в полном составе, достаточные для завершения начатой обработки", "isCorrect": false},
+        {"text": "результат работы каждого модуля зависит только от исходных данных, но не зависит от работы других модулей", "isCorrect": false},
+        {"text": "обмен информацией между модулями должен быть по возможности минимизирован", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "Какой паттерн проектирования используется для создания объектов без указания конкретного класса создаваемого объекта?",
+      "answers": [
+        {"text": "Singleton", "isCorrect": false},
+        {"text": "Factory Method", "isCorrect": true},
+        {"text": "Observer", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой паттерн проектирования позволяет объектам оповещать другие объекты об изменениях своего состояния?",
+      "answers": [
+        {"text": "Strategy", "isCorrect": false},
+        {"text": "Observer", "isCorrect": true},
+        {"text": "Decorator", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Какой паттерн проектирования позволяет добавлять новое поведение к объектам, не изменяя их структуру?",
+      "answers": [
+        {"text": "Adapter", "isCorrect": false},
+        {"text": "Decorator", "isCorrect": true},
+        {"text": "Command", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "КАКОЕ ОСНОВНОЕ НАЗНАЧЕНИЕ ПАТТЕРНОВ ПРОЕКТИРОВАНИЯ?",
+      "answers": [
+        {"text": "Ускорение разработки программного обеспечения", "isCorrect": false},
+        {"text": "Предоставление готовых решений для часто встречающихся проблем", "isCorrect": true},
+        {"text": "Упрощение документации к коду", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "КАКОЙ ИЗ СЛЕДУЮЩИХ ПАТТЕРНОВ ОТНОСИТСЯ К ПОРОЖДАЮЩИМ ПАТТЕРНАМ?",
+      "answers": [
+        {"text": "Singleton", "isCorrect": false},
+        {"text": "Observer", "isCorrect": false},
+        {"text": "Strategy", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "КАКОЙ ИЗ СЛЕДУЮЩИХ ПАТТЕРНОВ ИСПОЛЬЗУЕТСЯ ДЛЯ СОЗДАНИЯ ОБЪЕКТОВ БЕЗ УКАЗАНИЯ КОНКРЕТНОГО КЛАССА СОЗДАВАЕМОГО ОБЪЕКТА?",
+      "answers": [
+        {"text": "Builder", "isCorrect": false},
+        {"text": "Prototype", "isCorrect": false},
+        {"text": "Factory Method", "isCorrect": true}
+      ]
+    },
+    {
+      "question": "КАКОЙ ПАТТЕРН ПРОЕКТИРОВАНИЯ ПОЗВОЛЯЕТ ДОБАВЛЯТЬ НОВОЕ ПОВЕДЕНИЕ К ОБЪЕКТАМ ДИНАМИЧЕСКИ?",
+      "answers": [
+        {"text": "Adapter", "isCorrect": false},
+        {"text": "Decorator", "isCorrect": true},
+        {"text": "Command", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "КАКОЙ ПАТТЕРН ПРОЕКТИРОВАНИЯ ПОЗВОЛЯЕТ ОБЪЕКТАМ ВЗАИМОДЕЙСТВОВАТЬ ДРУГ С ДРУГОМ, НЕ ЗНАЯ О КОНКРЕТНЫХ КЛАССАХ ДРУГ ДРУГА?",
+      "answers": [
+        {"text": "Mediator", "isCorrect": true},
+        {"text": "Observer", "isCorrect": false},
+        {"text": "Strategy", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Укажите правильный вариант ответа",
+      "answers": [
+        {"text": "Тег h1 одинарный", "isCorrect": false},
+        {"text": "Внутри тегов заголовков нежелательно использовать другие теги", "isCorrect": true},
+        {"text": "Чем больше заголовков на сайте, тем лучше", "isCorrect": false},
+        {"text": "Тег h1 по традиции используется 2-3 раза на странице", "isCorrect": false}
+      ]
+    }
+  ]
+}
