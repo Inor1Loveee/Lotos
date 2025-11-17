@@ -1,9 +1,9 @@
 {
-  "latest_version": "0.0.29",
-  "version_code": 29,
-  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.29.apk",
+  "latest_version": "0.0.30",
+  "version_code": 30,
+  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.30.apk",
   "release_notes": [
-    "Исправлен экран завершения теста"
+    "Хотфикс экрана завершения тестов"
   ],
   "mandatory": false
 }
