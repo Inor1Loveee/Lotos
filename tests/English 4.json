@@ -5209,11 +5209,7 @@
       ]
     },
     {
-      "question": "There is no doubt that people of our information-dependent society ________",
-      "answers": []
-    },
-    {
-      "question": "computer-literate.",
+      "question": "There is no doubt that people of our information-dependent society ________ computer-literate.",
       "answers": [
         {
           "text": "may be",
