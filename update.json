@@ -1,9 +1,9 @@
 {
-  "latest_version": "0.0.28",
-  "version_code": 28,
-  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.28.apk",
+  "latest_version": "0.0.29",
+  "version_code": 29,
+  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.29.apk",
   "release_notes": [
-    "Добавлен 3 курс"
+    "Исправлен экран завершения теста"
   ],
   "mandatory": false
 }
