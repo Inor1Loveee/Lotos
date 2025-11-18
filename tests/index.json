@@ -1,6 +1,56 @@
 {
   "tests": [
     {
+      "id": "menedjment",
+      "name": "Менеджмент 4 курс",
+      "description": "Менеджмент",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "menedjment.json",
+      "encryptedFileName": "menedjment.lyc"
+    },
+    {
+      "id": "standards",
+      "name": "Стандартизация?",
+      "description": "Стандартизация",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "standards.json",
+      "encryptedFileName": "standards.lyc"
+    },
+    {
+      "id": "02.02",
+      "name": "МДК 02.02",
+      "description": "ИСРПО",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "02.02.json",
+      "encryptedFileName": "02.02.lyc"
+    },
+    {
+      "id": "03.02",
+      "name": "МДК 03.02",
+      "description": "я хз",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "03.02.json",
+      "encryptedFileName": "03.02.lyc"
+    },
+    {
+      "id": "mathematics",
+      "name": "Матаматическое моделирование",
+      "description": "фоток дохера",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "mathematics.json",
+      "encryptedFileName": "mathematics.lyc"
+    },
+    {
       "id": "English4",
       "name": "Английский 4 курс",
       "description": "Английский язык - тест для 4 курса",
