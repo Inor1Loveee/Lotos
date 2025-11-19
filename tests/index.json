@@ -41,6 +41,16 @@
       "encryptedFileName": "03.02.lyc"
     },
     {
+      "id": "04.01",
+      "name": "МДК 04.01",
+      "description": "Чё-то там про бд",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "04.01.json",
+      "encryptedFileName": "04.01.lyc"
+    },
+    {
       "id": "mathematics",
       "name": "Матаматическое моделирование",
       "description": "фоток дохера",
