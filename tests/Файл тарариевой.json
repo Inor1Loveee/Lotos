@@ -1,0 +1,653 @@
+{
+  "title": "Тестовые задания для проведения промежуточной аттестации по дисциплине «Менеджмент в ПД» (09.02.07 Информационные системы и программирование, 4 курс)",
+  "questions": [
+    {
+      "question": "Менеджмент это наука изучающая:",
+      "answers": [
+        { "text": "А. управления ресурсами", "isCorrect": true },
+        { "text": "В. финансовую деятельность предприятия", "isCorrect": false },
+        { "text": "С. психологичекий климат в коллективе", "isCorrect": false },
+        { "text": "D. выбор сферы деятельности", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Менеджмент переводится как",
+      "answers": [
+        { "text": "А. организация", "isCorrect": false },
+        { "text": "В. управление", "isCorrect": true },
+        { "text": "С. приоритет", "isCorrect": false },
+        { "text": "D. контроль", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Сколько всего уровней управления",
+      "answers": [
+        { "text": "А. 2", "isCorrect": false },
+        { "text": "В. 3", "isCorrect": true },
+        { "text": "С. 4", "isCorrect": false },
+        { "text": "D. 5", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Сколько всего звеньев управления",
+      "answers": [
+        { "text": "А. 2", "isCorrect": false },
+        { "text": "В. 3", "isCorrect": true },
+        { "text": "С. 4", "isCorrect": false },
+        { "text": "D. 5", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какого уровня управления не существует:",
+      "answers": [
+        { "text": "А. идентификационный", "isCorrect": true },
+        { "text": "В. управленческий", "isCorrect": false },
+        { "text": "С. институциональный", "isCorrect": false },
+        { "text": "D. технический", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Каких уровней управления не существует:",
+      "answers": [
+        { "text": "А. идентификационный", "isCorrect": true },
+        { "text": "В. управленческий", "isCorrect": false },
+        { "text": "С. приоритетный", "isCorrect": true },
+        { "text": "D. технический", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Каких уровней управления не существует:",
+      "answers": [
+        { "text": "А. идентификационный", "isCorrect": true },
+        { "text": "В. институциональный", "isCorrect": false },
+        { "text": "С. приоритетный", "isCorrect": true },
+        { "text": "D. технический", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Каких уровней управления не существует:",
+      "answers": [
+        { "text": "А. идентификационный", "isCorrect": true },
+        { "text": "В. институциональный", "isCorrect": false },
+        { "text": "С. приоритетный", "isCorrect": true },
+        { "text": "D. управленческий", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Совокупность социальных, материальных и нематериальных элементов представляет собой:",
+      "answers": [
+        { "text": "А. организация", "isCorrect": true },
+        { "text": "В. структура", "isCorrect": false },
+        { "text": "С. планирование", "isCorrect": false },
+        { "text": "D. распределение", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Субъект управления это:",
+      "answers": [
+        { "text": "А. аппарат управления", "isCorrect": true },
+        { "text": "В. финансовую деятельность предприятия", "isCorrect": false },
+        { "text": "С. психологичекий климат в коллективе", "isCorrect": false },
+        { "text": "D. выбор сферы деятельности", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Объект управления:",
+      "answers": [
+        { "text": "А. предприятие", "isCorrect": true },
+        { "text": "В. финансовую деятельность предприятия", "isCorrect": false },
+        { "text": "С. психологичекий климат в коллективе", "isCorrect": false },
+        { "text": "D. выбор сферы деятельности", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Дата создания научной школы управления:",
+      "answers": [
+        { "text": "А. 1880-1960 г.", "isCorrect": false },
+        { "text": "В. 1880-1910 г.", "isCorrect": false },
+        { "text": "С. 1885-1920 г.", "isCorrect": true },
+        { "text": "D. 1885-1930 г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей научной школы управления:",
+      "answers": [
+        { "text": "А. Адамс В.", "isCorrect": false },
+        { "text": "В. Планер К.", "isCorrect": false },
+        { "text": "С. Тейлор Ф.", "isCorrect": true },
+        { "text": "D. Форд Г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей научной школы управления:",
+      "answers": [
+        { "text": "А. Адамс В.", "isCorrect": false },
+        { "text": "В. Планер К.", "isCorrect": false },
+        { "text": "С. Тейлор Ф.", "isCorrect": true },
+        { "text": "D. Эмерсон Х.", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Назовите создателей классической школы управления:",
+      "answers": [
+        { "text": "А. Гулик Я.", "isCorrect": true },
+        { "text": "В. Планер К.", "isCorrect": false },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Форд Г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей классической школы управления:",
+      "answers": [
+        { "text": "А. Гулик Я.", "isCorrect": true },
+        { "text": "В. Урвик Л.", "isCorrect": true },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Форд Г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей классической школы управления:",
+      "answers": [
+        { "text": "А. Гулик Я.", "isCorrect": true },
+        { "text": "В. Файоль А", "isCorrect": true },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Форд Г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Дата создания школы человеческих отношений:",
+      "answers": [
+        { "text": "А. 1920-1970 г.", "isCorrect": false },
+        { "text": "В. 1930-1950 г.", "isCorrect": true },
+        { "text": "С. 1940-1980 г.", "isCorrect": false },
+        { "text": "D. 1950-1990 г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей классической школы управления:",
+      "answers": [
+        { "text": "А. Фоллет М.", "isCorrect": true },
+        { "text": "В. Файоль А", "isCorrect": false },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Форд Г.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей классической школы управления:",
+      "answers": [
+        { "text": "А. Фоллет М.", "isCorrect": true },
+        { "text": "В. Файоль А", "isCorrect": false },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Мэйо Э.", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Назовите создателей классической школы управления:",
+      "answers": [
+        { "text": "А. Фоллет М.", "isCorrect": true },
+        { "text": "В. Маслоу А.", "isCorrect": true },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Планер К.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей количественной школы управления:",
+      "answers": [
+        { "text": "А. Черчмен К.", "isCorrect": true },
+        { "text": "В. Арноф Е.", "isCorrect": true },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Планер К.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Назовите создателей количественной школы управления:",
+      "answers": [
+        { "text": "А. Черчмен К.", "isCorrect": true },
+        { "text": "В. Форестер Д.", "isCorrect": true },
+        { "text": "С. Тейлор Ф.", "isCorrect": false },
+        { "text": "D. Планер К.", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Субъект организации это:",
+      "answers": [
+        { "text": "А. аппарат управления", "isCorrect": true },
+        { "text": "В. аппарат координации", "isCorrect": false },
+        { "text": "С. аппарат демонстрации", "isCorrect": false },
+        { "text": "D. аппарат согласования", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Объект организации это:",
+      "answers": [
+        { "text": "А. то на что направленно социально- экономическое воздействие", "isCorrect": true },
+        { "text": "В. то на что направленно организационно- экономическое воздействие", "isCorrect": false },
+        { "text": "С. то на что направленно правовое воздействие", "isCorrect": false },
+        { "text": "D. то на что направленно административное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Все технологические процессы на предприятии образуют:",
+      "answers": [
+        { "text": "А. внешнюю среду", "isCorrect": false },
+        { "text": "В. внутреннюю среду", "isCorrect": true },
+        { "text": "С. когнитивную среду", "isCorrect": false },
+        { "text": "D. административную среду", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Все технологические процессы влияющие за пределами предприятия:",
+      "answers": [
+        { "text": "А. внешнюю среду", "isCorrect": true },
+        { "text": "В. внутреннюю среду", "isCorrect": false },
+        { "text": "С. когнитивную среду", "isCorrect": false },
+        { "text": "D. административную среду", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Экономические факторы относятся к:",
+      "answers": [
+        { "text": "А. макросреда", "isCorrect": true },
+        { "text": "В. микросреда", "isCorrect": false },
+        { "text": "С. государственное регулирование", "isCorrect": false },
+        { "text": "D. организационное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Демографические факторы относятся к:",
+      "answers": [
+        { "text": "А. макросреда", "isCorrect": true },
+        { "text": "В. микросреда", "isCorrect": false },
+        { "text": "С. государственное регулирование", "isCorrect": false },
+        { "text": "D. организационное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Научно-технические факторы относятся к:",
+      "answers": [
+        { "text": "А. микросреда", "isCorrect": false },
+        { "text": "В. макросреда", "isCorrect": true },
+        { "text": "С. государственное регулирование", "isCorrect": false },
+        { "text": "D. организационное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Конкуренты относятся к:",
+      "answers": [
+        { "text": "А. микросреда", "isCorrect": true },
+        { "text": "В. макросреда", "isCorrect": false },
+        { "text": "С. государственное регулирование", "isCorrect": false },
+        { "text": "D. организационное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Покупатели относятся к:",
+      "answers": [
+        { "text": "А. микросреда", "isCorrect": true },
+        { "text": "В. макросреда", "isCorrect": false },
+        { "text": "С. государственное регулирование", "isCorrect": false },
+        { "text": "D. организационное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Поставщики относятся к:",
+      "answers": [
+        { "text": "А. макросреда", "isCorrect": false },
+        { "text": "В. микросреда", "isCorrect": true },
+        { "text": "С. государственное регулирование", "isCorrect": false },
+        { "text": "D. организационное воздействие", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Контролируемые факторы окружающей среды относятся к:",
+      "answers": [
+        { "text": "А. внутренняя", "isCorrect": true },
+        { "text": "В. государственная", "isCorrect": false },
+        { "text": "С. внешняя", "isCorrect": false },
+        { "text": "D. органицазионная", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Неконтролируемые факторы окружающей среды относятся к:",
+      "answers": [
+        { "text": "А. внутренняя", "isCorrect": false },
+        { "text": "В. государственная", "isCorrect": false },
+        { "text": "С. внешняя", "isCorrect": true },
+        { "text": "D. органицазионная", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Управленческий персонал:",
+      "answers": [
+        { "text": "А. решает задачи совместно", "isCorrect": true },
+        { "text": "В. решает задачи по отдельнсти", "isCorrect": false },
+        { "text": "С. решения принимаются только техническим персоналом", "isCorrect": false },
+        { "text": "D. решения принимаются только средним звеном управления", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "МОТ это:",
+      "answers": [
+        { "text": "А. материальное оснащение труда", "isCorrect": false },
+        { "text": "В. материальная ответственность", "isCorrect": false },
+        { "text": "С. международная организация труда", "isCorrect": true },
+        { "text": "D. международная организация товарищества", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Сколько видов труда существует:",
+      "answers": [
+        { "text": "А. 2", "isCorrect": false },
+        { "text": "В. 3", "isCorrect": false },
+        { "text": "С. 4", "isCorrect": true },
+        { "text": "D. 5", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какого вида разделения труда не существует:",
+      "answers": [
+        { "text": "А. мотивационное", "isCorrect": true },
+        { "text": "В. функциональное", "isCorrect": false },
+        { "text": "С. технологическое", "isCorrect": false },
+        { "text": "D. профессиональное", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какого вида разделения труда не существует:",
+      "answers": [
+        { "text": "А. технологическое", "isCorrect": false },
+        { "text": "В. функциональное", "isCorrect": false },
+        { "text": "С. денежное", "isCorrect": true },
+        { "text": "D. профессиональное", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Функциональное разделение труда основывается на:",
+      "answers": [
+        { "text": "А. выполнении одинаковых функций", "isCorrect": false },
+        { "text": "В. выполнении различных функций", "isCorrect": true },
+        { "text": "С. выполнении внутренних поручений", "isCorrect": false },
+        { "text": "D. выполнении внешних поручений", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Что не входит в функциональное разделение труда:",
+      "answers": [
+        { "text": "А. контроль", "isCorrect": false },
+        { "text": "В. планирование", "isCorrect": false },
+        { "text": "С. определение", "isCorrect": true },
+        { "text": "D. координация", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Что не входит в функциональное разделение труда:",
+      "answers": [
+        { "text": "А. контроль", "isCorrect": false },
+        { "text": "В. планирование", "isCorrect": false },
+        { "text": "С. определение", "isCorrect": true },
+        { "text": "D. организация", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Структурное разделение труда подразделяется на",
+      "answers": [
+        { "text": "А. 2 вида", "isCorrect": true },
+        { "text": "В. 3 вида", "isCorrect": false },
+        { "text": "С. 4 вида", "isCorrect": false },
+        { "text": "D. 5 видов", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какой вид не относится к структурному виду разделения труда:",
+      "answers": [
+        { "text": "А. горизонтальный", "isCorrect": false },
+        { "text": "В. вертикальный", "isCorrect": false },
+        { "text": "С. ступенчатый", "isCorrect": true },
+        { "text": "D. организационный", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Горизонтальное разделение труда построено на:",
+      "answers": [
+        { "text": "А. разделении труда менеджеров по функциям", "isCorrect": true },
+        { "text": "В. разделении труда менеджеров по отраслям", "isCorrect": false },
+        { "text": "С. разделении труда менеджеров по организации", "isCorrect": false },
+        { "text": "D. разделении труда менеджеров по показателям", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Экономическая функция содержит",
+      "answers": [
+        { "text": "А. материальные ценности", "isCorrect": true },
+        { "text": "В. нематериальные ценности", "isCorrect": false },
+        { "text": "С. организационные ценности", "isCorrect": false },
+        { "text": "D. природные ценности", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Экономическая функция содержит",
+      "answers": [
+        { "text": "А. духовные ценности", "isCorrect": false },
+        { "text": "В. материальные ценности", "isCorrect": true },
+        { "text": "С. организационные ценности", "isCorrect": false },
+        { "text": "D. природные ценности", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Сколько элементов административного процесса выделял А.Файоль",
+      "answers": [
+        { "text": "А. 2", "isCorrect": false },
+        { "text": "В. 3", "isCorrect": false },
+        { "text": "С. 4", "isCorrect": false },
+        { "text": "D. 5", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Конфликт в переводе с латинского означает",
+      "answers": [
+        { "text": "А. ориентация", "isCorrect": false },
+        { "text": "В. планирование", "isCorrect": false },
+        { "text": "С. столкновение", "isCorrect": true },
+        { "text": "D. регулирование", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Сколько уровней конфликтов существует",
+      "answers": [
+        { "text": "А. 2", "isCorrect": false },
+        { "text": "В. 3", "isCorrect": true },
+        { "text": "С. 4", "isCorrect": false },
+        { "text": "D. 5", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какие методы влияют на формирование психологического климата в колективе",
+      "answers": [
+        { "text": "А. экономическое", "isCorrect": false },
+        { "text": "В. организационно-административное", "isCorrect": false },
+        { "text": "С. социально-психилогическое", "isCorrect": true },
+        { "text": "D. прикладное", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Развитие личностных способностей достигается с помощью методов",
+      "answers": [
+        { "text": "А. экономическое", "isCorrect": false },
+        { "text": "В. организационно-административное", "isCorrect": false },
+        { "text": "С. социально-психилогическое", "isCorrect": true },
+        { "text": "D. прикладное", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Эффективное функционирование организации достигается с помощью",
+      "answers": [
+        { "text": "А. экономическое", "isCorrect": false },
+        { "text": "В. организационно-административное", "isCorrect": true },
+        { "text": "С. социально-психилогическое", "isCorrect": false },
+        { "text": "D. прикладное", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Спор между группа сотрудников в коллективе называется",
+      "answers": [
+        { "text": "А. межличностный", "isCorrect": false },
+        { "text": "В. межгрупповой", "isCorrect": true },
+        { "text": "С. внутриличностный", "isCorrect": false },
+        { "text": "D. командный", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Спор между 2 сотрудниками в коллективе называется",
+      "answers": [
+        { "text": "А. межличностный", "isCorrect": false },
+        { "text": "В. межгрупповой", "isCorrect": true },
+        { "text": "С. внутриличностный", "isCorrect": false },
+        { "text": "D. командный", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Конфликт, когда производственные требования не согласуются с личными потребностями называется",
+      "answers": [
+        { "text": "А. межличностный", "isCorrect": false },
+        { "text": "В. межгрупповой", "isCorrect": false },
+        { "text": "С. внутриличностный", "isCorrect": true },
+        { "text": "D. командный", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Коммуникация это:",
+      "answers": [
+        { "text": "А. передача информации от одного обьекта к другому", "isCorrect": true },
+        { "text": "В. передача мотивации от одного обьекта к другому", "isCorrect": false },
+        { "text": "С. передача инициативы от одного обьекта к другому", "isCorrect": false },
+        { "text": "D. передача ценностей от одного обьекта к другому", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Внутренняя мотивация это:",
+      "answers": [
+        { "text": "А. активизация мотивов", "isCorrect": true },
+        { "text": "В. создание стимулов", "isCorrect": false },
+        { "text": "С. создание условий", "isCorrect": false },
+        { "text": "D. создание отношений", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Внешняя мотивация это:",
+      "answers": [
+        { "text": "А. активизация мотивов", "isCorrect": false },
+        { "text": "В. создание стимулов", "isCorrect": true },
+        { "text": "С. создание условий", "isCorrect": false },
+        { "text": "D. создание отношений", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Мотивация труда это:",
+      "answers": [
+        { "text": "А. старания работников удовлетворить свои потребности", "isCorrect": true },
+        { "text": "В. старания работников удовлетворить чужие потребности", "isCorrect": false },
+        { "text": "С. старания работников удовлетворить потребности конкурентов", "isCorrect": false },
+        { "text": "D. старания работников удовлетворить потребности поставщиков", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Сколько групп мотивационных теорий вы знаете:",
+      "answers": [
+        { "text": "А. 2", "isCorrect": false },
+        { "text": "В. 3", "isCorrect": true },
+        { "text": "С. 4", "isCorrect": false },
+        { "text": "D. 5", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какой группы мотивационных теорий не существует:",
+      "answers": [
+        { "text": "А. первоначальные", "isCorrect": false },
+        { "text": "В. содержательные", "isCorrect": false },
+        { "text": "С. процессуальные", "isCorrect": false },
+        { "text": "D. удовлетворительные", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Какой группы мотивационных теорий не существует:",
+      "answers": [
+        { "text": "А. первоначальные", "isCorrect": false },
+        { "text": "В. содержательные", "isCorrect": false },
+        { "text": "С. процессуальные", "isCorrect": false },
+        { "text": "D. парадоксальные", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Какие потребности не входят в иерархию теории потребностей Маслоу:",
+      "answers": [
+        { "text": "А. в безопасности", "isCorrect": false },
+        { "text": "В. в эффективности", "isCorrect": true },
+        { "text": "С. в признании и уважении", "isCorrect": false },
+        { "text": "D. в самовыражении", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какие потребности не входят в иерархию теории потребностей Маслоу:",
+      "answers": [
+        { "text": "А. физические", "isCorrect": false },
+        { "text": "В. убедительные", "isCorrect": true },
+        { "text": "С. самовыражение", "isCorrect": false },
+        { "text": "D. соц.группы", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Организационная структура предприятия - это:",
+      "answers": [
+        { "text": "А. совокупность управленческих органов и подразделений", "isCorrect": true },
+        { "text": "В. служба управления номерным фондом", "isCorrect": false },
+        { "text": "С. деятельность одной из служб предприятий туризма и гостеприимства", "isCorrect": false },
+        { "text": "D. служба СПиР", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Выбор организационной структуры управления предприятием определяется:",
+      "answers": [
+        { "text": "А. директором", "isCorrect": true },
+        { "text": "В. руководителем службы", "isCorrect": false },
+        { "text": "С. заместителем руководителя", "isCorrect": false },
+        { "text": "D. линейный руководитель", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "В линейной структуре управления руководящим звено является:",
+      "answers": [
+        { "text": "А. директор", "isCorrect": true },
+        { "text": "В. руководитель службы", "isCorrect": false },
+        { "text": "С. линейный руководитель подразделения", "isCorrect": false },
+        { "text": "D. линейный руководитель", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какой из перечисленных структур управления не существует:",
+      "answers": [
+        { "text": "А. линейная структура управления", "isCorrect": false },
+        { "text": "В. генеральная структура управления", "isCorrect": true },
+        { "text": "С. дивизионная структура управления", "isCorrect": false },
+        { "text": "D. матричная структура управления", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Кто возглавляет дивизионную структуру управления?",
+      "answers": [
+        { "text": "А. генеральный директор", "isCorrect": false },
+        { "text": "В. совет директоров", "isCorrect": true },
+        { "text": "С. директор", "isCorrect": false },
+        { "text": "D. сотрудник ахс", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Заместитель генерального директора по НИОКР входит в:",
+      "answers": [
+        { "text": "А. линейную структуру управления", "isCorrect": false },
+        { "text": "В. проектную структуру управления", "isCorrect": false },
+        { "text": "С. дивизионную структуру управления", "isCorrect": true },
+        { "text": "D. матричную структуру управления", "isCorrect": false }
+      ]
+    }
+  ]
+}
