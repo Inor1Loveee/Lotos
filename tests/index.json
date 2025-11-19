@@ -2,6 +2,16 @@
   "tests": [
     {
       "id": "menedjment",
+      "name": "Файл Тарариевой",
+      "description": "Менеджмент",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "Файл тарариевой.json",
+      "encryptedFileName": "Файл тарариевой.lyc"
+    },
+    {
+      "id": "menedjment",
       "name": "Менеджмент 4 курс",
       "description": "Менеджмент",
       "questionCount": 4500,
