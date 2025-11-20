@@ -41,6 +41,16 @@
       "encryptedFileName": "02.02.lyc"
     },
     {
+      "id": "POPD",
+      "name": "ПОПД",
+      "description": "ПОПД",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "ПОПД.json",
+      "encryptedFileName": "ПОПД.lyc"
+    },
+    {
       "id": "03.02",
       "name": "МДК 03.02",
       "description": "я хз",
