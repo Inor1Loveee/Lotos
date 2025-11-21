@@ -1,0 +1,377 @@
+{
+  "title": "более менее норм тутынина",
+  "questions": [
+    {
+      "question": "Порядок составления математической модели задачи математического программирования следующий:",
+      "answers": [
+        { "text": "Выбор переменных; учет ограничений; построение функции цели", "isCorrect": false },
+        { "text": "Выбор переменных; построение функции цели; учет ограничений", "isCorrect": true },
+        { "text": "Построение функции цели; учет ограничений; выбор переменных", "isCorrect": false },
+        { "text": "Учет ограничений; построение функции цели; выбор переменных", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "В задачах линейного программирования находятся:",
+      "answers": [
+        { "text": "Область значений целевой функции", "isCorrect": false },
+        { "text": "Промежутки монотонности целевой функции", "isCorrect": false },
+        { "text": "Промежутки знакопостоянства целевой функции", "isCorrect": false },
+        { "text": "Экстремумы целевой функции", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "При производстве трех видов продукции А, В и С используют три вида сырья m, n, k … Прибыль от реализации продукта А составляет 3 рубля, В – 4 рубля и С – 1 рубль. Математическая модель задачи будет иметь вид:",
+      "answers": [
+        { "text": "вариант 1 (666.png)", "isCorrect": false },
+        { "text": "вариант 2 (3423.png)", "isCorrect": false },
+        { "text": "вариант 3 (898.png)", "isCorrect": true },
+        { "text": "вариант 4 (7777.png)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Выпишите матрицу коэффициентов системы линейных неравенств:",
+      "answers": [
+        { "text": "вариант 1 (41.png)", "isCorrect": true },
+        { "text": "вариант 2 (42.png)", "isCorrect": false },
+        { "text": "вариант 3 (43.png)", "isCorrect": false },
+        { "text": "вариант 4 (44.png)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Для изготовления двух видов полуфабрикатов А и В используется три вида продуктов 1,2,3 … Прибыль от реализации полуфабриката В – 78 руб., а полуфабриката А – 63 руб. Математическая модель задачи будет иметь вид:",
+      "answers": [
+        { "text": "вариант 1 (51.png)", "isCorrect": false },
+        { "text": "вариант 2 (52.png)", "isCorrect": false },
+        { "text": "вариант 3 (53.png)", "isCorrect": true },
+        { "text": "вариант 4 (33.png)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Математическая модель задачи (картинка ВАВ.png)",
+      "answers": [
+        { "text": "61.png", "isCorrect": false },
+        { "text": "62.png", "isCorrect": false },
+        { "text": "63.png", "isCorrect": true },
+        { "text": "64.png", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Мебельная фабрика выпускает столы, стулья и книжные шкафы… Математическая модель задачи:",
+      "answers": [
+        { "text": "71.png", "isCorrect": false },
+        { "text": "72.png", "isCorrect": true },
+        { "text": "73.png", "isCorrect": false },
+        { "text": "74.png", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Графическим методом задачи линейного программирования можно решать если:",
+      "answers": [
+        { "text": "не более 4 переменных", "isCorrect": false },
+        { "text": "не более 5 переменных", "isCorrect": false },
+        { "text": "не более 3 переменных", "isCorrect": true },
+        { "text": "не более 6 переменных", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Геометрический объект, определяющийся линейным неравенством это",
+      "answers": [
+        { "text": "плоскость", "isCorrect": false },
+        { "text": "прямая", "isCorrect": false },
+        { "text": "полуплоскость", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Оптимальное решение задачи линейного программирования это",
+      "answers": [
+        { "text": "решение системы ограничений", "isCorrect": false },
+        { "text": "опорное решение", "isCorrect": false },
+        { "text": "решение, которое доставляет экстремум функции", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Направляющий вектор при решении задачи геометрическим методом имеет",
+      "answers": [
+        { "text": "(-5; 1)", "isCorrect": false },
+        { "text": "(-5; -1)", "isCorrect": false },
+        { "text": "(5; -1)", "isCorrect": true },
+        { "text": "(5; 1)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Симплексный метод применяется при решении задач линейного программирования, заданных в:",
+      "answers": [
+        { "text": "симметричной форме", "isCorrect": false },
+        { "text": "канонической форме", "isCorrect": true },
+        { "text": "общей форме", "isCorrect": false },
+        { "text": "текстовой форме", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "По правилу прямоугольника значение элемента a'kx в новой расширенной матрице системы вычисляется по формуле:",
+      "answers": [
+        { "text": "151.png", "isCorrect": false },
+        { "text": "152.png", "isCorrect": true },
+        { "text": "153.png", "isCorrect": false },
+        { "text": "154.png", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Укажите базисное решение системы",
+      "answers": [
+        { "text": "(0;8;0;6;0)", "isCorrect": true },
+        { "text": "(8;6;0;0;0)", "isCorrect": false },
+        { "text": "(0;0;8;6;0)", "isCorrect": false },
+        { "text": "(0;0;8;0;6)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Вычислите новое значение коэффициента a'13",
+      "answers": [
+        { "text": "–3", "isCorrect": false },
+        { "text": "–1", "isCorrect": false },
+        { "text": "3", "isCorrect": false },
+        { "text": "5", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Вычислите новое значение коэффициента b'3",
+      "answers": [
+        { "text": "11", "isCorrect": true },
+        { "text": "5", "isCorrect": false },
+        { "text": "3", "isCorrect": false },
+        { "text": "5", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Укажите оптимальное решение ЗЛП, полученное симплекс-методом (190.png)",
+      "answers": [
+        { "text": "(1; 0; 6; 0; 5)", "isCorrect": false },
+        { "text": "(1; 0; 5; 6; 0)", "isCorrect": true },
+        { "text": "(6; 1; 5; 0; 0)", "isCorrect": false },
+        { "text": "(1; 0; 0; 5; 6)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Укажите оптимальное решение ЗЛП, полученное симплекс-методом (200.png)",
+      "answers": [
+        { "text": "(4; 1; 3; 0; 0)", "isCorrect": false },
+        { "text": "(0; 0; 3; 4; 1)", "isCorrect": false },
+        { "text": "(3; 0; 0; 4; 1)", "isCorrect": true },
+        { "text": "(0; 4; 0; 1; 3)", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Как называются последовательные симплекс-таблицы",
+      "answers": [
+        { "text": "Фаза", "isCorrect": false },
+        { "text": "Цикл", "isCorrect": false },
+        { "text": "Итерация", "isCorrect": true },
+        { "text": "Блок", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Процесс решения, используя симплекс-метод, продолжается до тех пор, пока не будет достигнуто:",
+      "answers": [
+        { "text": "наименьшее значение", "isCorrect": false },
+        { "text": "наибольшее значение", "isCorrect": false },
+        { "text": "наименьшее или наибольшее значение", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Последнее базисное решение называется",
+      "answers": [
+        { "text": "допустимое", "isCorrect": false },
+        { "text": "оптимальное", "isCorrect": true },
+        { "text": "максимальное", "isCorrect": false },
+        { "text": "минимальное", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "К какому виду нужно привести задачу, для решения её табличным симплекс-методом?",
+      "answers": [
+        { "text": "к графическому", "isCorrect": false },
+        { "text": "к каноническому", "isCorrect": true },
+        { "text": "к базисному", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Переменные, относительно которых разрешена система линейных уравнений, называются",
+      "answers": [
+        { "text": "базисными", "isCorrect": true },
+        { "text": "свободными", "isCorrect": false },
+        { "text": "разрешающими", "isCorrect": false },
+        { "text": "балансовыми", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Как формулируется вопрос транспортной задачи:",
+      "answers": [
+        { "text": "Определить оптимальное число скорых и пассажирских поездов…", "isCorrect": false },
+        { "text": "Составить оптимальный план выпуска продукции…", "isCorrect": false },
+        { "text": "Определить план перевозки груза так, чтобы… суммарные затраты на перевозку груза были наименьшими.", "isCorrect": true },
+        { "text": "Определить оптимальный рацион кормления скота…", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Какая из следующих транспортных задач является закрытой?",
+      "answers": [
+        { "text": "A", "isCorrect": false },
+        { "text": "B", "isCorrect": false },
+        { "text": "C", "isCorrect": false },
+        { "text": "D", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Какая из следующих транспортных задач является открытой?",
+      "answers": [
+        { "text": "A", "isCorrect": false },
+        { "text": "B", "isCorrect": false },
+        { "text": "C", "isCorrect": true },
+        { "text": "D", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Если суммарные ресурсы поставщиков не равны суммарным потребностям, то имеет место",
+      "answers": [
+        { "text": "закрытая модель транспортной задачи", "isCorrect": false },
+        { "text": "открытая модель транспортной задачи", "isCorrect": true },
+        { "text": "исходный план перевозок", "isCorrect": false },
+        { "text": "распределительная таблица", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "При каком значении X транспортная задача будет закрытой",
+      "answers": [
+        { "text": "210", "isCorrect": false },
+        { "text": "220", "isCorrect": true },
+        { "text": "185", "isCorrect": false },
+        { "text": "130", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "В вычислении задачи поиска кратчайшего пути применяются",
+      "answers": [
+        { "text": "корреляционные коэффициенты", "isCorrect": false },
+        { "text": "уравнения регрессии", "isCorrect": false },
+        { "text": "рекуррентные соотношения", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Найти длину кратчайшего пути (граф 390.png)",
+      "answers": [
+        { "text": "8", "isCorrect": false },
+        { "text": "9", "isCorrect": false },
+        { "text": "10", "isCorrect": true },
+        { "text": "11", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Найти длину кратчайшего пути (граф 400.png)",
+      "answers": [
+        { "text": "8", "isCorrect": true },
+        { "text": "9", "isCorrect": false },
+        { "text": "10", "isCorrect": false },
+        { "text": "11", "isCorrect": false },
+        { "text": "12", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Основные классы имитационных моделей:",
+      "answers": [
+        { "text": "Непрерывные, дискретные", "isCorrect": false },
+        { "text": "Непрерывные, дискретные, пространственные", "isCorrect": true },
+        { "text": "Дискретные пространственные", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Случайный процесс, протекающий в системе, называется _____________, если … вероятностные характеристики процесса в будущем зависят только от его состояния в данный момент t0 …",
+      "answers": [
+        { "text": "Марковским", "isCorrect": true },
+        { "text": "Колмогоровским", "isCorrect": false },
+        { "text": "Эйлеровским", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Процесс называется ___________, если его возможные состояния S1, S2, … можно заранее перечислить, и переход системы из состояния в состояние происходит «скачком»",
+      "answers": [
+        { "text": "процессом с непрерывным временем", "isCorrect": false },
+        { "text": "случайным процессом", "isCorrect": false },
+        { "text": "процессом с дискретным состоянием", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Процесс называется ____________, если моменты возможных переходов из состояния в состояние … могут произойти в любой момент",
+      "answers": [
+        { "text": "процессом с непрерывным временем", "isCorrect": true },
+        { "text": "случайным процессом", "isCorrect": false },
+        { "text": "процессом с дискретным состоянием", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "При анализе случайных процессов с дискретными состояниями удобно пользоваться геометрической схемой",
+      "answers": [
+        { "text": "графом состояний", "isCorrect": true },
+        { "text": "ориентированным графом", "isCorrect": false },
+        { "text": "картой Карно", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Вершины графа состояний – это",
+      "answers": [
+        { "text": "степень системы", "isCorrect": false },
+        { "text": "состояния системы", "isCorrect": true },
+        { "text": "возможные переходы из состояния в состояние", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Дуги графа состояний – это",
+      "answers": [
+        { "text": "степень системы", "isCorrect": false },
+        { "text": "состояния системы", "isCorrect": false },
+        { "text": "возможные переходы из состояния в состояние", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Среднее число событий, приходящееся на единицу времени",
+      "answers": [
+        { "text": "поток событий", "isCorrect": false },
+        { "text": "интенсивность потока событий", "isCorrect": true },
+        { "text": "поток без последствий", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Системы массового обслуживания:",
+      "answers": [
+        { "text": "телефонные станции", "isCorrect": false },
+        { "text": "ремонтные мастерские", "isCorrect": false },
+        { "text": "станочные и другие технологические системы", "isCorrect": false },
+        { "text": "все вышеперечисленное", "isCorrect": true }
+      ]
+    },
+    {
+      "question": "Системы массового обслуживания состоит из какого-то количества обслуживающих единиц, которые называются",
+      "answers": [
+        { "text": "каналами обслуживания", "isCorrect": true },
+        { "text": "потоками обслуживания", "isCorrect": false },
+        { "text": "заявками обслуживания", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Система массового обслуживания предназначена для обслуживания …………, поступающих в случайные моменты времени",
+      "answers": [
+        { "text": "потока заявок", "isCorrect": true },
+        { "text": "потока предложений", "isCorrect": false },
+        { "text": "потока спроса на предложения", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Классификация систем массового обслуживания (СМО)",
+      "answers": [
+        { "text": "СМО с отказами, СМО с очередью", "isCorrect": true },
+        { "text": "СМО с потоками, СМО с заявлениями", "isCorrect": false },
+        { "text": "СМО с предложениями, СМО с заявлениями", "isCorrect": false }
+      ]
+    }
+  ]
+}
