@@ -71,6 +71,16 @@
       "encryptedFileName": "04.01.lyc"
     },
     {
+      "id": "math",
+      "name": "Тутынина",
+      "description": "хзхз",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "Тутынина.json",
+      "encryptedFileName": "Тутынина.lyc"
+    },
+    {
       "id": "mathematics",
       "name": "Матаматическое моделирование",
       "description": "фоток дохера",
