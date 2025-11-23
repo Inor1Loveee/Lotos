@@ -1,6 +1,16 @@
 {
   "tests": [
     {
+      "id": "poooopd",
+      "name": "ПОООПД",
+      "description": "попд",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "poooopd.json",
+      "encryptedFileName": "poooopd.lyc"
+    },
+    {
       "id": "menedjment",
       "name": "Файл Тарариевой",
       "description": "Менеджмент",
