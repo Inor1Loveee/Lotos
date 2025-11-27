@@ -3,42 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lycoris Leaderboard</title>
+  <title>TableFlip — Lycoris Leaderboard</title>
   
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   
-  <!-- Tabulator (таблица) -->
+  <!-- Tabulator -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabulatorjs/tabulator@5.5.2/dist/css/tabulator.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@tabulatorjs/tabulator@5.5.2/dist/js/tabulator.min.js"></script>
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    body {
-      margin: 0; padding: 20px; background: #0f0f1a; color: #e0e0ff;
-      font-family: 'Inter', sans-serif; min-height: 100vh;
-    }
-    .container { max-width: 1400px; margin: 0 auto; }
-    h1 { text-align: center; margin: 20px 0 40px; font-size: 2.8rem; background: linear-gradient(90deg, #8b5cf6, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .stats { text-align: center; margin-bottom: 30px; font-size: 1.1rem; opacity: 0.9; }
-    #leaderboard-table { background: #1a1a2e; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .tabulator .tabulator-header { background: #16213e; color: #ccc; font-weight: 600; }
-    .tabulator-row { background: #16213e; border-bottom: 1px solid #2a2a4e; }
-    .tabulator-row:hover { background: #1e1e3f !important; }
-    .tabulator-col-title { color: #a0a0ff !important; }
-    .top1 { background: linear-gradient(90deg, #ffd700, #ffb800) !important; color: #000 !important; font-weight: bold; }
-    .top2 { background: linear-gradient(90deg, #c0c0c0, #a0a0a0) !important; color: #000 !important; }
-    .top3 { background: linear-gradient(90deg, #cd7f32, #b87333) !important; color: #fff !important; }
-    .footer { text-align: center; margin-top: 50px; opacity: 0.6; font-size: 0.9rem; }
+    body {margin:0;padding:20px;background:#0f0f1a;color:#e0e0ff;font-family:'Inter',sans-serif;min-height:100vh;}
+    .container{max-width:1400px;margin:0 auto;}
+    h1{text-align:center;margin:20px 0 40px;font-size:2.8rem;background:linear-gradient(90deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .stats{text-align:center;margin-bottom:30px;font-size:1.1rem;opacity:0.9;}
+    #leaderboard-table{background:#1a1a2e;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+    .tabulator .tabulator-header{background:#16213e;color:#ccc;font-weight:600;}
+    .tabulator-row{background:#16213e;border-bottom:1px solid #2a2a4e;}
+    .tabulator-row:hover{background:#1e1e3f !important;}
+    .top1{background:linear-gradient(90deg,#ffd700,#ffb800)!important;color:#000!important;font-weight:bold;}
+    .top2{background:linear-gradient(90deg,#c0c0c0,#a0a0a0)!important;color:#000!important;}
+    .top3{background:linear-gradient(90deg,#cd7f32,#b87333)!important;color:#fff!important;}
+    .footer{text-align:center;margin-top:50px;opacity:0.6;font-size:0.9rem;}
+    .loading{text-align:center;padding:50px;font-size:1.3rem;color:#8b5cf6;}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Lycoris Leaderboard</h1>
+    <h1>TableFlip — Lycoris Leaderboard</h1>
     <div class="stats">Обновляется в реальном времени • Всего игроков: <span id="total-players">0</span></div>
     
-    <div id="leaderboard-table"></div>
+    <div class="loading" id="loading">Загрузка статистики...</div>
+    <div id="leaderboard-table" style="display:none;"></div>
     
     <div class="footer">
       made with love & firebase • обновлено <span id="last-update">-</span>
@@ -46,13 +44,12 @@
   </div>
 
   <script>
-    // ВСТАВЬ СЮДА СВОИ ДАННЫЕ ИЗ FIREBASE (обязательно!)
+    // ПРАВИЛЬНЫЙ КОНФИГ С РЕГИОНОМ!
     const firebaseConfig = {
       apiKey: "AIzaSyC4uoMlR8ZEWbJ-553YO5Zw3YM2Xk8EjNo",
       authDomain: "lotos-vbinc.firebaseapp.com",
-      databaseURL: "https://lotos-vbinc-default-rtdb.firebaseio.com",
-      projectId: "lotos-vbinc",
-      // storageBucket, messagingSenderId, appId — можно не указывать
+      databaseURL: "https://lotos-vbinc-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "lotos-vbinc"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -60,11 +57,13 @@
     const usersRef = db.ref("users");
 
     let table;
-    const tableData = [];
 
     usersRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      tableData.length = 0; // очищаем
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("leaderboard-table").style.display = "block";
+
+      const data = snapshot.val() || {};
+      const tableData = [];
 
       Object.keys(data).forEach(uid => {
         const u = data[uid];
@@ -75,13 +74,12 @@
         const accuracy = totalAnswers > 0 ? Math.round((s.totalCorrect / totalAnswers) * 100) : 0;
 
         tableData.push({
-          rank: 0, // будет после сортировки
+          rank: 0,
           nickname: p.nickname || p.name || "Аноним",
           group: p.group || "—",
           tests: s.completedTests || 0,
           correct: s.totalCorrect || 0,
           wrong: s.totalWrong || 0,
-          accuracy: accuracy,
           accuracyStr: accuracy + "%",
           time: s.totalTimeFormatted || "00:00:00",
           activeDays: s.activeDays || 0,
@@ -89,10 +87,8 @@
         });
       });
 
-      // Сортируем по правильным ответам (можно поменять на accuracy или tests)
+      // Сортировка по правильным ответам
       tableData.sort((a, b) => b.correct - a.correct);
-
-      // Проставляем ранги и подсвечиваем топ-3
       tableData.forEach((row, i) => {
         row.rank = i + 1;
         if (i === 0) row._rowClass = "top1";
@@ -106,37 +102,33 @@
       if (table) {
         table.setData(tableData);
       } else {
-        createTable();
+        new Tabulator("#leaderboard-table", {
+          data: tableData,
+          layout: "fitColumns",
+          pagination: "local",
+          paginationSize: 25,
+          paginationSizeSelector: [10, 25, 50, 100, "Все"],
+          rowFormatter: row => {
+            const data = row.getData();
+            if (data._rowClass) row.getElement().classList.add(data._rowClass);
+          },
+          columns: [
+            { title: "№", field: "rank", hozAlign: "center", width: 60, headerSort: false },
+            { title: "Ник", field: "nickname", sorter: "string", headerFilter: "input", width: 250 },
+            { title: "Группа", field: "group", sorter: "string", headerFilter: true, width: 110 },
+            { title: "Тесты", field: "tests", sorter: "number", hozAlign: "center" },
+            { title: "Правильно", field: "correct", sorter: "number", hozAlign: "center" },
+            { title: "Неправильно", field: "wrong", sorter: "number", hozAlign: "center" },
+            { title: "Точность", field: "accuracyStr", sorter: "string", hozAlign: "center" },
+            { title: "Время", field: "time", sorter: "string", hozAlign: "center" },
+            { title: "Активных дней", field: "activeDays", sorter: "number", hozAlign: "center" },
+            { title: "Последняя активность", field: "lastActivity", sorter: "date", hozAlign: "center", width: 170 },
+          ],
+        });
       }
+    }, (error) => {
+      document.getElementById("loading").innerHTML = `<span style="color:#ff6b6b;">Ошибка загрузки: ${error.message}</span>`;
     });
-
-    function createTable() {
-      table = new Tabulator("#leaderboard-table", {
-        data: tableData,
-        layout: "fitColumns",
-        pagination: "local",
-        paginationSize: 25,
-        paginationSizeSelector: [10, 25, 50, 100, "Все"],
-        rowFormatter: function(row) {
-          const data = row.getData();
-          if (data._rowClass) {
-            row.getElement().classList.add(data._rowClass);
-          }
-        },
-        columns: [
-          { title: "№", field: "rank", hozAlign: "center", width: 60, headerSort: false },
-          { title: "Ник", field: "nickname", sorter: "string", headerFilter: "input", width: 220 },
-          { title: "Группа", field: "group", sorter: "string", headerFilter: true, width: 100 },
-          { title: "Тесты", field: "tests", sorter: "number", hozAlign: "center" },
-          { title: "Правильно", field: "correct", sorter: "number", hozAlign: "center" },
-          { title: "Неправильно", field: "wrong", sorter: "number", hozAlign: "center" },
-          { title: "Точность", field: "accuracyStr", sorter: "number", hozAlign: "center" },
-          { title: "Время", field: "time", sorter: "string", hozAlign: "center" },
-          { title: "Активных дней", field: "activeDays", sorter: "number", hozAlign: "center" },
-          { title: "Последняя активность", field: "lastActivity", sorter: "date", hozAlign: "center", width: 170 },
-        ],
-      });
-    }
   </script>
 </body>
 </html>
