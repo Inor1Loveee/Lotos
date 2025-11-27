@@ -4,10 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lycoris Leaderboard</title>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <!-- Tabulator (обязательно ДО нашего скрипта) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabulatorjs/tabulator@5.5.2/dist/css/tabulator.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@tabulatorjs/tabulator@5.5.2/dist/js/tabulator.min.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     body {margin:0;padding:20px;background:#0f0f1a;color:#e0e0ff;font-family:'Inter',sans-serif;min-height:100vh;}
@@ -41,7 +46,7 @@
 
     <div class="stats">Всего игроков: <span id="total-players">0</span> • Обновлено: <span id="last-update">-</span></div>
     
-    <div class="loading" id="loading">Загрузка статистики из Firebase...</div>
+    <div class="loading" id="loading">Загрузка статистики...</div>
     <div id="table-container" style="display:none;"></div>
 
     <div class="footer">made with love & firebase</div>
@@ -60,13 +65,13 @@
     const usersRef = db.ref("users");
 
     let rawData = [];
-    let table;
+    let table = null;
 
-    // Определяем начало текущей недели (понедельник 00:00)
+    // Начало текущей недели (понедельник 00:00)
     const now = new Date();
     const weekStart = new Date(now);
     weekStart.setHours(0,0,0,0);
-    weekStart.setDate(now.getDate() - now.getDay() + 1); // понедельник
+    weekStart.setDate(now.getDate() - (now.getDay() || 7) + 1);
     const weekStartTs = weekStart.getTime();
 
     usersRef.on("value", (snapshot) => {
@@ -82,7 +87,6 @@
         const total = (s.totalCorrect || 0) + (s.totalWrong || 0);
         const accuracy = total > 0 ? Math.round((s.totalCorrect / total) * 100) : 0;
 
-        // Считаем статистику за неделю (если есть weeklyStats — используем, иначе считаем вручную)
         let weekCorrect = 0;
         if (s.weeklyStats && s.weeklyStats.weekStart === weekStartTs) {
           weekCorrect = s.weeklyStats.correctAnswers || 0;
@@ -92,29 +96,26 @@
           nickname: p.nickname || p.name || "Аноним",
           group: p.group || "—",
           correct: s.totalCorrect || 0,
-          wrong: s.totalWrong || 0,
-          accuracy: accuracy,
-          accuracyStr: accuracy + "%",
           tests: s.completedTests || 0,
+          accuracy,
+          accuracyStr: accuracy + "%",
           time: s.totalTimeFormatted || "00:00:00",
-          activeDays: s.activeDays || 0,
-          weekCorrect: weekCorrect
+          weekCorrect
         });
       });
 
       document.getElementById("total-players").textContent = rawData.length;
       document.getElementById("last-update").textContent = new Date().toLocaleString("ru-RU");
 
-      renderTable("total"); // по умолчанию общий
+      renderTable("total");
     });
 
-    // Переключение вкладок
     document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.onclick = () => {
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         renderTable(btn.dataset.tab);
-      });
+      };
     });
 
     function renderTable(mode) {
@@ -123,6 +124,7 @@
       if (mode === "total") {
         sorted.sort((a, b) => b.correct - a.correct);
       } else if (mode === "accuracy") {
+        sorted = sorted.filter(u => u.correct + (u.tests - u.correct || 0) >= 10); // минимум 10 ответов
         sorted.sort((a, b) => b.accuracy - a.accuracy || b.correct - a.correct);
       } else if (mode === "week") {
         sorted = sorted.filter(u => u.weekCorrect > 0);
@@ -134,20 +136,21 @@
         row._rowClass = i === 0 ? "top1" : i === 1 ? "top2" : i === 2 ? "top3" : "";
       });
 
-      const columns = mode === "week" 
-        ? [{title:"№",field:"rank",hozAlign:"center",width:60,headerSort:false},
-           {title:"Ник",field:"nickname",sorter:"string",headerFilter:"input",width:280},
-           {title:"Группа",field:"group",sorter:"string",headerFilter:true,width:110},
-           {title:"За неделю",field:"weekCorrect",sorter:"number",hozAlign:"center"}]
-        : [
-           {title:"№",field:"rank",hozAlign:"center",width:60,headerSort:false},
-           {title:"Ник",field:"nickname",sorter:"string",headerFilter:"input",width:280},
-           {title:"Группа",field:"group",sorter:"string",headerFilter:true,width:110},
-           {title:"Тесты",field:"tests",sorter:"number",hozAlign:"center"},
-           {title:"Правильно",field:"correct",sorter:"number",hozAlign:"center"},
-           {title:"Точность",field:"accuracyStr",sorter:"string",hozAlign:"center"},
-           {title:"Время",field:"time",sorter:"string",hozAlign:"center"}
-        ];
+      const isWeek = mode === "week";
+      const columns = isWeek ? [
+        {title:"№",field:"rank",hozAlign:"center",width:60,headerSort:false},
+        {title:"Ник",field:"nickname",sorter:"string",headerFilter:"input",width:300},
+        {title:"Группа",field:"group",sorter:"string",headerFilter:true,width:120},
+        {title:"За неделю",field:"weekCorrect",sorter:"number",hozAlign:"center",width:130}
+      ] : [
+        {title:"№",field:"rank",hozAlign:"center",width:60,headerSort:false},
+        {title:"Ник",field:"nickname",sorter:"string",headerFilter:"input",width:300},
+        {title:"Группа",field:"group",sorter:"string",headerFilter:true,width:120},
+        {title:"Тесты",field:"tests",sorter:"number",hozAlign:"center"},
+        {title:"Правильно",field:"correct",sorter:"number",hozAlign:"center"},
+        {title:"Точность",field:"accuracyStr",sorter:"string",hozAlign:"center"},
+        {title:"Время",field:"time",sorter:"string",hozAlign:"center"}
+      ];
 
       if (table) {
         table.setColumns(columns);
@@ -159,7 +162,10 @@
           pagination: "local",
           paginationSize: 25,
           paginationSizeSelector: [15, 25, 50, 100, "Все"],
-          rowFormatter: row => { const d = row.getData(); if (d._rowClass) row.getElement().classList.add(d._rowClass); },
+          rowFormatter: row => {
+            const d = row.getData();
+            if (d._rowClass) row.getElement().classList.add(d._rowClass);
+          },
           columns: columns
         });
       }
