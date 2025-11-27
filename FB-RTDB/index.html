@@ -4,22 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lycoris Leaderboard</title>
-  
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-  
-  <!-- Tabulator -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabulatorjs/tabulator@5.5.2/dist/css/tabulator.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@tabulatorjs/tabulator@5.5.2/dist/js/tabulator.min.js"></script>
-  
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     body {margin:0;padding:20px;background:#0f0f1a;color:#e0e0ff;font-family:'Inter',sans-serif;min-height:100vh;}
-    .container{max-width:1400px;margin:0 auto;}
-    h1{text-align:center;margin:20px 0 40px;font-size:2.8rem;background:linear-gradient(90deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .stats{text-align:center;margin-bottom:30px;font-size:1.1rem;opacity:0.9;}
-    #leaderboard-table{background:#1a1a2e;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+    .container{max-width:1450px;margin:0 auto;}
+    h1{text-align:center;margin:20px 0 15px;font-size:2.8rem;background:linear-gradient(90deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .tabs{margin-bottom:20px;text-align:center;}
+    .tab-btn{padding:12px 24px;margin:0 8px;font-size:1.1rem;border:none;border-radius:8px;background:#16213e;color:#ccc;cursor:pointer;transition:all .3s;}
+    .tab-btn.active{background:#8b5cf6;color:white;font-weight:700;}
+    .tab-btn:hover{background:#3b82f6;}
+    .stats{text-align:center;margin:20px 0;font-size:1.2rem;opacity:0.9;}
+    #table-container{background:#1a1a2e;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
     .tabulator .tabulator-header{background:#16213e;color:#ccc;font-weight:600;}
     .tabulator-row{background:#16213e;border-bottom:1px solid #2a2a4e;}
     .tabulator-row:hover{background:#1e1e3f !important;}
@@ -27,27 +26,32 @@
     .top2{background:linear-gradient(90deg,#c0c0c0,#a0a0a0)!important;color:#000!important;}
     .top3{background:linear-gradient(90deg,#cd7f32,#b87333)!important;color:#fff!important;}
     .footer{text-align:center;margin-top:50px;opacity:0.6;font-size:0.9rem;}
-    .loading{text-align:center;padding:60px 20px;font-size:1.4rem;color:#8b5cf6;}
+    .loading{text-align:center;padding:60px;font-size:1.5rem;color:#8b5cf6;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Lycoris Leaderboard</h1>
-    <div class="stats">Обновляется в реальном времени • Всего игроков: <span id="total-players">0</span></div>
     
-    <div class="loading" id="loading">Загрузка лидерборда...</div>
-    <div id="leaderboard-table" style="display:none;"></div>
-    
-    <div class="footer">
-      made with love & firebase • обновлено <span id="last-update">-</span>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="total">Общий</button>
+      <button class="tab-btn" data-tab="accuracy">По точности</button>
+      <button class="tab-btn" data-tab="week">За неделю</button>
     </div>
+
+    <div class="stats">Всего игроков: <span id="total-players">0</span> • Обновлено: <span id="last-update">-</span></div>
+    
+    <div class="loading" id="loading">Загрузка статистики из Firebase...</div>
+    <div id="table-container" style="display:none;"></div>
+
+    <div class="footer">made with love & firebase</div>
   </div>
 
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyC4uoMlR8ZEWbJ-553YO5Zw3YM2Xk8EjNo",
       authDomain: "lotos-vbinc.firebaseapp.com",
-      databaseURL: "https://lotos-vbinc-default-rtdb.firebaseio.com",
+      databaseURL: "https://lotos-vbinc-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "lotos-vbinc"
     };
 
@@ -55,79 +59,111 @@
     const db = firebase.database();
     const usersRef = db.ref("users");
 
+    let rawData = [];
     let table;
+
+    // Определяем начало текущей недели (понедельник 00:00)
+    const now = new Date();
+    const weekStart = new Date(now);
+    weekStart.setHours(0,0,0,0);
+    weekStart.setDate(now.getDate() - now.getDay() + 1); // понедельник
+    const weekStartTs = weekStart.getTime();
 
     usersRef.on("value", (snapshot) => {
       document.getElementById("loading").style.display = "none";
-      document.getElementById("leaderboard-table").style.display = "block";
+      document.getElementById("table-container").style.display = "block";
 
+      rawData = [];
       const data = snapshot.val() || {};
-      const tableData = [];
 
-      Object.entries(data).forEach(([uid, u]) => {
+      Object.values(data).forEach(u => {
         const s = u.stats || {};
         const p = u.profile || {};
-
         const total = (s.totalCorrect || 0) + (s.totalWrong || 0);
         const accuracy = total > 0 ? Math.round((s.totalCorrect / total) * 100) : 0;
 
-        tableData.push({
-          rank: 0,
+        // Считаем статистику за неделю (если есть weeklyStats — используем, иначе считаем вручную)
+        let weekCorrect = 0;
+        if (s.weeklyStats && s.weeklyStats.weekStart === weekStartTs) {
+          weekCorrect = s.weeklyStats.correctAnswers || 0;
+        }
+
+        rawData.push({
           nickname: p.nickname || p.name || "Аноним",
           group: p.group || "—",
-          tests: s.completedTests || 0,
           correct: s.totalCorrect || 0,
           wrong: s.totalWrong || 0,
+          accuracy: accuracy,
           accuracyStr: accuracy + "%",
+          tests: s.completedTests || 0,
           time: s.totalTimeFormatted || "00:00:00",
           activeDays: s.activeDays || 0,
-          lastActivity: s.timestamp ? new Date(s.timestamp).toLocaleString("ru-RU") : "—"
+          weekCorrect: weekCorrect
         });
       });
 
-      // Сортировка по правильным ответам
-      tableData.sort((a, b) => b.correct - a.correct);
-      tableData.forEach((row, i) => {
-        row.rank = i + 1;
-        if (i === 0) row._rowClass = "top1";
-        if (i === 1) row._rowClass = "top2";
-        if (i === 2) row._rowClass = "top3";
-      });
-
-      document.getElementById("total-players").textContent = tableData.length;
+      document.getElementById("total-players").textContent = rawData.length;
       document.getElementById("last-update").textContent = new Date().toLocaleString("ru-RU");
 
+      renderTable("total"); // по умолчанию общий
+    });
+
+    // Переключение вкладок
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderTable(btn.dataset.tab);
+      });
+    });
+
+    function renderTable(mode) {
+      let sorted = [...rawData];
+
+      if (mode === "total") {
+        sorted.sort((a, b) => b.correct - a.correct);
+      } else if (mode === "accuracy") {
+        sorted.sort((a, b) => b.accuracy - a.accuracy || b.correct - a.correct);
+      } else if (mode === "week") {
+        sorted = sorted.filter(u => u.weekCorrect > 0);
+        sorted.sort((a, b) => b.weekCorrect - a.weekCorrect);
+      }
+
+      sorted.forEach((row, i) => {
+        row.rank = i + 1;
+        row._rowClass = i === 0 ? "top1" : i === 1 ? "top2" : i === 2 ? "top3" : "";
+      });
+
+      const columns = mode === "week" 
+        ? [{title:"№",field:"rank",hozAlign:"center",width:60,headerSort:false},
+           {title:"Ник",field:"nickname",sorter:"string",headerFilter:"input",width:280},
+           {title:"Группа",field:"group",sorter:"string",headerFilter:true,width:110},
+           {title:"За неделю",field:"weekCorrect",sorter:"number",hozAlign:"center"}]
+        : [
+           {title:"№",field:"rank",hozAlign:"center",width:60,headerSort:false},
+           {title:"Ник",field:"nickname",sorter:"string",headerFilter:"input",width:280},
+           {title:"Группа",field:"group",sorter:"string",headerFilter:true,width:110},
+           {title:"Тесты",field:"tests",sorter:"number",hozAlign:"center"},
+           {title:"Правильно",field:"correct",sorter:"number",hozAlign:"center"},
+           {title:"Точность",field:"accuracyStr",sorter:"string",hozAlign:"center"},
+           {title:"Время",field:"time",sorter:"string",hozAlign:"center"}
+        ];
+
       if (table) {
-        table.setData(tableData);
+        table.setColumns(columns);
+        table.setData(sorted);
       } else {
-        table = new Tabulator("#leaderboard-table", {
-          data: tableData,
+        table = new Tabulator("#table-container", {
+          data: sorted,
           layout: "fitColumns",
           pagination: "local",
           paginationSize: 25,
-          paginationSizeSelector: [10, 25, 50, 100, "Все"],
-          rowFormatter: row => {
-            const d = row.getData();
-            if (d._rowClass) row.getElement().classList.add(d._rowClass);
-          },
-          columns: [
-            { title: "№", field: "rank", hozAlign: "center", width: 60, headerSort: false },
-            { title: "Ник", field: "nickname", sorter: "string", headerFilter: "input", width: 250 },
-            { title: "Группа", field: "group", sorter: "string", headerFilter: true, width: 110 },
-            { title: "Тесты", field: "tests", sorter: "number", hozAlign: "center" },
-            { title: "Правильно", field: "correct", sorter: "number", hozAlign: "center" },
-            { title: "Неправильно", field: "wrong", sorter: "number", hozAlign: "center" },
-            { title: "Точность", field: "accuracyStr", sorter: "string", hozAlign: "center" },
-            { title: "Время", field: "time", sorter: "string", hozAlign: "center" },
-            { title: "Активных дней", field: "activeDays", sorter: "number", hozAlign: "center" },
-            { title: "Последняя активность", field: "lastActivity", sorter: "date", hozAlign: "center", width: 170 },
-          ],
+          paginationSizeSelector: [15, 25, 50, 100, "Все"],
+          rowFormatter: row => { const d = row.getData(); if (d._rowClass) row.getElement().classList.add(d._rowClass); },
+          columns: columns
         });
       }
-    }, (error) => {
-      document.getElementById("loading").innerHTML = `<span style="color:#ff6b6b;">Ошибка: ${error.message}</span><br>Проверь правила безопасности в Firebase!`;
-    });
+    }
   </script>
 </body>
 </html>
-
