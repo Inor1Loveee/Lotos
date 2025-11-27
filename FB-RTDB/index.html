@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TableFlip — Lycoris Leaderboard</title>
+  <title>Lycoris Leaderboard</title>
   
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -27,15 +27,15 @@
     .top2{background:linear-gradient(90deg,#c0c0c0,#a0a0a0)!important;color:#000!important;}
     .top3{background:linear-gradient(90deg,#cd7f32,#b87333)!important;color:#fff!important;}
     .footer{text-align:center;margin-top:50px;opacity:0.6;font-size:0.9rem;}
-    .loading{text-align:center;padding:50px;font-size:1.3rem;color:#8b5cf6;}
+    .loading{text-align:center;padding:60px 20px;font-size:1.4rem;color:#8b5cf6;}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>TableFlip — Lycoris Leaderboard</h1>
+    <h1>Lycoris Leaderboard</h1>
     <div class="stats">Обновляется в реальном времени • Всего игроков: <span id="total-players">0</span></div>
     
-    <div class="loading" id="loading">Загрузка статистики...</div>
+    <div class="loading" id="loading">Загрузка лидерборда...</div>
     <div id="leaderboard-table" style="display:none;"></div>
     
     <div class="footer">
@@ -44,11 +44,10 @@
   </div>
 
   <script>
-    // ПРАВИЛЬНЫЙ КОНФИГ С РЕГИОНОМ!
     const firebaseConfig = {
       apiKey: "AIzaSyC4uoMlR8ZEWbJ-553YO5Zw3YM2Xk8EjNo",
       authDomain: "lotos-vbinc.firebaseapp.com",
-      databaseURL: "https://lotos-vbinc-default-rtdb.firebaseio.com",
+      databaseURL: "https://lotos-vbinc-default-rtdb.europe-west1.firebasedatabase.app", // ИСПРАВЛЕНО!
       projectId: "lotos-vbinc"
     };
 
@@ -65,13 +64,12 @@
       const data = snapshot.val() || {};
       const tableData = [];
 
-      Object.keys(data).forEach(uid => {
-        const u = data[uid];
+      Object.entries(data).forEach(([uid, u]) => {
         const s = u.stats || {};
         const p = u.profile || {};
 
-        const totalAnswers = (s.totalCorrect || 0) + (s.totalWrong || 0);
-        const accuracy = totalAnswers > 0 ? Math.round((s.totalCorrect / totalAnswers) * 100) : 0;
+        const total = (s.totalCorrect || 0) + (s.totalWrong || 0);
+        const accuracy = total > 0 ? Math.round((s.totalCorrect / total) * 100) : 0;
 
         tableData.push({
           rank: 0,
@@ -102,15 +100,15 @@
       if (table) {
         table.setData(tableData);
       } else {
-        new Tabulator("#leaderboard-table", {
+        table = new Tabulator("#leaderboard-table", {
           data: tableData,
           layout: "fitColumns",
           pagination: "local",
           paginationSize: 25,
           paginationSizeSelector: [10, 25, 50, 100, "Все"],
           rowFormatter: row => {
-            const data = row.getData();
-            if (data._rowClass) row.getElement().classList.add(data._rowClass);
+            const d = row.getData();
+            if (d._rowClass) row.getElement().classList.add(d._rowClass);
           },
           columns: [
             { title: "№", field: "rank", hozAlign: "center", width: 60, headerSort: false },
@@ -127,11 +125,8 @@
         });
       }
     }, (error) => {
-      document.getElementById("loading").innerHTML = `<span style="color:#ff6b6b;">Ошибка загрузки: ${error.message}</span>`;
+      document.getElementById("loading").innerHTML = `<span style="color:#ff6b6b;">Ошибка: ${error.message}</span><br>Проверь правила безопасности в Firebase!`;
     });
   </script>
 </body>
 </html>
-
-
-
