@@ -15,23 +15,167 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    body {margin:0;padding:20px;background:#0f0f1a;color:#e0e0ff;font-family:'Inter',sans-serif;min-height:100vh;}
-    .container{max-width:1450px;margin:0 auto;}
-    h1{text-align:center;margin:20px 0 15px;font-size:2.8rem;background:linear-gradient(90deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .tabs{margin-bottom:20px;text-align:center;}
-    .tab-btn{padding:12px 24px;margin:0 8px;font-size:1.1rem;border:none;border-radius:8px;background:#16213e;color:#ccc;cursor:pointer;transition:all .3s;}
-    .tab-btn.active{background:#8b5cf6;color:white;font-weight:700;}
-    .tab-btn:hover{background:#3b82f6;}
-    .stats{text-align:center;margin:20px 0;font-size:1.2rem;opacity:0.9;}
-    #table-container{background:#1a1a2e;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
-    .tabulator .tabulator-header{background:#16213e;color:#ccc;font-weight:600;}
-    .tabulator-row{background:#16213e;border-bottom:1px solid #2a2a4e;}
-    .tabulator-row:hover{background:#1e1e3f !important;}
-    .top1{background:linear-gradient(90deg,#ffd700,#ffb800)!important;color:#000!important;font-weight:bold;}
-    .top2{background:linear-gradient(90deg,#c0c0c0,#a0a0a0)!important;color:#000!important;}
-    .top3{background:linear-gradient(90deg,#cd7f32,#b87333)!important;color:#fff!important;}
-    .footer{text-align:center;margin-top:50px;opacity:0.6;font-size:0.9rem;}
-    .loading{text-align:center;padding:60px;font-size:1.5rem;color:#8b5cf6;}
+    
+    body {
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #f6d365 100%);
+      background-size: 400% 400%;
+      animation: gradientWave 15s ease infinite;
+      color: #2d3748;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+    
+    @keyframes gradientWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .container {
+      max-width: 1450px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      margin: 20px 0 15px;
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #ffd700, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .tabs {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .tab-btn {
+      padding: 12px 24px;
+      margin: 0 8px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #4a5568;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .tab-btn.active {
+      background: linear-gradient(90deg, #ffd700, #ff8e53);
+      color: white;
+      font-weight: 700;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+    
+    .tab-btn:hover {
+      background: linear-gradient(90deg, #ffed4e, #ff9d6c);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .stats {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      color: #2d3748;
+    }
+    
+    #table-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    .tabulator .tabulator-header {
+      background: linear-gradient(90deg, #4a5568, #2d3748);
+      color: white;
+      font-weight: 600;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .tabulator-row {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    
+    .tabulator-row:hover {
+      background: rgba(237, 242, 247, 0.9) !important;
+      transform: scale(1.01);
+    }
+    
+    .top1 {
+      background: linear-gradient(90deg, #ffd700, #ffb800) !important;
+      color: #000 !important;
+      font-weight: bold;
+      border: 2px solid #ffb800 !important;
+    }
+    
+    .top2 {
+      background: linear-gradient(90deg, #c0c0c0, #a0a0a0) !important;
+      color: #000 !important;
+      border: 2px solid #a0a0a0 !important;
+    }
+    
+    .top3 {
+      background: linear-gradient(90deg, #cd7f32, #b87333) !important;
+      color: #fff !important;
+      border: 2px solid #b87333 !important;
+    }
+    
+    .tabulator-cell {
+      border-right: 1px solid #e2e8f0;
+    }
+    
+    .tabulator .tabulator-col {
+      border-right: 1px solid #e2e8f0;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      opacity: 0.8;
+      font-size: 0.9rem;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 60px;
+      font-size: 1.5rem;
+      color: #ffd700;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .tabulator-page {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e2e8f0;
+      color: #4a5568;
+    }
+    
+    .tabulator-page.active {
+      background: linear-gradient(90deg, #ffd700, #ff8e53);
+      color: white;
+      border-color: #ff8e53;
+    }
   </style>
 </head>
 <body>
@@ -99,6 +243,13 @@
       Object.values(data).forEach(u => {
         const s = u.stats || {};
         const p = u.profile || {};
+        const nickname = p.nickname || p.name || "Аноним";
+        
+        // Пропускаем анонимов
+        if (nickname === "Аноним" || !nickname.trim()) {
+          return;
+        }
+
         const total = (s.totalCorrect || 0) + (s.totalWrong || 0);
         const accuracy = total > 0 ? Math.round((s.totalCorrect / total) * 100) : 0;
 
@@ -108,7 +259,7 @@
         }
 
         rawData.push({
-          nickname: p.nickname || p.name || "Аноним",
+          nickname: nickname,
           group: p.group || "—",
           correct: s.totalCorrect || 0,
           tests: s.completedTests || 0,
