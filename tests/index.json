@@ -113,10 +113,10 @@
     {
       "id": "Philosophy",
       "name": "Философия",
-      "description": "О том о сём",
+      "description": "Тест для 2, 3, 4 курсов",
       "questionCount": 150,
-      "estimatedTime": "Не засекал",
-      "difficulty": "Нормик",
+      "estimatedTime": "45 минут",
+      "difficulty": "Средняя",
       "fileName": "Philosophy.json",
       "encryptedFileName": "Philosophy.lyc"
     },
@@ -126,7 +126,7 @@
       "description": "Технология разработки ПО",
       "questionCount": 104,
       "estimatedTime": "30 минут",
-      "difficulty": "Средне",
+      "difficulty": "Средняя",
       "fileName": "02.01.json",
       "encryptedFileName": "02.01.lyc"
     },
