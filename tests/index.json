@@ -1,13 +1,13 @@
 {
   "tests": [
     {
-      "id": "poooopd",
-      "name": "ПОООПД",
+      "id": "popd",
+      "name": "ПОПД",
       "description": "попд",
       "questionCount": 4500,
       "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "poooopd.json",
+      "difficulty": "угу",
+      "fileName": "ПОПД 278.json",
       "encryptedFileName": "poooopd.lyc"
     },
     {
