@@ -1,14 +1,14 @@
 {
   "tests": [
     {
-      "id": "popd",
+      "id": "popd_278",
       "name": "ПОПД",
       "description": "попд",
-      "questionCount": 4500,
+      "questionCount": 278,
       "estimatedTime": "угу",
       "difficulty": "угу",
       "fileName": "ПОПД 278.json",
-      "encryptedFileName": "poooopd.lyc"
+      "encryptedFileName": "ПОПД 278.lyc"
     },
     {
       "id": "menedjment",
