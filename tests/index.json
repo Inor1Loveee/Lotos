@@ -1,6 +1,36 @@
 {
   "tests": [
     {
+      "id": "04.01",
+      "name": "МДК 04.01",
+      "description": "Чё-то там про бд",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "04.01.json",
+      "encryptedFileName": "04.01.lyc"
+    },
+    {
+      "id": "standards",
+      "name": "Стандартизация?",
+      "description": "Стандартизация",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "standards.json",
+      "encryptedFileName": "standards.lyc"
+    },
+    {
+      "id": "03.02",
+      "name": "МДК 03.02",
+      "description": "я хз",
+      "questionCount": 4500,
+      "estimatedTime": "угу",
+      "difficulty": "Нам всё посильно",
+      "fileName": "03.02.json",
+      "encryptedFileName": "03.02.lyc"
+    },
+    {
       "id": "popd_278",
       "name": "ПОПД",
       "description": "попд",
@@ -31,16 +61,6 @@
       "encryptedFileName": "menedjment.lyc"
     },
     {
-      "id": "standards",
-      "name": "Стандартизация?",
-      "description": "Стандартизация",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "standards.json",
-      "encryptedFileName": "standards.lyc"
-    },
-    {
       "id": "02.02",
       "name": "МДК 02.02",
       "description": "ИСРПО",
@@ -59,26 +79,6 @@
       "difficulty": "Нам всё посильно",
       "fileName": "POPD.json",
       "encryptedFileName": "POPD.lyc"
-    },
-    {
-      "id": "03.02",
-      "name": "МДК 03.02",
-      "description": "я хз",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "03.02.json",
-      "encryptedFileName": "03.02.lyc"
-    },
-    {
-      "id": "04.01",
-      "name": "МДК 04.01",
-      "description": "Чё-то там про бд",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "04.01.json",
-      "encryptedFileName": "04.01.lyc"
     },
     {
       "id": "math",
