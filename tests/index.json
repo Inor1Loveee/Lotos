@@ -31,6 +31,16 @@
       "encryptedFileName": "03.02.lyc"
     },
     {
+      "id": "03.01",
+      "name": "МДК 03.01",
+      "description": "bruh",
+      "questionCount": 168,
+      "estimatedTime": "угу",
+      "difficulty": "ЛАСТОВЫЙ",
+      "fileName": "0301.json",
+      "encryptedFileName": "0301.lyc"
+    },
+    {
       "id": "popd_278",
       "name": "ПОПД",
       "description": "попд",
