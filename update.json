@@ -1,9 +1,9 @@
 {
-  "latest_version": "0.0.30",
-  "version_code": 30,
-  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.30.apk",
+  "latest_version": "0.0.31",
+  "version_code": 31,
+  "update_url": "https://Inor1Loveee.github.io/Lotos/apk/Lycoris v0.0.31.apk",
   "release_notes": [
-    "Хотфикс экрана завершения тестов"
+    "Кастомизируйте цветовую тему!"
   ],
   "mandatory": false
 }
