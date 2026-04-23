@@ -28,6 +28,16 @@ const FB = initializeApp(APP_CONFIG.firebase);
 const auth = getAuth(FB);
 const db = getDatabase(FB);
 
+const ROUTE_AUTH = 'auth';
+const ROUTE_MENU = 'menu';
+const ROUTE_TEST_SELECTION = 'test_selection';
+const ROUTE_RUN = 'run';
+const ROUTE_ATTEMPT_HISTORY = 'attempt_history';
+const ROUTE_ATTEMPT = 'attempt';
+const ROUTE_RESULT = 'result';
+const ROUTE_PROFILE = 'profile';
+const ROUTE_SETTINGS = 'settings';
+
 const LS_THEME = 'lycoris_web_theme';
 const LS_SHUFFLE = 'lycoris_web_shuffle';
 const LS_SOURCE = 'lycoris_web_test_source';
@@ -72,7 +82,7 @@ function applyThemeFromStorage() {
 applyThemeFromStorage();
 
 function parseHash() {
-  const h = (location.hash || '#/menu').replace(/^#\/?/, '');
+  const h = (location.hash || `#/${ROUTE_MENU}`).replace(/^#\/?/, '');
   const [path, query = ''] = h.split('?');
   const segments = path.split('/').filter(Boolean);
   const name = segments[0] || 'menu';
@@ -158,17 +168,31 @@ function parseQuestionsFromJson(testData) {
   const arr = testData?.questions;
   if (!Array.isArray(arr)) return list;
   for (const q of arr) {
-    if (!q?.question || !Array.isArray(q.answers)) continue;
-    const options = [];
-    let correct = -1;
-    for (let j = 0; j < q.answers.length; j++) {
-      const a = q.answers[j];
-      if (!a || typeof a.text !== 'string') continue;
-      options.push(a.text);
-      if (a.isCorrect === true) correct = j;
+    if (!q?.question) continue;
+
+    // Unified contract: answers[{ text, isCorrect }]
+    if (Array.isArray(q.answers)) {
+      const options = [];
+      let correct = -1;
+      for (let j = 0; j < q.answers.length; j++) {
+        const a = q.answers[j];
+        if (!a || typeof a.text !== 'string') continue;
+        options.push(a.text);
+        if (a.isCorrect === true) correct = j;
+      }
+      if (correct >= 0 && options.length) {
+        list.push({ question: q.question, options, correctAnswer: correct });
+      }
+      continue;
     }
-    if (correct >= 0 && options.length) {
-      list.push({ question: q.question, options, correctAnswer: correct });
+
+    // Legacy fallback: options[] + correctAnswer(index)
+    if (Array.isArray(q.options)) {
+      const options = q.options.filter((o) => typeof o === 'string');
+      const correct = Number(q.correctAnswer);
+      if (options.length && Number.isInteger(correct) && correct >= 0 && correct < options.length) {
+        list.push({ question: q.question, options, correctAnswer: correct });
+      }
     }
   }
   return list;
@@ -328,6 +352,20 @@ function normalizeNickname(raw) {
   return t;
 }
 
+function roundToOneDecimal(value) {
+  return Math.round(value * 10) / 10;
+}
+
+function parseAttemptTimestamp(raw) {
+  if (raw == null) return 0;
+  if (typeof raw === 'number' && Number.isFinite(raw)) return raw;
+  const s = String(raw).trim();
+  if (!s) return 0;
+  if (/^\d+$/.test(s)) return Number(s);
+  const ts = Date.parse(s);
+  return Number.isNaN(ts) ? 0 : ts;
+}
+
 async function loadLeaderboard(limit = 50) {
   const attemptsWindow = Math.max(limit * 20, 500);
   const qy = query(ref(db, 'leaderboardAttempts'), orderByKey(), limitToLast(attemptsWindow));
@@ -347,6 +385,7 @@ async function loadLeaderboard(limit = 50) {
           totalQuestions: 0,
           totalTimeSeconds: 0,
           bestPercent: 0,
+          lastAttemptAt: 0,
         };
         byUser.set(attempt.userId, e);
       }
@@ -356,11 +395,13 @@ async function loadLeaderboard(limit = 50) {
       const total = Math.max(1, Number(attempt.totalQuestions) || 1);
       const time = Number(attempt.timeSpent) || 0;
       const percent = Math.round((correct / total) * 100);
+      const attemptTs = parseAttemptTimestamp(attempt.timestamp);
       e.attempts++;
       e.totalCorrect += correct;
       e.totalQuestions += total;
       e.totalTimeSeconds += time;
       if (percent > e.bestPercent) e.bestPercent = percent;
+      if (attemptTs > e.lastAttemptAt) e.lastAttemptAt = attemptTs;
     }
   }
   let profiles = {};
@@ -378,14 +419,15 @@ async function loadLeaderboard(limit = 50) {
   const list = [];
   for (const e of byUser.values()) {
     if (e.attempts > 0 && e.totalQuestions > 0) {
-      e.averagePercent = (e.totalCorrect / e.totalQuestions) * 100;
+      e.averagePercent = roundToOneDecimal((e.totalCorrect / e.totalQuestions) * 100);
       list.push(e);
     }
   }
   list.sort((a, b) => {
     if (b.averagePercent !== a.averagePercent) return b.averagePercent - a.averagePercent;
     if (b.bestPercent !== a.bestPercent) return b.bestPercent - a.bestPercent;
-    return b.attempts - a.attempts;
+    if (b.attempts !== a.attempts) return b.attempts - a.attempts;
+    return b.lastAttemptAt - a.lastAttemptAt;
   });
   return limit > 0 ? list.slice(0, limit) : list;
 }
@@ -442,7 +484,7 @@ function renderAuth() {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(cred.user, { displayName: email.split('@')[0] });
       }
-      setHash('menu');
+      setHash(ROUTE_MENU);
     } catch (ex) {
       err.textContent = authErrorRu(ex);
       err.hidden = false;
@@ -474,19 +516,19 @@ function renderMenu() {
         <div class="emoji" aria-hidden="true">🌸</div>
       </div>
       <div class="stack">
-        <button type="button" class="btn btn-primary" id="go-tests">Начать тест</button>
+        <button type="button" class="btn btn-primary" id="go-tests">Выбор теста</button>
         <button type="button" class="btn btn-secondary" id="go-history">История попыток</button>
         <button type="button" class="btn btn-ghost" id="logout">Выйти</button>
       </div>
     </div>
   `);
-  root.querySelector('#go-tests').onclick = () => setHash('tests');
-  root.querySelector('#go-history').onclick = () => setHash('history');
-  root.querySelector('#to-profile').onclick = () => setHash('profile');
-  root.querySelector('#to-settings').onclick = () => setHash('settings');
+  root.querySelector('#go-tests').onclick = () => setHash(ROUTE_TEST_SELECTION);
+  root.querySelector('#go-history').onclick = () => setHash(ROUTE_ATTEMPT_HISTORY);
+  root.querySelector('#to-profile').onclick = () => setHash(ROUTE_PROFILE);
+  root.querySelector('#to-settings').onclick = () => setHash(ROUTE_SETTINGS);
   root.querySelector('#logout').onclick = async () => {
     await signOut(auth);
-    setHash('auth');
+    setHash(ROUTE_AUTH);
   };
   return root;
 }
@@ -509,7 +551,7 @@ async function renderTests() {
     </div>
   `),
   );
-  wrap.querySelector('#back-menu').onclick = () => setHash('menu');
+  wrap.querySelector('#back-menu').onclick = () => setHash(ROUTE_MENU);
 
   const card = el(`
     <div class="card">
@@ -633,7 +675,7 @@ async function renderRun(segments) {
   const source = segments[1];
   const fileName = decodeURIComponent(segments[2] || '');
   if (!fileName || (source !== 'github' && source !== 'local')) {
-    setHash('tests');
+    setHash(ROUTE_TEST_SELECTION);
     return el('<div></div>');
   }
 
@@ -651,7 +693,7 @@ async function renderRun(segments) {
   );
   wrap.querySelector('#abort').onclick = () => {
     clearTestTimer();
-    setHash('tests');
+    setHash(ROUTE_TEST_SELECTION);
   };
 
   const body = el(`
@@ -840,7 +882,7 @@ function renderResult(segments) {
   if (!payload) {
     const w = el(`<div class="layout"><p class="card">Запись не найдена.</p>
       <button class="btn btn-primary" id="bk">В меню</button></div>`);
-    w.querySelector('#bk').onclick = () => setHash('menu');
+    w.querySelector('#bk').onclick = () => setHash(ROUTE_MENU);
     return w;
   }
   const pct = Math.round((payload.correctAnswers / Math.max(1, payload.totalQuestions)) * 100);
@@ -857,8 +899,8 @@ function renderResult(segments) {
       </div>
     </div>
   `);
-  root.querySelector('#to-tests').onclick = () => setHash('tests');
-  root.querySelector('#review').onclick = () => setHash(`attempt/local/${id}`);
+  root.querySelector('#to-tests').onclick = () => setHash(ROUTE_TEST_SELECTION);
+  root.querySelector('#review').onclick = () => setHash(`${ROUTE_ATTEMPT}/local/${id}`);
   return root;
 }
 
@@ -878,7 +920,7 @@ async function renderHistory() {
     </div>
   `),
   );
-  wrap.querySelector('#bk').onclick = () => setHash('menu');
+  wrap.querySelector('#bk').onclick = () => setHash(ROUTE_MENU);
 
   const card = el(`
     <div class="card">
@@ -935,7 +977,7 @@ async function renderHistory() {
         <p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(item.at || '')}</p>
       </button>
     `);
-    b.onclick = () => setHash(`attempt/${item.kind}/${item.id}`);
+    b.onclick = () => setHash(`${ROUTE_ATTEMPT}/${item.kind}/${item.id}`);
     listEl.appendChild(b);
   }
   return wrap;
@@ -952,7 +994,7 @@ async function renderAttempt(segments) {
     </div>
   `),
   );
-  wrap.querySelector('#bk').onclick = () => setHash('history');
+  wrap.querySelector('#bk').onclick = () => setHash(ROUTE_ATTEMPT_HISTORY);
 
   let payload = null;
   if (scope === 'local') {
@@ -1013,7 +1055,7 @@ async function renderProfile() {
     </div>
   `),
   );
-  wrap.querySelector('#bk').onclick = () => setHash('menu');
+  wrap.querySelector('#bk').onclick = () => setHash(ROUTE_MENU);
 
   const card = el(`
     <div class="card">
@@ -1138,7 +1180,7 @@ function renderSettings() {
     </div>
   `),
   );
-  wrap.querySelector('#bk').onclick = () => setHash('menu');
+  wrap.querySelector('#bk').onclick = () => setHash(ROUTE_MENU);
 
   const shuf = isShuffleOn();
   const root = el(`
@@ -1258,7 +1300,7 @@ async function render() {
   if (!state.user) {
     const { name } = parseHash();
     if (name !== 'auth') {
-      setHash('auth');
+      setHash(ROUTE_AUTH);
       return;
     }
     app.innerHTML = '';
@@ -1270,26 +1312,28 @@ async function render() {
   await checkForWebUpdate();
 
   let { name, segments } = parseHash();
-  if (name === 'auth') {
-    setHash('menu');
+  if (name === ROUTE_AUTH) {
+    setHash(ROUTE_MENU);
     return;
   }
-  if (!name || name === 'menu') {
+  if (!name || name === ROUTE_MENU) {
     app.innerHTML = '';
     app.appendChild(renderMenu());
     return;
   }
 
   app.innerHTML = '';
-  if (name === 'tests') app.appendChild(await renderTests());
-  else if (name === 'run') app.appendChild(await renderRun(segments));
-  else if (name === 'history') app.appendChild(await renderHistory());
-  else if (name === 'attempt') app.appendChild(await renderAttempt(segments));
-  else if (name === 'result') app.appendChild(renderResult(segments));
-  else if (name === 'profile') app.appendChild(await renderProfile());
-  else if (name === 'settings') app.appendChild(renderSettings());
+  // Keep route aliases for backward compatibility.
+  const normalizedName = name === 'tests' ? ROUTE_TEST_SELECTION : name === 'history' ? ROUTE_ATTEMPT_HISTORY : name;
+  if (normalizedName === ROUTE_TEST_SELECTION) app.appendChild(await renderTests());
+  else if (normalizedName === ROUTE_RUN) app.appendChild(await renderRun(segments));
+  else if (normalizedName === ROUTE_ATTEMPT_HISTORY) app.appendChild(await renderHistory());
+  else if (normalizedName === ROUTE_ATTEMPT) app.appendChild(await renderAttempt(segments));
+  else if (normalizedName === ROUTE_RESULT) app.appendChild(renderResult(segments));
+  else if (normalizedName === ROUTE_PROFILE) app.appendChild(await renderProfile());
+  else if (normalizedName === ROUTE_SETTINGS) app.appendChild(renderSettings());
   else {
-    setHash('menu');
+    setHash(ROUTE_MENU);
   }
 }
 
@@ -1297,7 +1341,7 @@ onAuthStateChanged(auth, (user) => {
   state.user = user;
   const h = location.hash;
   if (!h || h === '#' || h === '#/') {
-    location.hash = user ? '#/menu' : '#/auth';
+    location.hash = user ? `#/${ROUTE_MENU}` : `#/${ROUTE_AUTH}`;
   } else {
     render();
   }
