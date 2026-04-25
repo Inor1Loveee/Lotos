@@ -441,6 +441,8 @@ function renderAuth() {
         <div class="emoji" aria-hidden="true">🌸</div>
       </div>
       <div class="card" style="max-width:400px;margin:0 auto;">
+        <h2 id="auth-title" style="margin:0 0 0.75rem;">Вход</h2>
+        <p class="muted" id="auth-sub" style="margin:0 0 1rem;">Войдите в аккаунт, чтобы продолжить</p>
         <div class="segmented" id="auth-seg">
           <button type="button" class="active" data-mode="in">Вход</button>
           <button type="button" data-mode="up">Регистрация</button>
@@ -455,7 +457,7 @@ function renderAuth() {
             <label for="pw">Пароль</label>
             <input id="pw" name="password" type="password" autocomplete="current-password" required minlength="6" />
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;min-width:auto;">Продолжить</button>
+          <button type="submit" class="btn btn-primary" id="auth-submit" style="width:100%;min-width:auto;">Войти</button>
         </form>
       </div>
       <p class="footer-note">Веб-версия Lycoris · GitHub Pages</p>
@@ -465,12 +467,29 @@ function renderAuth() {
   const seg = root.querySelector('#auth-seg');
   const err = root.querySelector('#auth-err');
   const form = root.querySelector('#auth-form');
+  const authTitle = root.querySelector('#auth-title');
+  const authSub = root.querySelector('#auth-sub');
+  const authSubmit = root.querySelector('#auth-submit');
+
+  function syncAuthUi() {
+    if (mode === 'in') {
+      authTitle.textContent = 'Вход';
+      authSub.textContent = 'Войдите в аккаунт, чтобы продолжить';
+      authSubmit.textContent = 'Войти';
+    } else {
+      authTitle.textContent = 'Регистрация';
+      authSub.textContent = 'Создайте аккаунт для доступа к тестам';
+      authSubmit.textContent = 'Зарегистрироваться';
+    }
+  }
   seg.addEventListener('click', (e) => {
     const b = e.target.closest('button[data-mode]');
     if (!b) return;
     mode = b.dataset.mode;
     seg.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
+    syncAuthUi();
   });
+  syncAuthUi();
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.hidden = true;
@@ -939,17 +958,25 @@ async function renderHistory() {
   if (state.user) {
     try {
       remote = await loadUserAttempts(state.user.uid);
-      srcEl.textContent = 'Источник: Firebase и сохранённые в браузере попытки.';
+      srcEl.textContent = 'Источник: Firebase + локальные попытки';
     } catch {
-      srcEl.textContent = 'Источник: только локальные попытки (ошибка загрузки Firebase).';
+      srcEl.textContent = 'Источник: локальные попытки (ошибка Firebase)';
     }
   } else {
-    srcEl.textContent = 'Источник: локальные попытки.';
+    srcEl.textContent = 'Источник: локальные попытки';
   }
 
   const merged = [];
   for (const a of remote) {
-    merged.push({ kind: 'fb', id: a.id, at: a.timestamp, title: a.testName || 'Тест', sub: `${a.correctAnswers}/${a.totalQuestions}` });
+    merged.push({
+      kind: 'fb',
+      id: a.id,
+      at: a.timestamp,
+      title: a.testName || 'Тест',
+      correct: Number(a.correctAnswers) || 0,
+      total: Number(a.totalQuestions) || 0,
+      timeSpent: Number(a.timeSpent) || 0,
+    });
   }
   for (const a of local) {
     merged.push({
@@ -957,24 +984,53 @@ async function renderHistory() {
       id: a.localId,
       at: a.at,
       title: a.payload?.testName || 'Тест',
-      sub: `${a.payload?.correctAnswers}/${a.payload?.totalQuestions}`,
+      correct: Number(a.payload?.correctAnswers) || 0,
+      total: Number(a.payload?.totalQuestions) || 0,
+      timeSpent: Number(a.payload?.timeSpent) || 0,
     });
   }
   merged.sort((x, y) => String(y.at || '').localeCompare(String(x.at || '')));
 
   if (!merged.length) {
-    listEl.innerHTML = '<p class="muted">Пока нет попыток.</p>';
+    listEl.innerHTML = '<p class="muted">Пока нет завершенных попыток.</p>';
     return wrap;
   }
 
+  const totalAttempts = merged.length;
+  const averagePercent = roundToOneDecimal(
+    merged.reduce((sum, item) => sum + ((item.correct / Math.max(1, item.total)) * 100), 0) / totalAttempts,
+  );
+  const bestPercent = roundToOneDecimal(
+    merged.reduce((best, item) => Math.max(best, (item.correct / Math.max(1, item.total)) * 100), 0),
+  );
+  listEl.appendChild(
+    el(`
+      <div class="row" style="gap:0.75rem;flex-wrap:wrap;margin-bottom:0.75rem;">
+        <div class="card" style="padding:0.75rem 1rem;min-width:110px;">
+          <p class="muted" style="margin:0;">Попыток</p>
+          <p style="margin:0.2rem 0 0;font-weight:700;">${totalAttempts}</p>
+        </div>
+        <div class="card" style="padding:0.75rem 1rem;min-width:110px;">
+          <p class="muted" style="margin:0;">Средний</p>
+          <p style="margin:0.2rem 0 0;font-weight:700;">${averagePercent}%</p>
+        </div>
+        <div class="card" style="padding:0.75rem 1rem;min-width:110px;">
+          <p class="muted" style="margin:0;">Лучший</p>
+          <p style="margin:0.2rem 0 0;font-weight:700;">${bestPercent}%</p>
+        </div>
+      </div>
+    `),
+  );
+
   for (const item of merged) {
+    const percent = roundToOneDecimal((item.correct / Math.max(1, item.total)) * 100);
     const b = el(`
       <button type="button" class="card history-item" style="margin-top:0.75rem;">
         <div class="row">
           <h3>${escapeHtml(item.title)}</h3>
-          <span class="badge">${escapeHtml(item.sub)}</span>
+          <span class="badge">${item.correct}/${item.total} · ${percent}%</span>
         </div>
-        <p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(item.at || '')}</p>
+        <p class="muted" style="margin:0.35rem 0 0;">Время: ${formatDuration(item.timeSpent)} · ${escapeHtml(item.at || '')}</p>
       </button>
     `);
     b.onclick = () => setHash(`${ROUTE_ATTEMPT}/${item.kind}/${item.id}`);
@@ -1022,8 +1078,9 @@ async function renderAttempt(segments) {
   }
 
   const box = el('<div class="card"></div>');
+  const pct = roundToOneDecimal((Number(payload.correctAnswers) / Math.max(1, Number(payload.totalQuestions))) * 100);
   box.innerHTML = `<h2>${escapeHtml(payload.testName)}</h2>
-    <p class="muted">Верно: ${payload.correctAnswers} · Неверно: ${payload.incorrectAnswers} · Время: ${formatDuration(payload.timeSpent)}</p>`;
+    <p class="muted">Верно: ${payload.correctAnswers} · Неверно: ${payload.incorrectAnswers} · Точность: ${pct}% · Время: ${formatDuration(payload.timeSpent)}</p>`;
 
   const qs = payload.questions || [];
   const ans = payload.userAnswers || [];
@@ -1061,8 +1118,8 @@ async function renderProfile() {
     <div class="card">
       <h2>Статистика</h2>
       <div class="segmented" id="prof-seg">
-        <button type="button" class="active" data-tab="me">Мои результаты</button>
-        <button type="button" data-tab="lb">Рейтинг</button>
+        <button type="button" class="active" data-tab="me">Общая</button>
+        <button type="button" data-tab="lb">Глобальная</button>
       </div>
       <div id="prof-body"></div>
     </div>
@@ -1074,7 +1131,7 @@ async function renderProfile() {
 
   async function showMe() {
     if (!state.user) {
-      body.innerHTML = '<p class="muted">Войдите, чтобы видеть статистику.</p>';
+      body.innerHTML = '<p class="muted">Войдите, чтобы открыть раздел статистики.</p>';
       return;
     }
     let attempts = [];
@@ -1085,7 +1142,7 @@ async function renderProfile() {
       return;
     }
     if (!attempts.length) {
-      body.innerHTML = '<p class="muted">Пока нет завершённых тестов.</p>';
+      body.innerHTML = '<p class="muted">Пока нет завершенных попыток.</p>';
       return;
     }
     let totalCorrect = 0;
@@ -1105,15 +1162,20 @@ async function renderProfile() {
       prev.n++;
       byTest.set(name, prev);
     }
-    const avg = totalQ ? Math.round((totalCorrect / totalQ) * 100) : 0;
+    const avg = totalQ ? roundToOneDecimal((totalCorrect / totalQ) * 100) : 0;
+    let best = 0;
     let bestLine = '';
     for (const [name, v] of byTest.entries()) {
+      if (v.best > best) best = v.best;
       bestLine += `<li><strong>${escapeHtml(name)}</strong> — лучший результат ${v.best}% (${v.n} попыт.)</li>`;
     }
     body.innerHTML = `
-      <p>Всего попыток: <strong>${attempts.length}</strong></p>
-      <p>Средняя точность: <strong>${avg}%</strong></p>
-      <p class="muted">Суммарное время: ${formatDuration(timeSum)}</p>
+      <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;">
+        <div class="card"><p class="muted" style="margin:0;">Попыток</p><p style="margin:0.25rem 0 0;font-weight:700;">${attempts.length}</p></div>
+        <div class="card"><p class="muted" style="margin:0;">Средний</p><p style="margin:0.25rem 0 0;font-weight:700;">${avg}%</p></div>
+        <div class="card"><p class="muted" style="margin:0;">Лучший</p><p style="margin:0.25rem 0 0;font-weight:700;">${best}%</p></div>
+        <div class="card"><p class="muted" style="margin:0;">Время</p><p style="margin:0.25rem 0 0;font-weight:700;">${formatDuration(timeSum)}</p></div>
+      </div>
       <h3 style="margin:1rem 0 0.5rem;font-size:1rem;">По тестам</h3>
       <ul style="margin:0;padding-left:1.2rem;" class="muted">${bestLine}</ul>
     `;
@@ -1121,14 +1183,14 @@ async function renderProfile() {
 
   async function showLb() {
     if (!state.user) {
-      body.innerHTML = '<p class="muted">Войдите, чтобы видеть рейтинг.</p>';
+      body.innerHTML = '<p class="muted">Войдите, чтобы открыть глобальную статистику.</p>';
       return;
     }
-    body.innerHTML = '<p class="loading">Загрузка рейтинга…</p>';
+    body.innerHTML = '<p class="loading">Загрузка...</p>';
     try {
       const board = await loadLeaderboard(50);
       if (!board.length) {
-        body.innerHTML = '<p class="muted">Рейтинг пока пуст.</p>';
+        body.innerHTML = '<p class="muted">Глобальная статистика пока пуста.</p>';
         return;
       }
       let rows = '';
