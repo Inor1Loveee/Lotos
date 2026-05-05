@@ -43,6 +43,7 @@ const LS_THEME = 'lycoris_web_theme';
 const LS_SHUFFLE = 'lycoris_web_shuffle';
 const LS_SOURCE = 'lycoris_web_test_source';
 const LS_LOCAL_ATTEMPTS = 'lycoris_web_attempts_local';
+const LS_PENDING_RUN = 'lycoris_web_pending_run';
 const MAX_LOCAL_ATTEMPTS = 50;
 
 const DEFAULT_THEME = {
@@ -294,6 +295,39 @@ function pushLocalAttempt(record) {
   const all = readLocalAttempts();
   all.unshift(record);
   writeLocalAttempts(all);
+}
+
+function readPendingRun() {
+  try {
+    const raw = localStorage.getItem(LS_PENDING_RUN);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!data || typeof data !== 'object') return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function writePendingRun(runState) {
+  if (!runState) return;
+  const payload = {
+    questions: Array.isArray(runState.questions) ? runState.questions : [],
+    index: Number.isFinite(runState.index) ? runState.index : 0,
+    seconds: Number.isFinite(runState.seconds) ? runState.seconds : 0,
+    answersByIndex: Array.isArray(runState.answersByIndex) ? runState.answersByIndex : [],
+    checked: Array.isArray(runState.checked) ? runState.checked : [],
+    meta: runState.meta || null,
+    source: runState.source || '',
+    fileName: runState.fileName || '',
+    userName: runState.userName || 'Гость',
+    savedAt: new Date().toISOString(),
+  };
+  localStorage.setItem(LS_PENDING_RUN, JSON.stringify(payload));
+}
+
+function clearPendingRun() {
+  localStorage.removeItem(LS_PENDING_RUN);
 }
 
 function buildAttemptPayload(attemptState, meta) {
@@ -828,15 +862,11 @@ async function renderRun(segments) {
   wrap.appendChild(
     el(`
     <div class="top-bar" style="justify-content:space-between;flex-wrap:wrap;">
-      <button type="button" class="btn btn-secondary" style="min-width:auto;padding:0.5rem 1rem;" id="abort">← К списку</button>
+      <button type="button" class="btn btn-secondary" style="min-width:auto;padding:0.5rem 1rem;" id="abort">☰ Выход</button>
       <span class="timer-pill" id="timer">00:00</span>
     </div>
   `),
   );
-  wrap.querySelector('#abort').onclick = () => {
-    clearTestTimer();
-    setHash(ROUTE_TEST_SELECTION);
-  };
 
   const body = el(`
     <div class="card" id="run-card">
@@ -858,19 +888,42 @@ async function renderRun(segments) {
       fileName,
     };
     const userName = state.displayName || state.user?.email?.split('@')[0] || 'Гость';
-
-    const runState = {
-      questions,
-      index: 0,
-      seconds: 0,
-      answersByIndex: [],
-      checked: [],
-      meta,
-      source,
-      fileName,
-      userName,
-      selectedOption: null,
-    };
+    const pending = readPendingRun();
+    const canResume = !!pending
+      && pending.source === source
+      && pending.fileName === fileName
+      && Array.isArray(pending.questions)
+      && pending.questions.length > 0;
+    const runState = canResume
+      ? {
+          questions: pending.questions,
+          index: Math.max(0, Math.min(Number(pending.index) || 0, pending.questions.length - 1)),
+          seconds: Math.max(0, Number(pending.seconds) || 0),
+          answersByIndex: Array.isArray(pending.answersByIndex) ? pending.answersByIndex : [],
+          checked: Array.isArray(pending.checked)
+            ? pending.checked
+            : pending.questions.map((_, idx) => !!(pending.answersByIndex && pending.answersByIndex[idx])),
+          meta: pending.meta || meta,
+          source,
+          fileName,
+          userName: pending.userName || userName,
+          selectedOption: null,
+        }
+      : {
+          questions,
+          index: 0,
+          seconds: 0,
+          answersByIndex: [],
+          checked: [],
+          meta,
+          source,
+          fileName,
+          userName,
+          selectedOption: null,
+        };
+    if (canResume) {
+      showToast('Восстановлен незавершенный тест');
+    }
     state.testRun = runState;
 
     const loadEl = body.querySelector('#run-load');
@@ -879,6 +932,43 @@ async function renderRun(segments) {
     ui.hidden = false;
 
     const timerEl = wrap.querySelector('#timer');
+    const m0 = Math.floor(runState.seconds / 60);
+    const s0 = runState.seconds % 60;
+    timerEl.textContent = `${String(m0).padStart(2, '0')}:${String(s0).padStart(2, '0')}`;
+
+    wrap.querySelector('#abort').onclick = () => {
+      const dlg = el(`
+        <div class="run-exit-overlay">
+          <div class="run-exit-dialog card">
+            <h3>Завершение теста</h3>
+            <p class="muted">Выберите действие для текущего прогресса.</p>
+            <div class="row-actions">
+              <button type="button" class="btn btn-secondary" style="min-width:auto;" data-act="cancel">Отмена</button>
+              <button type="button" class="btn btn-secondary" style="min-width:auto;" data-act="later">Продолжить потом</button>
+              <button type="button" class="btn btn-primary" style="min-width:auto;" data-act="finish">Завершить</button>
+            </div>
+          </div>
+        </div>
+      `);
+      const close = () => dlg.remove();
+      dlg.addEventListener('click', (e) => {
+        if (e.target === dlg) close();
+      });
+      dlg.querySelector('[data-act="cancel"]').onclick = close;
+      dlg.querySelector('[data-act="later"]').onclick = () => {
+        writePendingRun(runState);
+        clearTestTimer();
+        state.testRun = null;
+        close();
+        showToast('Прогресс сохранен. Вернетесь позже.');
+        setHash(ROUTE_MENU);
+      };
+      dlg.querySelector('[data-act="finish"]').onclick = () => {
+        close();
+        finish();
+      };
+      wrap.appendChild(dlg);
+    };
     state.timerId = setInterval(() => {
       runState.seconds++;
       const m = Math.floor(runState.seconds / 60);
@@ -888,8 +978,8 @@ async function renderRun(segments) {
 
     function renderQuestion() {
       const i = runState.index;
-      const q = questions[i];
-      const n = questions.length;
+      const q = runState.questions[i];
+      const n = runState.questions.length;
       const answered = !!runState.checked[i];
       const pct = (i / n) * 100;
       ui.innerHTML = `
@@ -977,6 +1067,7 @@ async function renderRun(segments) {
 
     function finish() {
       clearTestTimer();
+      clearPendingRun();
       const payload = buildAttemptPayload(
         {
           questions: runState.questions,
@@ -1004,7 +1095,9 @@ async function renderRun(segments) {
       setHash(`result/local/${localRecord.localId}`);
     }
 
-    runState.checked = questions.map(() => false);
+    if (!Array.isArray(runState.checked) || runState.checked.length !== runState.questions.length) {
+      runState.checked = runState.questions.map((_, idx) => !!runState.answersByIndex[idx]);
+    }
     renderQuestion();
   } catch (e) {
     body.querySelector('#run-load').innerHTML = `<p class="error">${escapeHtml(e.message || String(e))}</p>`;
@@ -1069,6 +1162,10 @@ async function renderHistory() {
     <div class="card">
       <h2>История попыток</h2>
       <p class="muted" id="hist-src"></p>
+      <div class="segmented segmented--tabs" id="hist-tabs">
+        <button type="button" class="active" data-tab="all">Общая</button>
+        <button type="button" data-tab="tests">По тестам</button>
+      </div>
       <div id="hist-list"></div>
     </div>
   `);
@@ -1076,6 +1173,7 @@ async function renderHistory() {
 
   const listEl = card.querySelector('#hist-list');
   const srcEl = card.querySelector('#hist-src');
+  const tabsEl = card.querySelector('#hist-tabs');
 
   const local = readLocalAttempts();
   let remote = [];
@@ -1115,20 +1213,47 @@ async function renderHistory() {
   }
   merged.sort((x, y) => String(y.at || '').localeCompare(String(x.at || '')));
 
-  if (!merged.length) {
-    listEl.innerHTML = '<p class="muted">Пока нет завершенных попыток.</p>';
-    return wrap;
-  }
+  function renderAttempts(items, options = {}) {
+    const onlyToday = !!options.onlyToday;
+    const target = onlyToday
+      ? items.filter((x) => {
+          const ts = parseAttemptTimestamp(x.at);
+          if (!ts) return false;
+          const d = new Date(ts);
+          const now = new Date();
+          return d.getFullYear() === now.getFullYear()
+            && d.getMonth() === now.getMonth()
+            && d.getDate() === now.getDate();
+        })
+      : items;
 
-  const totalAttempts = merged.length;
-  const averagePercent = roundToOneDecimal(
-    merged.reduce((sum, item) => sum + ((item.correct / Math.max(1, item.total)) * 100), 0) / totalAttempts,
-  );
-  const bestPercent = roundToOneDecimal(
-    merged.reduce((best, item) => Math.max(best, (item.correct / Math.max(1, item.total)) * 100), 0),
-  );
-  listEl.appendChild(
-    el(`
+    if (!target.length) {
+      return `<p class="muted">Пока нет попыток для выбранного фильтра.</p>`;
+    }
+    const totalAttempts = target.length;
+    const averagePercent = roundToOneDecimal(
+      target.reduce((sum, item) => sum + ((item.correct / Math.max(1, item.total)) * 100), 0) / totalAttempts,
+    );
+    const bestPercent = roundToOneDecimal(
+      target.reduce((best, item) => Math.max(best, (item.correct / Math.max(1, item.total)) * 100), 0),
+    );
+    let attemptsHtml = '';
+    for (const item of target) {
+      const percent = roundToOneDecimal((item.correct / Math.max(1, item.total)) * 100);
+      attemptsHtml += `
+        <button type="button" class="card history-item" style="margin-top:0.75rem;" data-kind="${item.kind}" data-id="${escapeHtml(item.id)}">
+          <div class="row">
+            <h3>${escapeHtml(item.title)}</h3>
+            <span class="badge">${item.correct}/${item.total} · ${percent}%</span>
+          </div>
+          <p class="muted" style="margin:0.35rem 0 0;">Время: ${formatDuration(item.timeSpent)} · ${escapeHtml(item.at || '')}</p>
+        </button>`;
+    }
+    return `
+      <div class="segmented" style="margin-top:0.25rem;margin-bottom:0.5rem;" id="hist-filter">
+        <button type="button" data-filter="today" ${onlyToday ? 'class="active"' : ''}>Сегодняшний день</button>
+        <button type="button" data-filter="all" ${onlyToday ? '' : 'class="active"'}>Вся история</button>
+      </div>
       <div class="row" style="gap:0.75rem;flex-wrap:wrap;margin-bottom:0.75rem;">
         <div class="card" style="padding:0.75rem 1rem;min-width:110px;">
           <p class="muted" style="margin:0;">Попыток</p>
@@ -1143,23 +1268,100 @@ async function renderHistory() {
           <p style="margin:0.2rem 0 0;font-weight:700;">${bestPercent}%</p>
         </div>
       </div>
-    `),
-  );
-
-  for (const item of merged) {
-    const percent = roundToOneDecimal((item.correct / Math.max(1, item.total)) * 100);
-    const b = el(`
-      <button type="button" class="card history-item" style="margin-top:0.75rem;">
-        <div class="row">
-          <h3>${escapeHtml(item.title)}</h3>
-          <span class="badge">${item.correct}/${item.total} · ${percent}%</span>
-        </div>
-        <p class="muted" style="margin:0.35rem 0 0;">Время: ${formatDuration(item.timeSpent)} · ${escapeHtml(item.at || '')}</p>
-      </button>
-    `);
-    b.onclick = () => setHash(`${ROUTE_ATTEMPT}/${item.kind}/${item.id}`);
-    listEl.appendChild(b);
+      ${attemptsHtml}
+    `;
   }
+
+  function renderByTests(items) {
+    const grouped = new Map();
+    for (const it of items) {
+      if (!grouped.has(it.title)) grouped.set(it.title, []);
+      grouped.get(it.title).push(it);
+    }
+    if (!grouped.size) return '<p class="muted">Пока нет завершенных попыток.</p>';
+    const cards = [];
+    for (const [testName, arr] of grouped.entries()) {
+      const avg = roundToOneDecimal(arr.reduce((s, x) => s + ((x.correct / Math.max(1, x.total)) * 100), 0) / arr.length);
+      const best = roundToOneDecimal(arr.reduce((b, x) => Math.max(b, (x.correct / Math.max(1, x.total)) * 100), 0));
+      cards.push(`
+        <button type="button" class="card history-item" style="margin:0;min-width:240px;" data-test="${escapeHtml(testName)}">
+          <div class="row"><h3>${escapeHtml(testName)}</h3><span class="badge">${arr.length} попыт.</span></div>
+          <p class="muted" style="margin:0.35rem 0 0;">Средний: ${avg}% · Лучший: ${best}%</p>
+        </button>`);
+    }
+    return `
+      <div class="row" style="gap:0.75rem;flex-wrap:wrap;" id="hist-tests-grid">${cards.join('')}</div>
+      <div id="hist-test-details" class="card" style="margin-top:0.9rem;">
+        <p class="muted">Выберите карточку теста, чтобы открыть историю именно по нему и график результатов.</p>
+      </div>`;
+  }
+
+  function renderTestDetails(testName) {
+    const arr = merged.filter((x) => x.title === testName).slice().sort((a, b) => parseAttemptTimestamp(a.at) - parseAttemptTimestamp(b.at));
+    if (!arr.length) return;
+    const detailEl = listEl.querySelector('#hist-test-details');
+    if (!detailEl) return;
+    const avg = roundToOneDecimal(arr.reduce((s, x) => s + ((x.correct / Math.max(1, x.total)) * 100), 0) / arr.length);
+    const best = roundToOneDecimal(arr.reduce((b, x) => Math.max(b, (x.correct / Math.max(1, x.total)) * 100), 0));
+    const maxPct = Math.max(1, ...arr.map((x) => roundToOneDecimal((x.correct / Math.max(1, x.total)) * 100)));
+    const barsHeight = arr.length > 30 ? 320 : (arr.length > 16 ? 280 : 240);
+    let bars = '';
+    let rows = '';
+    arr.forEach((x, i) => {
+      const pct = roundToOneDecimal((x.correct / Math.max(1, x.total)) * 100);
+      const h = Math.max(2, Math.round((pct / maxPct) * 100));
+      bars += `<div class="activity-col" title="${escapeHtml(String(x.at || ''))} · ${pct}%"><div class="bar" style="height:${h}%"></div><span class="lbl">${i + 1}</span></div>`;
+      rows += `<button type="button" class="card history-item" style="margin-top:0.5rem;" data-kind="${x.kind}" data-id="${escapeHtml(x.id)}">
+        <div class="row"><h3>${escapeHtml(x.title)}</h3><span class="badge">${x.correct}/${x.total} · ${pct}%</span></div>
+        <p class="muted" style="margin:0.35rem 0 0;">Время: ${formatDuration(x.timeSpent)} · ${escapeHtml(x.at || '')}</p>
+      </button>`;
+    });
+    detailEl.innerHTML = `
+      <h3 style="margin:0 0 0.6rem;">${escapeHtml(testName)}</h3>
+      <p class="muted" style="margin:0 0 0.6rem;">Попыток: ${arr.length} · Средний: ${avg}% · Лучший: ${best}%</p>
+      <p class="activity-title">График результата по попыткам</p>
+      <div class="activity-bars" style="height:${barsHeight}px;">${bars}</div>
+      <p class="activity-footnote">Ось X — номер попытки, ось Y — процент результата.</p>
+      ${rows}
+    `;
+  }
+
+  function bindHistoryClicks() {
+    listEl.querySelectorAll('.history-item[data-kind][data-id]').forEach((b) => {
+      b.onclick = () => setHash(`${ROUTE_ATTEMPT}/${b.dataset.kind}/${b.dataset.id}`);
+    });
+    const filterWrap = listEl.querySelector('#hist-filter');
+    if (filterWrap) {
+      filterWrap.onclick = (e) => {
+        const btn = e.target.closest('button[data-filter]');
+        if (!btn) return;
+        const onlyToday = btn.dataset.filter === 'today';
+        listEl.innerHTML = renderAttempts(merged, { onlyToday });
+        bindHistoryClicks();
+      };
+    }
+    listEl.querySelectorAll('#hist-tests-grid .history-item[data-test]').forEach((b) => {
+      b.onclick = () => {
+        renderTestDetails(b.dataset.test);
+        bindHistoryClicks();
+      };
+    });
+  }
+
+  let tab = 'all';
+  function renderTab() {
+    if (tab === 'tests') listEl.innerHTML = renderByTests(merged);
+    else listEl.innerHTML = renderAttempts(merged, { onlyToday: false });
+    bindHistoryClicks();
+  }
+  tabsEl.onclick = (e) => {
+    const btn = e.target.closest('button[data-tab]');
+    if (!btn) return;
+    tab = btn.dataset.tab;
+    tabsEl.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === btn));
+    renderTab();
+  };
+  renderTab();
   return wrap;
 }
 
