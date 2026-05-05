@@ -102,26 +102,6 @@ a {
   padding: 1.5rem 0 2rem;
 }
 
-.update-banner {
-  margin-top: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.55rem;
-  justify-content: center;
-  background: rgba(230, 184, 0, 0.2);
-  border: 1px solid rgba(230, 184, 0, 0.45);
-  color: var(--primary-dark);
-  border-radius: 12px;
-  padding: 0.55rem 0.75rem;
-  font-size: 0.9rem;
-}
-
-.update-banner a {
-  font-weight: 700;
-  color: var(--primary-dark);
-}
-
 .hero h1 {
   margin: 0;
   font-size: clamp(2.5rem, 8vw, 4rem);

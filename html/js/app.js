@@ -594,20 +594,12 @@ function renderAuth() {
 
 function renderMenu() {
   const dn = state.displayName || '…';
-  const updateBanner = state.updateInfo
-    ? `<div class="update-banner">
-         <strong>Доступно обновление</strong>
-         <span>Версия ${escapeHtml(String(state.updateInfo.latest_version || 'new'))}</span>
-         <a href="${escapeHtml(String(state.updateInfo.update_url || '#'))}" target="_blank" rel="noopener noreferrer">Открыть релиз</a>
-       </div>`
-    : '';
   const root = el(`
     <div class="layout">
       <div class="top-bar">
         <button type="button" class="icon-btn" title="Статистика" id="to-profile">📊</button>
         <button type="button" class="icon-btn" title="Настройки" id="to-settings">⚙️</button>
       </div>
-      ${updateBanner}
       <div class="hero">
         <h1>Lycoris</h1>
         <p class="sub">Проверь свои знания</p>
