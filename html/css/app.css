@@ -3,6 +3,8 @@
   --primary-medium: #4a5c80;
   --primary-light: #7284a8;
   --accent-gold: #e6b800;
+  --success: #28a745;
+  --danger: #dc3545;
   --bg-start: #fafaff;
   --bg-end: #ebeef5;
   --card-bg: rgba(255, 255, 255, 0.92);
@@ -28,6 +30,30 @@ body {
   color: var(--primary-dark);
   background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
   background-attachment: fixed;
+  scrollbar-color: var(--primary-dark) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--primary-dark);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 #app {
@@ -257,6 +283,208 @@ a {
   color: #fff;
 }
 
+/* Вкладки профиля — как в десктопе: светлый фон, активная «пилюля» */
+.segmented.segmented--tabs {
+  background: rgba(248, 250, 255, 0.92);
+  border: 1px solid rgba(224, 229, 240, 0.65);
+  border-radius: 18px;
+  padding: 6px;
+  gap: 8px;
+}
+
+.segmented.segmented--tabs button {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--primary-medium);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.segmented.segmented--tabs button:hover {
+  color: var(--primary-dark);
+}
+
+.segmented.segmented--tabs button.active {
+  background: #fff;
+  color: var(--primary-dark);
+  box-shadow: 0 2px 8px rgba(44, 58, 94, 0.12);
+}
+
+/* Блок «Ваши результаты» внутри карточки профиля */
+.stats-panel {
+  margin-top: 0.75rem;
+  padding: 1.1rem 1rem 1.25rem;
+  border-radius: var(--radius-lg);
+  background: rgba(248, 250, 255, 0.92);
+  border: 1px solid rgba(224, 229, 240, 0.65);
+  color: var(--primary-dark);
+}
+
+.stats-panel h3 {
+  margin: 0 0 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-align: center;
+}
+
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 0.65rem;
+}
+
+.stat-tile {
+  text-align: center;
+  padding: 0.5rem 0.35rem;
+  border-radius: var(--radius-md);
+  background: #fff;
+  border: 1px solid rgba(224, 229, 240, 0.85);
+}
+
+.stat-tile .stat-ico {
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.stat-tile .stat-value {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.stat-tile .stat-value.tone-ok {
+  color: var(--success);
+}
+
+.stat-tile .stat-value.tone-mid {
+  color: var(--accent-gold);
+}
+
+.stat-tile .stat-value.tone-low {
+  color: var(--danger);
+}
+
+.stat-tile .stat-value.tone-gold {
+  color: var(--accent-gold);
+}
+
+.stat-tile .stat-label {
+  margin: 0.2rem 0 0;
+  font-size: 0.875rem;
+  color: var(--primary-light);
+  line-height: 1.25;
+}
+
+.stat-tile .stat-sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary-light);
+  line-height: 1.2;
+}
+
+.progress-fill.tone-ok {
+  background: var(--success) !important;
+}
+
+.progress-fill.tone-mid {
+  background: var(--accent-gold) !important;
+}
+
+.progress-fill.tone-low {
+  background: var(--danger) !important;
+}
+
+.activity-chart {
+  margin-top: 1rem;
+}
+
+.activity-chart .activity-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-align: center;
+}
+
+.activity-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: stretch;
+  gap: 2px;
+  height: 160px;
+  padding: 0.35rem 0 0.15rem;
+  border-bottom: 1px solid rgba(44, 58, 94, 0.12);
+}
+
+.activity-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.activity-col .bar {
+  width: 100%;
+  max-width: 10px;
+  margin: 0 auto;
+  background: var(--primary-dark);
+  border-radius: 3px 3px 0 0;
+  min-height: 2px;
+  transition: background 0.15s, height 0.2s ease;
+}
+
+.activity-col .bar:hover {
+  background: var(--accent-gold);
+}
+
+.activity-col .lbl {
+  margin-top: 0.2rem;
+  font-size: 0.55rem;
+  color: var(--primary-medium);
+  line-height: 1;
+  transform: rotate(-52deg);
+  transform-origin: center top;
+  white-space: nowrap;
+  max-height: 2.2rem;
+}
+
+.activity-footnote {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--primary-light);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.leader-avg.tone-ok {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.leader-avg.tone-mid {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.leader-avg.tone-low {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.leader-place-top {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
 .test-grid {
   display: grid;
   gap: 1rem;
@@ -326,7 +554,8 @@ a {
   overflow: hidden;
 }
 
-.progress-bar > div {
+.progress-bar > div,
+.progress-bar .progress-fill {
   height: 100%;
   background: var(--accent-gold);
   border-radius: 4px;
@@ -338,6 +567,17 @@ a {
   flex-direction: column;
   gap: 0.6rem;
   margin: 1rem 0;
+}
+
+.question-image {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid #e0e5f0;
+  background: #fff;
 }
 
 .option {

@@ -37,6 +37,7 @@ const ROUTE_ATTEMPT = 'attempt';
 const ROUTE_RESULT = 'result';
 const ROUTE_PROFILE = 'profile';
 const ROUTE_SETTINGS = 'settings';
+const ROUTE_TEST_EDITOR = 'test_editor';
 
 const LS_THEME = 'lycoris_web_theme';
 const LS_SHUFFLE = 'lycoris_web_shuffle';
@@ -166,6 +167,7 @@ async function syncDisplayName(user) {
 function parseQuestionsFromJson(testData) {
   const list = [];
   const arr = testData?.questions;
+  const assets = testData?.assets && typeof testData.assets === 'object' ? testData.assets : {};
   if (!Array.isArray(arr)) return list;
   for (const q of arr) {
     if (!q?.question) continue;
@@ -181,7 +183,13 @@ function parseQuestionsFromJson(testData) {
         if (a.isCorrect === true) correct = j;
       }
       if (correct >= 0 && options.length) {
-        list.push({ question: q.question, options, correctAnswer: correct });
+        const imageRef = q.image || q.imageUrl || q.image_url || '';
+        list.push({
+          question: q.question,
+          image: resolveQuestionImage(imageRef, assets),
+          options,
+          correctAnswer: correct,
+        });
       }
       continue;
     }
@@ -191,11 +199,28 @@ function parseQuestionsFromJson(testData) {
       const options = q.options.filter((o) => typeof o === 'string');
       const correct = Number(q.correctAnswer);
       if (options.length && Number.isInteger(correct) && correct >= 0 && correct < options.length) {
-        list.push({ question: q.question, options, correctAnswer: correct });
+        const imageRef = q.image || q.imageUrl || q.image_url || '';
+        list.push({
+          question: q.question,
+          image: resolveQuestionImage(imageRef, assets),
+          options,
+          correctAnswer: correct,
+        });
       }
     }
   }
   return list;
+}
+
+function resolveQuestionImage(imageRef, assets) {
+  const src = String(imageRef || '').trim();
+  if (!src) return '';
+  if (src.startsWith('asset:')) {
+    const assetKey = src.slice('asset:'.length).trim();
+    const assetValue = assets && Object.prototype.hasOwnProperty.call(assets, assetKey) ? assets[assetKey] : '';
+    return typeof assetValue === 'string' ? assetValue : '';
+  }
+  return src;
 }
 
 function shuffleArray(arr) {
@@ -285,6 +310,7 @@ function buildAttemptPayload(attemptState, meta) {
   }
   const questionsSnap = questions.map((q) => ({
     question: q.question,
+    image: q.image || '',
     options: q.options,
     correctAnswer: q.correctAnswer,
   }));
@@ -364,6 +390,60 @@ function parseAttemptTimestamp(raw) {
   if (/^\d+$/.test(s)) return Number(s);
   const ts = Date.parse(s);
   return Number.isNaN(ts) ? 0 : ts;
+}
+
+const CHART_DAYS_WEB = 30;
+
+function localYmdFromMs(ms) {
+  const d = new Date(ms);
+  if (Number.isNaN(d.getTime())) return null;
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function getAttemptDayKey(attempt) {
+  const raw = attempt.timestamp ?? attempt.dateTime;
+  if (raw == null) return null;
+  let t;
+  if (typeof raw === 'number' && Number.isFinite(raw)) {
+    t = raw < 1e12 ? raw * 1000 : raw;
+  } else {
+    t = Date.parse(String(raw));
+  }
+  if (Number.isNaN(t)) return null;
+  return localYmdFromMs(t);
+}
+
+function buildDateWindow(days) {
+  const out = [];
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const ymd = localYmdFromMs(d.getTime());
+    const label = `${d.getDate()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+    const title = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+    out.push({ ymd, label, title });
+  }
+  return out;
+}
+
+function avgToneClass(avg) {
+  if (avg >= 70) return 'tone-ok';
+  if (avg >= 50) return 'tone-mid';
+  return 'tone-low';
+}
+
+function pluralRu(n, one, few, many) {
+  n = Math.abs(n) % 100;
+  const n1 = n % 10;
+  if (n >= 11 && n <= 14) return many;
+  if (n1 === 1) return one;
+  if (n1 >= 2 && n1 <= 4) return few;
+  return many;
 }
 
 async function loadLeaderboard(limit = 50) {
@@ -536,12 +616,14 @@ function renderMenu() {
       </div>
       <div class="stack">
         <button type="button" class="btn btn-primary" id="go-tests">Выбор теста</button>
+        <button type="button" class="btn btn-secondary" id="go-create">Создать тест</button>
         <button type="button" class="btn btn-secondary" id="go-history">История попыток</button>
         <button type="button" class="btn btn-ghost" id="logout">Выйти</button>
       </div>
     </div>
   `);
   root.querySelector('#go-tests').onclick = () => setHash(ROUTE_TEST_SELECTION);
+  root.querySelector('#go-create').onclick = () => setHash(ROUTE_TEST_EDITOR);
   root.querySelector('#go-history').onclick = () => setHash(ROUTE_ATTEMPT_HISTORY);
   root.querySelector('#to-profile').onclick = () => setHash(ROUTE_PROFILE);
   root.querySelector('#to-settings').onclick = () => setHash(ROUTE_SETTINGS);
@@ -582,8 +664,8 @@ async function renderTests() {
       <p class="muted" id="src-hint"></p>
       <div id="import-wrap" hidden style="margin-bottom:1rem;">
         <label class="btn btn-secondary" style="display:inline-block;cursor:pointer;">
-          Импорт JSON
-          <input type="file" id="import-files" accept=".json,application/json" multiple hidden />
+          Импортировать тест
+          <input type="file" id="import-files" accept=".json,.lypkg,application/json" multiple hidden />
         </label>
       </div>
       <div id="tests-loading" class="loading">Загрузка…</div>
@@ -607,7 +689,7 @@ async function renderTests() {
       importWrap.hidden = true;
     } else {
       hint.textContent =
-        'Локальные тесты хранятся в браузере (IndexedDB). Импортируйте .json с массивом questions.';
+        'Локальные тесты хранятся в браузере (IndexedDB). Поддерживаются картинки через URL, data:image и asset: ключи.';
       importWrap.hidden = false;
     }
   }
@@ -632,12 +714,14 @@ async function renderTests() {
     for (const file of files) {
       try {
         const text = await file.text();
-        const json = JSON.parse(text);
-        if (!Array.isArray(json.questions) || !json.questions.length) {
+        const parsed = JSON.parse(text);
+        const json = parsed?.format === 'lycoris-test-package' && parsed?.test ? parsed.test : parsed;
+        if (!Array.isArray(json?.questions) || !json.questions.length) {
           bad++;
           continue;
         }
         let name = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        name = name.replace(/\.lypkg$/i, '');
         if (!name.toLowerCase().endsWith('.json')) name += '.json';
         await saveLocalTest(name, json);
         ok++;
@@ -665,19 +749,54 @@ async function renderTests() {
         return;
       }
       for (const t of tests) {
-        const btn = el(`
-          <button type="button" class="test-card" data-file="${escapeHtml(t.fileName)}" data-src="${src}">
-            <h3>${escapeHtml(t.name)}</h3>
-            <p>${escapeHtml(t.description || '')}</p>
-            <div class="badge-row">
-              <span class="badge">${t.questionCount || '?'} вопр.</span>
-              <span class="badge">${escapeHtml(t.difficulty || '')}</span>
-              <span class="badge">${escapeHtml(t.estimatedTime || '')}</span>
+        if (src === 'local') {
+          const cardEl = el(`
+            <div class="test-card">
+              <h3>${escapeHtml(t.name)}</h3>
+              <p>${escapeHtml(t.description || '')}</p>
+              <div class="badge-row">
+                <span class="badge">${t.questionCount || '?'} вопр.</span>
+                <span class="badge">${escapeHtml(t.difficulty || '')}</span>
+                <span class="badge">${escapeHtml(t.estimatedTime || '')}</span>
+              </div>
+              <div class="row-actions" style="margin-top:0.75rem;justify-content:flex-start;">
+                <button type="button" class="btn btn-primary run-local" style="min-width:auto;">Запустить</button>
+                <button type="button" class="btn btn-secondary export-local" style="min-width:auto;">Экспорт LYPKG</button>
+              </div>
             </div>
-          </button>
-        `);
-        btn.onclick = () => setHash(`run/${src}/${encodeURIComponent(t.fileName)}`);
-        grid.appendChild(btn);
+          `);
+          cardEl.querySelector('.run-local').onclick = () => setHash(`run/${src}/${encodeURIComponent(t.fileName)}`);
+          cardEl.querySelector('.export-local').onclick = async () => {
+            try {
+              const test = await getLocalTestJson(t.fileName);
+              if (!test) throw new Error('Тест не найден');
+              const pkg = {
+                format: 'lycoris-test-package',
+                version: 1,
+                test,
+              };
+              downloadTextFile(`${t.fileName.replace(/\.json$/i, '')}.lypkg`, JSON.stringify(pkg, null, 2), 'application/json');
+              showToast('Пакет экспортирован');
+            } catch (e) {
+              showToast(`Ошибка экспорта: ${e.message || e}`);
+            }
+          };
+          grid.appendChild(cardEl);
+        } else {
+          const btn = el(`
+            <button type="button" class="test-card" data-file="${escapeHtml(t.fileName)}" data-src="${src}">
+              <h3>${escapeHtml(t.name)}</h3>
+              <p>${escapeHtml(t.description || '')}</p>
+              <div class="badge-row">
+                <span class="badge">${t.questionCount || '?'} вопр.</span>
+                <span class="badge">${escapeHtml(t.difficulty || '')}</span>
+                <span class="badge">${escapeHtml(t.estimatedTime || '')}</span>
+              </div>
+            </button>
+          `);
+          btn.onclick = () => setHash(`run/${src}/${encodeURIComponent(t.fileName)}`);
+          grid.appendChild(btn);
+        }
       }
     } catch (e) {
       loading.hidden = true;
@@ -688,6 +807,18 @@ async function renderTests() {
 
   loadList();
   return wrap;
+}
+
+function downloadTextFile(filename, content, mime = 'text/plain') {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
 async function renderRun(segments) {
@@ -777,6 +908,7 @@ async function renderRun(segments) {
           <div class="progress-bar"><div style="width:${pct}%"></div></div>
         </div>
         <p style="font-size:1.15rem;font-weight:600;margin:1rem 0;">${escapeHtml(q.question)}</p>
+        ${q.image ? `<img class="question-image" src="${escapeHtml(q.image)}" alt="Изображение к вопросу" loading="lazy" />` : ''}
         <div class="options" id="opts"></div>
         <div class="row-actions">
           <button type="button" class="btn btn-secondary" style="min-width:120px;" id="prev" ${i === 0 ? 'disabled' : ''}>← Назад</button>
@@ -1093,6 +1225,7 @@ async function renderAttempt(segments) {
     const card = el(`
       <div class="card" style="margin-top:1rem;">
         <p style="font-weight:600;margin:0 0 0.5rem;">${i + 1}. ${escapeHtml(q.question || '')}</p>
+        ${q.image ? `<img class="question-image" src="${escapeHtml(q.image)}" alt="Изображение к вопросу" loading="lazy" />` : ''}
         <p class="muted" style="margin:0;">Ваш ответ: <strong style="color:var(--primary-dark);">${escapeHtml(userAns || '—')}</strong></p>
         ${ok ? '<p style="margin:0.5rem 0 0;color:#28a745;font-weight:600;">Верно</p>' : `<p style="margin:0.5rem 0 0;color:#c0392b;">Правильный ответ: <strong>${escapeHtml(rightText)}</strong></p>`}
       </div>
@@ -1117,7 +1250,8 @@ async function renderProfile() {
   const card = el(`
     <div class="card">
       <h2>Статистика</h2>
-      <div class="segmented" id="prof-seg">
+      <p class="profile-meta muted" id="prof-meta" hidden style="margin: -0.35rem 0 0.85rem; font-size: 0.9rem"></p>
+      <div class="segmented segmented--tabs" id="prof-seg">
         <button type="button" class="active" data-tab="me">Общая</button>
         <button type="button" data-tab="lb">Глобальная</button>
       </div>
@@ -1127,6 +1261,14 @@ async function renderProfile() {
   wrap.appendChild(card);
   const body = card.querySelector('#prof-body');
   const seg = card.querySelector('#prof-seg');
+  const metaEl = card.querySelector('#prof-meta');
+  if (metaEl && state.user) {
+    metaEl.hidden = false;
+    const em = state.user.email || '';
+    metaEl.innerHTML = state.displayName
+      ? `<strong style="color:var(--primary-dark)">${escapeHtml(state.displayName)}</strong> <span>· ${escapeHtml(em)}</span>`
+      : escapeHtml(em);
+  }
   let tab = 'me';
 
   async function showMe() {
@@ -1142,7 +1284,9 @@ async function renderProfile() {
       return;
     }
     if (!attempts.length) {
-      body.innerHTML = '<p class="muted">Пока нет завершенных попыток.</p>';
+      body.innerHTML =
+        '<p class="muted" style="margin:0 0 0.5rem;font-weight:600;">Пока нет данных</p>' +
+        '<p class="muted" style="margin:0;font-size:0.9rem;line-height:1.45;">Пройдите тест с сохранением в аккаунт — здесь появятся попытки, средний балл, график активности и рекорды.</p>';
       return;
     }
     let totalCorrect = 0;
@@ -1169,15 +1313,100 @@ async function renderProfile() {
       if (v.best > best) best = v.best;
       bestLine += `<li><strong>${escapeHtml(name)}</strong> — лучший результат ${v.best}% (${v.n} попыт.)</li>`;
     }
+    const totalWrong = totalQ - totalCorrect;
+    const uniqueTests = new Set(attempts.map((a) => a.testName || 'Тест')).size;
+    const dayKeys = new Set();
+    for (const a of attempts) {
+      const k = getAttemptDayKey(a);
+      if (k) dayKeys.add(k);
+    }
+    const activeDays = dayKeys.size;
+    const attemptsSub =
+      uniqueTests > 0
+        ? `${uniqueTests} ${pluralRu(uniqueTests, 'разный тест', 'разных теста', 'разных тестов')}`
+        : '';
+    const tone = avgToneClass(avg);
+    const last = attempts[0];
+    const lastTq = Math.max(1, Number(last.totalQuestions) || 1);
+    const lastPct = Math.round(((Number(last.correctAnswers) || 0) / lastTq) * 100);
+    const lastRaw = last.timestamp || last.dateTime;
+    const lastWhen = lastRaw
+      ? new Date(lastRaw).toLocaleString('ru-RU', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      : '';
+    const windowDays = buildDateWindow(CHART_DAYS_WEB);
+    const countMap = new Map(windowDays.map((w) => [w.ymd, 0]));
+    for (const a of attempts) {
+      const k = getAttemptDayKey(a);
+      if (k && countMap.has(k)) countMap.set(k, countMap.get(k) + 1);
+    }
+    const maxC = Math.max(1, ...countMap.values());
+    let barCols = '';
+    for (const w of windowDays) {
+      const c = countMap.get(w.ymd) || 0;
+      const h = Math.round((c / maxC) * 100);
+      const tip = `${w.title} — ${c} ${pluralRu(c, 'попытка', 'попытки', 'попыток')}`;
+      barCols += `<div class="activity-col" title="${escapeHtml(tip)}"><div class="bar" style="height:${h}%"></div><span class="lbl">${escapeHtml(w.label)}</span></div>`;
+    }
+    const bestListHtml = bestLine
+      ? `<ul style="margin:0.35rem 0 0;padding-left:1.2rem;font-size:0.88rem;color:var(--primary-light);line-height:1.4;">${bestLine}</ul>`
+      : '';
     body.innerHTML = `
-      <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;">
-        <div class="card"><p class="muted" style="margin:0;">Попыток</p><p style="margin:0.25rem 0 0;font-weight:700;">${attempts.length}</p></div>
-        <div class="card"><p class="muted" style="margin:0;">Средний</p><p style="margin:0.25rem 0 0;font-weight:700;">${avg}%</p></div>
-        <div class="card"><p class="muted" style="margin:0;">Лучший</p><p style="margin:0.25rem 0 0;font-weight:700;">${best}%</p></div>
-        <div class="card"><p class="muted" style="margin:0;">Время</p><p style="margin:0.25rem 0 0;font-weight:700;">${formatDuration(timeSum)}</p></div>
+      <div class="stats-panel">
+        <h3>Ваши результаты</h3>
+        <div class="stat-tiles">
+          <div class="stat-tile">
+            <div class="stat-ico" aria-hidden="true">📝</div>
+            <p class="stat-value">${attempts.length}</p>
+            <p class="stat-label">Попыток</p>
+            ${attemptsSub ? `<p class="stat-sub">${escapeHtml(attemptsSub)}</p>` : ''}
+          </div>
+          <div class="stat-tile">
+            <div class="stat-ico" aria-hidden="true">📊</div>
+            <p class="stat-value ${tone}">${avg}%</p>
+            <p class="stat-label">Средний балл</p>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-ico" aria-hidden="true">🏆</div>
+            <p class="stat-value tone-gold">${best}%</p>
+            <p class="stat-label">Лучший %</p>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-ico" aria-hidden="true">⏱</div>
+            <p class="stat-value">${escapeHtml(formatDuration(timeSum))}</p>
+            <p class="stat-label">Всего времени</p>
+          </div>
+        </div>
+        <div class="progress-wrap" style="margin-top:0.9rem;">
+          <p class="muted" style="margin:0 0 0.35rem;font-size:0.82rem;">Средняя точность по всем ответам</p>
+          <div class="progress-bar"><div class="progress-fill ${tone}" style="width:${Math.min(100, Math.max(0, avg))}%"></div></div>
+        </div>
+        <p class="muted" style="margin:0.65rem 0 0;font-size:0.88rem;color:var(--primary-medium);">Ответов всего: ✓ ${totalCorrect} · ✗ ${totalWrong}</p>
+        ${activeDays > 0 ? `<p class="muted" style="margin:0.35rem 0 0;font-size:0.82rem;">Дней с активностью: ${activeDays}</p>` : ''}
+        <div class="activity-chart">
+          <p class="activity-title">Активность: сколько тестов пройдено за день</p>
+          <div class="activity-bars" role="img" aria-label="Попытки по дням">${barCols}</div>
+          <p class="activity-footnote">Одна попытка = один проход теста. Последние ${CHART_DAYS_WEB} дней (старое слева). Подсказка — наведите на столбец.</p>
+        </div>
+        ${
+          last
+            ? `<div style="margin-top:0.85rem;text-align:center;">
+          <p class="muted" style="margin:0;font-size:0.82rem;font-weight:600;color:var(--primary-dark);">Последняя попытка</p>
+          <p class="muted" style="margin:0.25rem 0 0;font-size:0.85rem;">${escapeHtml(last.testName || 'Тест')} · ${lastPct}% · ${escapeHtml(lastWhen)}</p>
+        </div>`
+            : ''
+        }
+        ${
+          bestListHtml
+            ? `<div style="margin-top:0.75rem;"><p class="muted" style="margin:0;font-size:0.82rem;font-weight:600;color:var(--primary-dark);">Лучший результат по тестам</p>${bestListHtml}</div>`
+            : ''
+        }
       </div>
-      <h3 style="margin:1rem 0 0.5rem;font-size:1rem;">По тестам</h3>
-      <ul style="margin:0;padding-left:1.2rem;" class="muted">${bestLine}</ul>
     `;
   }
 
@@ -1198,10 +1427,12 @@ async function renderProfile() {
         const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '';
         const me = e.userId === state.user.uid ? ' me' : '';
         const avg = Math.round(e.averagePercent * 10) / 10;
+        const avgTone = avgToneClass(avg);
+        const placeCls = idx < 3 ? 'leader-place-top' : '';
         rows += `<tr class="${me}">
-          <td><span class="medal">${medal}</span> ${idx + 1}</td>
-          <td>${escapeHtml(e.userName)}</td>
-          <td>${avg}%</td>
+          <td><span class="medal">${medal}</span> <span${placeCls ? ` class="${placeCls}"` : ''}>${idx + 1}</span></td>
+          <td>${escapeHtml(e.userName)}${e.userId === state.user.uid ? ' <span class="muted" style="font-size:0.8rem;">(вы)</span>' : ''}</td>
+          <td><span class="leader-avg ${avgTone}">${avg}%</span></td>
           <td>${e.bestPercent}%</td>
           <td>${e.attempts}</td>
         </tr>`;
@@ -1353,6 +1584,154 @@ function renderSettings() {
   return wrap;
 }
 
+function renderTestEditor() {
+  const wrap = el(`<div class="layout"></div>`);
+  wrap.appendChild(
+    el(`
+    <div class="top-bar" style="justify-content:space-between;">
+      <button type="button" class="btn btn-secondary" style="min-width:auto;" id="bk">← Меню</button>
+    </div>
+  `),
+  );
+  wrap.querySelector('#bk').onclick = () => setHash(ROUTE_MENU);
+
+  const root = el(`
+    <div class="card">
+      <h2>Конструктор теста</h2>
+      <p class="muted">Фото добавляется выбором файла.</p>
+      <div class="field"><label>Название</label><input id="t-name" type="text" placeholder="Новый тест" /></div>
+      <div class="field"><label>Описание</label><input id="t-desc" type="text" placeholder="Краткое описание" /></div>
+      <div class="field"><label>Сложность</label><input id="t-diff" type="text" value="Пользовательский" /></div>
+      <div class="field"><label>Время</label><input id="t-time" type="text" value="10 мин" /></div>
+      <div id="q-list"></div>
+      <div class="row-actions">
+        <button type="button" class="btn btn-secondary" id="add-q">Добавить вопрос</button>
+        <button type="button" class="btn btn-primary" id="save-test">Сохранить локально</button>
+      </div>
+    </div>
+  `);
+  wrap.appendChild(root);
+
+  /** @type {{question:string,image:string,answers:string[],correctIndex:number}[]} */
+  const draft = [{ question: '', image: '', answers: ['', '', '', ''], correctIndex: 0 }];
+  const qList = root.querySelector('#q-list');
+
+  function renderQuestions() {
+    qList.innerHTML = '';
+    draft.forEach((q, i) => {
+      const card = el(`
+        <div class="card" style="margin-top:0.75rem;">
+          <h3 style="margin:0 0 0.5rem;">Вопрос ${i + 1}</h3>
+          <div class="field"><label>Текст вопроса</label><input type="text" data-k="question" /></div>
+          <div class="field">
+            <label>Фото из файла</label>
+            <input type="file" accept="image/*" data-k="image-file" />
+          </div>
+          <p class="muted" data-k="image-state" style="margin:0;">Фото не выбрано</p>
+          <div class="field"><label>Ответ 1</label><input type="text" data-k="a0" /></div>
+          <div class="field"><label>Ответ 2</label><input type="text" data-k="a1" /></div>
+          <div class="field"><label>Ответ 3</label><input type="text" data-k="a2" /></div>
+          <div class="field"><label>Ответ 4</label><input type="text" data-k="a3" /></div>
+          <div class="field">
+            <label>Правильный ответ</label>
+            <select data-k="correct">
+              <option value="0">Ответ 1</option>
+              <option value="1">Ответ 2</option>
+              <option value="2">Ответ 3</option>
+              <option value="3">Ответ 4</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-secondary" style="min-width:auto;" data-k="remove">Удалить вопрос</button>
+        </div>
+      `);
+      card.querySelector('input[data-k="question"]').value = q.question;
+      card.querySelector('[data-k="image-state"]').textContent = q.image ? 'Фото выбрано' : 'Фото не выбрано';
+      q.answers.forEach((a, idx) => {
+        card.querySelector(`input[data-k="a${idx}"]`).value = a;
+      });
+      card.querySelector('select[data-k="correct"]').value = String(q.correctIndex);
+
+      card.querySelector('input[data-k="question"]').oninput = (e) => {
+        q.question = e.target.value;
+      };
+      card.querySelector('input[data-k="image-file"]').onchange = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const data = await fileToDataUrl(file);
+        q.image = data;
+        renderQuestions();
+      };
+      q.answers.forEach((_, idx) => {
+        card.querySelector(`input[data-k="a${idx}"]`).oninput = (e) => {
+          q.answers[idx] = e.target.value;
+        };
+      });
+      card.querySelector('select[data-k="correct"]').onchange = (e) => {
+        q.correctIndex = Number(e.target.value) || 0;
+      };
+      card.querySelector('button[data-k="remove"]').onclick = () => {
+        if (draft.length > 1) {
+          draft.splice(i, 1);
+          renderQuestions();
+        }
+      };
+      qList.appendChild(card);
+    });
+  }
+
+  root.querySelector('#add-q').onclick = () => {
+    draft.push({ question: '', image: '', answers: ['', '', '', ''], correctIndex: 0 });
+    renderQuestions();
+  };
+
+  root.querySelector('#save-test').onclick = async () => {
+    const name = root.querySelector('#t-name').value.trim();
+    const description = root.querySelector('#t-desc').value.trim();
+    const difficulty = root.querySelector('#t-diff').value.trim() || 'Пользовательский';
+    const estimatedTime = root.querySelector('#t-time').value.trim() || '10 мин';
+    if (!name) {
+      showToast('Введите название теста');
+      return;
+    }
+    const questions = draft
+      .filter((q) => q.question.trim() && q.answers.filter((a) => a.trim()).length >= 2)
+      .map((q) => {
+        const cleaned = q.answers.map((x) => x.trim()).filter(Boolean);
+        const safeCorrect = Math.max(0, Math.min(q.correctIndex, cleaned.length - 1));
+        return {
+          question: q.question.trim(),
+          image: (q.image || '').trim(),
+          answers: cleaned.map((text, idx) => ({ text, isCorrect: idx === safeCorrect })),
+        };
+      });
+    if (!questions.length) {
+      showToast('Добавьте хотя бы один валидный вопрос');
+      return;
+    }
+    const fileName = `${sanitizeFilename(name)}_${Date.now()}.json`;
+    const testObj = { name, description, difficulty, estimatedTime, questions };
+    await saveLocalTest(fileName, testObj);
+    showToast('Тест сохранён в локальные');
+    setHash(ROUTE_TEST_SELECTION);
+  };
+
+  renderQuestions();
+  return wrap;
+}
+
+function sanitizeFilename(name) {
+  return String(name).replace(/[^a-zA-Z0-9._-]+/g, '_').replace(/^_+|_+$/g, '') || 'custom_test';
+}
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error);
+    reader.onload = () => resolve(String(reader.result || ''));
+    reader.readAsDataURL(file);
+  });
+}
+
 async function render() {
   applyThemeFromStorage();
   const app = document.getElementById('app');
@@ -1394,6 +1773,7 @@ async function render() {
   else if (normalizedName === ROUTE_RESULT) app.appendChild(renderResult(segments));
   else if (normalizedName === ROUTE_PROFILE) app.appendChild(await renderProfile());
   else if (normalizedName === ROUTE_SETTINGS) app.appendChild(renderSettings());
+  else if (normalizedName === ROUTE_TEST_EDITOR) app.appendChild(renderTestEditor());
   else {
     setHash(ROUTE_MENU);
   }
