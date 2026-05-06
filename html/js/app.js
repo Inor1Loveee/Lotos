@@ -691,7 +691,7 @@ async function renderTests() {
       <div id="import-wrap" hidden style="margin-bottom:1rem;">
         <label class="btn btn-secondary" style="display:inline-block;cursor:pointer;">
           Импортировать тест
-          <input type="file" id="import-files" accept=".json,.lypkg,application/json" multiple hidden />
+          <input type="file" id="import-files" accept=".json,application/json" multiple hidden />
         </label>
       </div>
       <div id="tests-loading" class="loading">Загрузка…</div>
@@ -740,14 +740,12 @@ async function renderTests() {
     for (const file of files) {
       try {
         const text = await file.text();
-        const parsed = JSON.parse(text);
-        const json = parsed?.format === 'lycoris-test-package' && parsed?.test ? parsed.test : parsed;
+        const json = JSON.parse(text);
         if (!Array.isArray(json?.questions) || !json.questions.length) {
           bad++;
           continue;
         }
         let name = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-        name = name.replace(/\.lypkg$/i, '');
         if (!name.toLowerCase().endsWith('.json')) name += '.json';
         await saveLocalTest(name, json);
         ok++;
@@ -787,26 +785,10 @@ async function renderTests() {
               </div>
               <div class="row-actions" style="margin-top:0.75rem;justify-content:flex-start;">
                 <button type="button" class="btn btn-primary run-local" style="min-width:auto;">Запустить</button>
-                <button type="button" class="btn btn-secondary export-local" style="min-width:auto;">Экспорт LYPKG</button>
               </div>
             </div>
           `);
           cardEl.querySelector('.run-local').onclick = () => setHash(`run/${src}/${encodeURIComponent(t.fileName)}`);
-          cardEl.querySelector('.export-local').onclick = async () => {
-            try {
-              const test = await getLocalTestJson(t.fileName);
-              if (!test) throw new Error('Тест не найден');
-              const pkg = {
-                format: 'lycoris-test-package',
-                version: 1,
-                test,
-              };
-              downloadTextFile(`${t.fileName.replace(/\.json$/i, '')}.lypkg`, JSON.stringify(pkg, null, 2), 'application/json');
-              showToast('Пакет экспортирован');
-            } catch (e) {
-              showToast(`Ошибка экспорта: ${e.message || e}`);
-            }
-          };
           grid.appendChild(cardEl);
         } else {
           const btn = el(`
