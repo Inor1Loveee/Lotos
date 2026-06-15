@@ -2,133 +2,13 @@
   "tests": [
     {
       "id": "100_20260504_122511",
-      "name": "100_20260504_122511",
-      "description": "Чё-то там про бд",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
+      "name": "Тест с фоткой",
+      "description": "демонстрация",
+      "questionCount": 1,
+      "estimatedTime": "5 секунд",
+      "difficulty": "легко",
       "fileName": "100_20260504_122511.json",
       "encryptedFileName": "04.01.lyc"
-    },
-    {
-      "id": "04.01",
-      "name": "МДК 04.01",
-      "description": "Чё-то там про бд",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "04.01.json",
-      "encryptedFileName": "04.01.lyc"
-    },
-    {
-      "id": "standards",
-      "name": "Стандартизация?",
-      "description": "Стандартизация",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "standards.json",
-      "encryptedFileName": "standards.lyc"
-    },
-    {
-      "id": "03.02",
-      "name": "МДК 03.02",
-      "description": "я хз",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "03.02.json",
-      "encryptedFileName": "03.02.lyc"
-    },
-    {
-      "id": "03.01",
-      "name": "МДК 03.01",
-      "description": "bruh",
-      "questionCount": 168,
-      "estimatedTime": "угу",
-      "difficulty": "ЛАСТОВЫЙ",
-      "fileName": "0301.json",
-      "encryptedFileName": "0301.lyc"
-    },
-    {
-      "id": "popd_278",
-      "name": "ПОПД",
-      "description": "попд",
-      "questionCount": 278,
-      "estimatedTime": "угу",
-      "difficulty": "угу",
-      "fileName": "ПОПД 278.json",
-      "encryptedFileName": "ПОПД 278.lyc"
-    },
-    {
-      "id": "menedjment",
-      "name": "Файл Тарариевой",
-      "description": "Менеджмент",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "Файл тарариевой.json",
-      "encryptedFileName": "Файл тарариевой.lyc"
-    },
-    {
-      "id": "menedjment",
-      "name": "Менеджмент 4 курс",
-      "description": "Менеджмент",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "menedjment.json",
-      "encryptedFileName": "menedjment.lyc"
-    },
-    {
-      "id": "02.02",
-      "name": "МДК 02.02",
-      "description": "ИСРПО",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "02.02.json",
-      "encryptedFileName": "02.02.lyc"
-    },
-    {
-      "id": "popd",
-      "name": "ПОПД",
-      "description": "ПОПД",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "POPD.json",
-      "encryptedFileName": "POPD.lyc"
-    },
-    {
-      "id": "math",
-      "name": "Тутынина",
-      "description": "хзхз",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "Тутынина.json",
-      "encryptedFileName": "Тутынина.lyc"
-    },
-    {
-      "id": "mathematics",
-      "name": "Матаматическое моделирование",
-      "description": "фоток дохера",
-      "questionCount": 4500,
-      "estimatedTime": "угу",
-      "difficulty": "Нам всё посильно",
-      "fileName": "mathematics.json",
-      "encryptedFileName": "mathematics.lyc"
-    },
-    {
-      "id": "English4",
-      "name": "Английский 4 курс",
-      "description": "Английский язык - тест для 4 курса",
-      "questionCount": 337,
-      "estimatedTime": "90 мин",
-      "difficulty": "Ужас",
-      "fileName": "English 4.json",
-      "encryptedFileName": "English 4.lyc"
     },
     {
       "id": "Philosophy",
@@ -139,66 +19,6 @@
       "difficulty": "Средняя",
       "fileName": "Philosophy.json",
       "encryptedFileName": "Philosophy.lyc"
-    },
-    {
-      "id": "02.01",
-      "name": "МДК 02.01",
-      "description": "Технология разработки ПО",
-      "questionCount": 104,
-      "estimatedTime": "30 минут",
-      "difficulty": "Средняя",
-      "fileName": "02.01.json",
-      "encryptedFileName": "02.01.lyc"
-    },
-    {
-      "id": "Architech",
-      "name": "Архитектура",
-      "description": "Архитектура аппаратных средств",
-      "questionCount": 116,
-      "estimatedTime": "хз",
-      "difficulty": "3 курс",
-      "fileName": "Architech.json",
-      "encryptedFileName": "Architech.lyc"
-    },
-    {
-      "id": "BJD",
-      "name": "БЖД",
-      "description": "Безопасность жизнедеятельности",
-      "questionCount": 140,
-      "estimatedTime": "хз",
-      "difficulty": "3 курс",
-      "fileName": "BJD.json",
-      "encryptedFileName": "BJD.lyc"
-    },
-    {
-      "id": "Economy",
-      "name": "Экономика",
-      "description": "Экономика отрасли",
-      "questionCount": 96,
-      "estimatedTime": "мех",
-      "difficulty": "3 курс",
-      "fileName": "Economy.json",
-      "encryptedFileName": "Economy.lyc"
-    },
-    {
-      "id": "English3",
-      "name": "Английский 3 курс",
-      "description": "Английский язык - тест для 2-3 курса",
-      "questionCount": 240,
-      "estimatedTime": "60-90 мин",
-      "difficulty": "Неприятный",
-      "fileName": "English3.json",
-      "encryptedFileName": "English3.lyc"
-    },
-    {
-      "id": "chislennie",
-      "name": "Численные методы",
-      "description": "Численные методы",
-      "questionCount": 90,
-      "estimatedTime": "хз",
-      "difficulty": "3 курс",
-      "fileName": "chislennie.json",
-      "encryptedFileName": "chislennie.lyc"
     }
   ]
 }
